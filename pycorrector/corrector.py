@@ -263,7 +263,6 @@ class Corrector(Detector):
         detail = sorted(detail, key=operator.itemgetter(2))
         scores=[]
         for sentence in sentences:
-            scores.append(self.ppl_score(list(sentence)))
-        # scores=[pow(10,score) for score in scores]
+            scores.append(self.score(list(sentence)))
         sentence_score=dict(zip(sentences,scores))
         return sentence_score, detail

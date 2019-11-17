@@ -210,6 +210,14 @@ class Detector(object):
         self.check_detector_initialized()
         return self.lm.perplexity(' '.join(words))
 
+    def score(self, words):
+        """
+        Return the log10 probability of a string.
+        :param words: list, 以词或字切分
+        :return:
+        """
+        self.check_detector_initialized()
+        return self.lm.score(' '.join(words))
     def word_frequency(self, word):
         """
         取词在样本中的词频

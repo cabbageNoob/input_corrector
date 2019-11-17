@@ -80,9 +80,9 @@
                             $('#automenu').append(text).show()
                         })
                         $('#automenu li').click(function (el) {
-                            <!--console.log(el)-->
-                            console.log($(el.target).text())
-                            $('#myInput').val($(el.target).text())
+                            console.log(el)
+                            console.log($(el.target).text().split(":"))
+                            $('#myInput').val($(el.target).text().split(":")[0])
                             console.log($('#myInput'))
                             $('#automenu').hide()
 
