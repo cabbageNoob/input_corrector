@@ -6,6 +6,7 @@ import time
 import pandas as pd
 import json
 import pypinyin
+import re
 import sys
 import os
 
@@ -18,9 +19,11 @@ from Pinyin2Hanzi import DefaultHmmParams
 from Pinyin2Hanzi import viterbi
 
 app=Flask(__name__)
+DEFAULTSCORE=-10.
 # print(correct("佳如爱有天意"))
 # print(cut('zhegexiaogegezhenshuai'))
-
+correct('')
+cut('')
 @app.route("/",methods=["GET", "POST"])
 def index():
     correct('你好')#初始化
@@ -33,12 +36,19 @@ def get_maybe_sentence():
     sentence=request.form['sentence']
     print(sentence)
     if is_pinyin(sentence):
+        #得到的全是拼音
         pinyin_list = cut(sentence)
+        print(pinyin_list)
         pred_sentences = pinyin2hanzi(pinyin_list)
     else:
+        #提取出拼音部分，并转换为汉字
+        sentence=pre_process(sentence)
         pred_sentences, pred_detail = correct(sentence)
-    for sentence,ppl in pred_sentences.items():
-        sentences_maybe.append({'ppl_score':ppl,'sentence':sentence})
+    #将拼音转化为汉字后，无错误情况
+    if not pred_sentences:
+        sentences_maybe.append({'score': DEFAULTSCORE, 'sentence': sentence})
+    for sentence,score in pred_sentences.items():
+        sentences_maybe.append({'score':score,'sentence':sentence})
     response['pred_sentences']=sentences_maybe
     return json.dumps(response)
 
@@ -54,7 +64,17 @@ def pinyin2hanzi(pinyin_list):
     for item in result:
         pred_sentences[''.join(item.path)]=item.score
     return pred_sentences
+
+def pre_process(sentence):
+    result=re.sub('[a-z]+',repl,sentence)
+    return result
+
+def repl(matched):
+    value=str(matched.group())
+    hmmparams = DefaultHmmParams()
+    return ''.join(viterbi(hmm_params=hmmparams, observations=tuple(cut(value)),\
+                           path_num=1,log = True)[0].path)
+
 if __name__=='__main__':
-    # print(is_pinyin("xiaogegezhenshuai"))
-    # print(is_pinyin("小哥哥真帅"))
+    # pre_process('jiaru老去woneng陪')
     app.run(host='127.0.0.1',port=8001)

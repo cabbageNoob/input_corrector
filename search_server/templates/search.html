@@ -76,7 +76,7 @@
                         pred_sentences.forEach(function (argument) {
                             // body...
                             // console.log('argument',argument)
-                            var text = '<li>'+argument['sentence']+':'+argument['ppl_score']+'</li>'
+                            var text = '<li>'+argument['sentence']+':'+argument['score']+'</li>'
                             $('#automenu').append(text).show()
                         })
                         $('#automenu li').click(function (el) {
