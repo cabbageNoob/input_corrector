@@ -1,32 +1,27 @@
 # -*- coding: UTF-8 -*-
 from flask import Flask,render_template,redirect,request
-import pymysql
-import jieba
 import time
 import pandas as pd
 import json
-import pypinyin
 import re
 import sys
 import os
 
 from pycorrector import correct
-from pinyin2chinese import cut
-from pinyin2chinese.pinyincut import Trie
-from pinyin2chinese.pinyincut import TrieNode
+from Pinyin2Hanzi import cut
+from Pinyin2Hanzi.pinyincut import Trie
+from Pinyin2Hanzi.pinyincut import TrieNode
 
 from Pinyin2Hanzi import DefaultHmmParams
 from Pinyin2Hanzi import viterbi
 
 app=Flask(__name__)
 DEFAULTSCORE=-10.
-# print(correct("佳如爱有天意"))
-# print(cut('zhegexiaogegezhenshuai'))
-correct('')
+
+correct('你好')
 cut('')
 @app.route("/",methods=["GET", "POST"])
 def index():
-    correct('你好')#初始化
     return render_template("search.html")
 
 @app.route("/get_maybe_sentence",methods=["DET","POST"])
@@ -60,7 +55,8 @@ def pinyin2hanzi(pinyin_list):
     pred_sentences=dict()
     hmmparams = DefaultHmmParams()
     ## 1个候选
-    result = viterbi(hmm_params=hmmparams, observations=tuple(pinyin_list), path_num=5,log = True)
+    result = viterbi(hmm_params=hmmparams, observations=tuple(pinyin_list), \
+                     path_num=5,log = True)
     for item in result:
         pred_sentences[''.join(item.path)]=item.score
     return pred_sentences
@@ -76,5 +72,4 @@ def repl(matched):
                            path_num=1,log = True)[0].path)
 
 if __name__=='__main__':
-    # pre_process('jiaru老去woneng陪')
     app.run(host='127.0.0.1',port=8001)
