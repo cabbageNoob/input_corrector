@@ -56,7 +56,8 @@
                 $('#automenu').hide();
             // body...
         })
-        $("#myInput").on("compositionend",function(){
+        //on("compositionend"
+        $("#myInput").bind('input propertychange',function(){
             var val=$(this).val();
             console.log(val)
             val=$.trim(val);

@@ -1,9 +1,8 @@
 # -*- coding: UTF-8 -*-
 from flask import Flask,render_template,redirect,request
-import time
-import pandas as pd
 import json
 import re
+import util
 import sys
 import os
 
@@ -18,8 +17,18 @@ from Pinyin2Hanzi import viterbi
 app=Flask(__name__)
 DEFAULTSCORE=-10.
 
+POSTING_FILE='../train/hmm/result/postinglist_final.json'
+posting_data=util.readjson(POSTING_FILE)
+print(len(posting_data))
+
 correct('你好')
 cut('')
+
+
+def readjson(filename):
+    with open(filename, 'rb') as outfile:
+        return json.load(outfile)
+
 @app.route("/",methods=["GET", "POST"])
 def index():
     return render_template("search.html")
