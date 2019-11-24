@@ -24,7 +24,6 @@ print(len(posting_data))
 correct('你好')
 cut('')
 
-
 def readjson(filename):
     with open(filename, 'rb') as outfile:
         return json.load(outfile)
@@ -62,13 +61,31 @@ def is_pinyin(sentence):
 #将拼音列表转换为汉字
 def pinyin2hanzi(pinyin_list):
     pred_sentences=dict()
-    hmmparams = DefaultHmmParams()
-    ## 1个候选
-    result = viterbi(hmm_params=hmmparams, observations=tuple(pinyin_list), \
-                     path_num=5,log = True)
-    for item in result:
-        pred_sentences[''.join(item.path)]=item.score
-    return pred_sentences
+    if len(pinyin_list)<=2:
+        path_score = sorted(posting_data[''.join(pinyin_list)].items(),\
+                            key=lambda x: x[1], reverse=True)
+        return dict(path_score)
+    else:
+        i=0
+        score=0
+        path=''
+        while(2*i<len(pinyin_list)):
+            pinyin_cur=''.join(pinyin_list[2*i:2*(i+1)])
+            i+=1
+            path_score=sorted(posting_data[pinyin_cur].items(),key=lambda x:x[1],reverse=True)
+            path+=path_score[0][0]
+            score+=path_score[0][1]
+        pred_sentences[path]=score
+        return pred_sentences
+
+    # pred_sentences=dict()
+    # hmmparams = DefaultHmmParams()
+    # ## 1个候选
+    # result = viterbi(hmm_params=hmmparams, observations=tuple(pinyin_list), \
+    #                  path_num=5,log = True)
+    # for item in result:
+    #     pred_sentences[''.join(item.path)]=item.score
+    # return pred_sentences
 
 def pre_process(sentence):
     result=re.sub('[a-z]+',repl,sentence)
@@ -76,9 +93,12 @@ def pre_process(sentence):
 
 def repl(matched):
     value=str(matched.group())
-    hmmparams = DefaultHmmParams()
-    return ''.join(viterbi(hmm_params=hmmparams, observations=tuple(cut(value)),\
-                           path_num=1,log = True)[0].path)
+    pinyin_list=cut(value)
+    return list(pinyin2hanzi(pinyin_list).keys())[0]
+    # hmmparams = DefaultHmmParams()
+    # return ''.join(viterbi(hmm_params=hmmparams, observations=tuple(cut(value)),\
+    #                        path_num=1,log = True)[0].path)
 
 if __name__=='__main__':
     app.run(host='127.0.0.1',port=8001)
+    # pinyin2hanzi(['d','n','w'])
