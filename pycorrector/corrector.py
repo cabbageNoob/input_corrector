@@ -216,6 +216,16 @@ class Corrector(Detector):
         corrected_items=heapq.nsmallest(5,maybe_right_items,key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
         return corrected_items
 
+    def lm_correct_sentece(self, sentences_list):
+        """
+        通过语言模型获取最有可能正确的句子
+        :param sentences_list:
+        :return: sentences_list
+        """
+        import heapq
+        sentences_list=heapq.nlargest(5,sentences_list,key=lambda sentence: self.score(list(sentence)))
+        return sentences_list
+
     def correct(self, sentence):
         """
         句子改错

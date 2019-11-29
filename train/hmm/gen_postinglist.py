@@ -80,5 +80,10 @@ def main():
     gen_postinglist()
 
 if __name__ == '__main__':
-    main()
-
+    # main()
+    data=readjson('./result/postinglist_final.json')
+    for pinyin,path_score in data.items():
+        path_score=sorted(path_score.items(),key=lambda x:x[1],reverse=True)
+        data[pinyin]=dict(path_score)
+        # print(data[pinyin])
+    writejson2file(data, './result/postinglist_final_1.json')

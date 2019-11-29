@@ -3,10 +3,9 @@ from flask import Flask,render_template,redirect,request
 import json
 import re
 import util
-import sys
-import os
 
 from pycorrector import correct
+
 from Pinyin2Hanzi import cut
 from Pinyin2Hanzi.pinyincut import Trie
 from Pinyin2Hanzi.pinyincut import TrieNode
@@ -17,12 +16,11 @@ from Pinyin2Hanzi import viterbi
 app=Flask(__name__)
 DEFAULTSCORE=-10.
 
-POSTING_FILE='../train/hmm/result/postinglist_final.json'
-posting_data=util.readjson(POSTING_FILE)
-print(len(posting_data))
+# print(len(posting_data))
 
 correct('你好')
 cut('')
+value_candidate={}
 
 def readjson(filename):
     with open(filename, 'rb') as outfile:
@@ -36,16 +34,20 @@ def index():
 def get_maybe_sentence():
     response = dict()
     sentences_maybe=list()
+    value_candidate={}
     sentence=request.form['sentence']
     print(sentence)
-    if is_pinyin(sentence):
+    if util.is_pinyin(sentence):
         #得到的全是拼音
         pinyin_list = cut(sentence)
-        print(pinyin_list)
-        pred_sentences = pinyin2hanzi(pinyin_list)
-    else:
+        pred_sentences = util.pinyin2hanzi(pinyin_list)
+    elif util.contain_pinyin(sentence):
         #提取出拼音部分，并转换为汉字
-        sentence=pre_process(sentence)
+        candidates=pre_process(sentence)
+        scores=util.sentence_score(candidates)
+        pred_sentences={candidate:score for candidate,score in zip(candidates,scores)}
+    else:
+        #全是汉字
         pred_sentences, pred_detail = correct(sentence)
     #将拼音转化为汉字后，无错误情况
     if not pred_sentences:
@@ -55,50 +57,33 @@ def get_maybe_sentence():
     response['pred_sentences']=sentences_maybe
     return json.dumps(response)
 
-#判断sentence是否为拼音
-def is_pinyin(sentence):
-    return sentence.encode('utf8').isalpha()
-#将拼音列表转换为汉字
-def pinyin2hanzi(pinyin_list):
-    pred_sentences=dict()
-    if len(pinyin_list)<=2:
-        path_score = sorted(posting_data[''.join(pinyin_list)].items(),\
-                            key=lambda x: x[1], reverse=True)
-        return dict(path_score)
-    else:
-        i=0
-        score=0
-        path=''
-        while(2*i<len(pinyin_list)):
-            pinyin_cur=''.join(pinyin_list[2*i:2*(i+1)])
-            i+=1
-            path_score=sorted(posting_data[pinyin_cur].items(),key=lambda x:x[1],reverse=True)
-            path+=path_score[0][0]
-            score+=path_score[0][1]
-        pred_sentences[path]=score
-        return pred_sentences
-
-    # pred_sentences=dict()
-    # hmmparams = DefaultHmmParams()
-    # ## 1个候选
-    # result = viterbi(hmm_params=hmmparams, observations=tuple(pinyin_list), \
-    #                  path_num=5,log = True)
-    # for item in result:
-    #     pred_sentences[''.join(item.path)]=item.score
-    # return pred_sentences
 
 def pre_process(sentence):
+    global value_candidate
+    value_candidate={}
     result=re.sub('[a-z]+',repl,sentence)
-    return result
+    return util.get_candidates([result],value_candidate)
 
 def repl(matched):
+    global value_candidate
     value=str(matched.group())
+    print('value',value)
     pinyin_list=cut(value)
-    return list(pinyin2hanzi(pinyin_list).keys())[0]
-    # hmmparams = DefaultHmmParams()
-    # return ''.join(viterbi(hmm_params=hmmparams, observations=tuple(cut(value)),\
-    #                        path_num=1,log = True)[0].path)
+    candidate=list(util.pinyin2hanzi(pinyin_list).keys())
+    value_candidate.setdefault(value,[])
+    value_candidate[value]=candidate
+    print('value_candidate',value_candidate)
+    return '*'*len(value)
+
+
+
+def test():
+    s='zhegexiaogege'
+    print(util.pinyin2hanzi(cut(s)))
 
 if __name__=='__main__':
     app.run(host='127.0.0.1',port=8001)
-    # pinyin2hanzi(['d','n','w'])
+    # test()
+    # get_candidates(['***如**有天意'],index_candidate)
+    # print(index_candidate)
+

@@ -218,6 +218,7 @@ class Detector(object):
         """
         self.check_detector_initialized()
         return self.lm.score(' '.join(words))
+
     def word_frequency(self, word):
         """
         取词在样本中的词频

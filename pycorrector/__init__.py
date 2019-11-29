@@ -3,6 +3,7 @@
 # Brief: pycorrector.api
 
 from .corrector import Corrector
+from .detector import Detector
 from .utils.logger import set_log_level
 from .utils.text_utils import get_homophones_by_char, get_homophones_by_pinyin
 from .utils.text_utils import traditional2simplified, simplified2traditional
@@ -18,8 +19,11 @@ set_language_model_path = corrector.set_language_model_path
 correct = corrector.correct
 ngram_score = corrector.ngram_score
 ppl_score = corrector.ppl_score
+lm_correct_sentece = corrector.lm_correct_sentece
 word_frequency = corrector.word_frequency
 detect = corrector.detect
 enable_char_error = corrector.enable_char_error
 enable_word_error = corrector.enable_word_error
 set_log_level = set_log_level
+
+score=corrector.score
