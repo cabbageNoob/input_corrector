@@ -41,7 +41,6 @@ def get_candidates(ss,value_candidate):
     for value,candidate in value_candidate.items():
         ss=[s.replace('*'*len(value),candi,1) for s in ss for candi in candidate]
         ss=lm_correct_sentece(ss)
-        print('ss',ss)
     return ss
 
 def sentence_score(candidates):

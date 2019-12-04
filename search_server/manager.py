@@ -22,19 +22,14 @@ correct('你好')
 cut('')
 value_candidate={}
 
-def readjson(filename):
-    with open(filename, 'rb') as outfile:
-        return json.load(outfile)
-
 @app.route("/",methods=["GET", "POST"])
 def index():
     return render_template("search.html")
 
-@app.route("/get_maybe_sentence",methods=["DET","POST"])
+@app.route("/get_maybe_sentence",methods=["GET","POST"])
 def get_maybe_sentence():
     response = dict()
     sentences_maybe=list()
-    value_candidate={}
     sentence=request.form['sentence']
     print(sentence)
     if util.is_pinyin(sentence):
@@ -50,8 +45,7 @@ def get_maybe_sentence():
         #全是汉字
         pred_sentences, pred_detail = correct(sentence)
     #将拼音转化为汉字后，无错误情况
-    if not pred_sentences:
-        sentences_maybe.append({'score': DEFAULTSCORE, 'sentence': sentence})
+    print('pred_sentences',pred_sentences)
     for sentence,score in pred_sentences.items():
         sentences_maybe.append({'score':score,'sentence':sentence})
     response['pred_sentences']=sentences_maybe
@@ -67,15 +61,12 @@ def pre_process(sentence):
 def repl(matched):
     global value_candidate
     value=str(matched.group())
-    print('value',value)
     pinyin_list=cut(value)
     candidate=list(util.pinyin2hanzi(pinyin_list).keys())
     value_candidate.setdefault(value,[])
     value_candidate[value]=candidate
     print('value_candidate',value_candidate)
     return '*'*len(value)
-
-
 
 def test():
     s='zhegexiaogege'

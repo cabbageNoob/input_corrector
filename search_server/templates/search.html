@@ -71,16 +71,21 @@
                         sentence:val
                     },
                     success:function (response) {
-                        pred_sentences = response.pred_sentences
-                        // $('#company_name').trigger("change")
-                        // console.log('pred_sentences',pred_sentences)
-                        $('#automenu').empty()
-                        pred_sentences.forEach(function (argument) {
+                        console.log(response)
+                        pred_sentences = response.pred_sentences                      
+                        if(pred_sentences==""){               
+                            $('#automenu').hide()
+                        }
+                        else{
+                            $('#automenu').empty()
+                            pred_sentences.forEach(function (argument) {
                             // body...
                             // console.log('argument',argument)
                             var text = '<li>'+argument['sentence']+':'+argument['score']+'</li>'
                             $('#automenu').append(text).show()
                         })
+                        }
+                       
                         $('#automenu li').click(function (el) {
                             console.log(el)
                             console.log($(el.target).text().split(":"))
@@ -97,6 +102,7 @@
                             // body...
                         })
                     }
+
                 })
             }
         })
