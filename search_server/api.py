@@ -20,7 +20,6 @@ correct('你好')
 cut('')
 value_candidate={}
 
-
 class GetSentences(Resource):
     def post(self):
         response = dict()
@@ -44,7 +43,7 @@ class GetSentences(Resource):
             sentences_maybe.append({'score': score, 'sentence': sentence})
         response['pred_sentences'] = sentences_maybe
         print(response)
-        return json.dumps(response)
+        return json.dumps(response,ensure_ascii=False)
 
 def pre_process(sentence):
     global value_candidate
@@ -66,6 +65,5 @@ def repl(matched):
 api.add_resource(GetSentences,
     '/',
     '/get_maybe_sentence')
-
 if __name__=='__main__':
     app.run(host='127.0.0.1',port=8002)
