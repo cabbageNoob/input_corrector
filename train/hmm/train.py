@@ -5,7 +5,6 @@ import json
 from Pinyin2Hanzi import DefaultHmmParams
 from Pinyin2Hanzi import viterbi
 
-sys.path = ['../..'] + sys.path
 from Pinyin2Hanzi import util
 
 PINYIN_FILE        ='./result/all_pinyin.txt'
@@ -63,5 +62,6 @@ def readjson(filename):
         return json.load(outfile)
 
 if __name__ == '__main__':
-    main()
+    pass
+    # main()
 

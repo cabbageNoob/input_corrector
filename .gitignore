@@ -2,4 +2,7 @@ pycorrector/data
 pycorrector/.idea
 pycorrector/__pycache__
 Pinyin2Hanzi/__pycache__
+search_server/__pycache__
 .idea
+.vscode
+__pycache__

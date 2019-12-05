@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from flask import Flask,render_template,redirect,request
-import json
-import re
+import json,re,sys,os
+sys.path.insert(0, os.getcwd())
 import util
 
 from pycorrector import correct
@@ -16,7 +16,6 @@ from Pinyin2Hanzi import viterbi
 app=Flask(__name__)
 DEFAULTSCORE=-10.
 
-# print(len(posting_data))
 
 correct('你好')
 cut('')
@@ -68,13 +67,6 @@ def repl(matched):
     print('value_candidate',value_candidate)
     return '*'*len(value)
 
-def test():
-    s='zhegexiaogege'
-    print(util.pinyin2hanzi(cut(s)))
-
 if __name__=='__main__':
     app.run(host='127.0.0.1',port=8001)
-    # test()
-    # get_candidates(['***如**有天意'],index_candidate)
-    # print(index_candidate)
 

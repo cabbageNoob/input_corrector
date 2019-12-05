@@ -1,15 +1,13 @@
 # -*- coding: UTF-8 -*-
 from flask import Flask,request
 from flask_restful import Resource, Api
-import json
-import re
+import json, re, sys, os
+sys.path.insert(0,os.getcwd())
 import util
-
 from pycorrector import correct
 
 from Pinyin2Hanzi import cut
-from Pinyin2Hanzi.pinyincut import Trie
-from Pinyin2Hanzi.pinyincut import TrieNode
+from Pinyin2Hanzi.pinyincut import Trie, TrieNode
 
 from Pinyin2Hanzi import DefaultHmmParams
 from Pinyin2Hanzi import viterbi
@@ -71,4 +69,3 @@ api.add_resource(GetSentences,
 
 if __name__=='__main__':
     app.run(host='127.0.0.1',port=8002)
-
