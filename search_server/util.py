@@ -1,29 +1,42 @@
 # -*- coding: UTF-8 -*-
-import json,re,sys,os
+import json
+import re
+import sys
+import os
 
-from pycorrector import lm_correct_sentece
-from pycorrector import score
+from mypycorrector import lm_correct_sentece
+from mypycorrector import score
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 POSTING_FILE = os.path.join(
     pwd_path, '../train/hmm/result/postinglist_final.json')
 
+
 def readjson(filename):
     with open(filename, 'rb') as outfile:
         return json.load(outfile)
+
 
 posting_data = readjson(POSTING_FILE)
 
 
 '''判断sentence是否为拼音'''
+
+
 def is_pinyin(sentence):
     return sentence.encode('utf8').isalpha()
 
+
 '''判断sentence是否包含字母'''
+
+
 def contain_pinyin(sentence):
     return bool(re.search('[a-z]+', sentence))
 
+
 '''将拼音列表转换为汉字'''
+
+
 def pinyin2hanzi(pinyin_list):
     value_hanzi_list = {}
     if len(pinyin_list) <= 2:

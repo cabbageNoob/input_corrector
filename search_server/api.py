@@ -1,24 +1,27 @@
 # -*- coding: UTF-8 -*-
-from flask import Flask,request
-from flask_restful import Resource, Api
-import json, re, sys, os
-sys.path.insert(0,os.getcwd())
-import util
-from pycorrector import correct
-
-from Pinyin2Hanzi import cut
-from Pinyin2Hanzi.pinyincut import Trie, TrieNode
-
-from Pinyin2Hanzi import DefaultHmmParams
+import json
+import re
+import sys
+import os
+sys.path.insert(0, os.getcwd())
 from Pinyin2Hanzi import viterbi
+from Pinyin2Hanzi import DefaultHmmParams
+from Pinyin2Hanzi.pinyincut import Trie, TrieNode
+from Pinyin2Hanzi import cut
+from mypycorrector import correct
+import util
+from flask import Flask, request
+from flask_restful import Resource, Api
 
-app=Flask(__name__)
+
+app = Flask(__name__)
 api = Api(app)
-DEFAULTSCORE=-10.
+DEFAULTSCORE = -10.
 
 correct('你好')
 cut('')
-value_candidate={}
+value_candidate = {}
+
 
 class GetSentences(Resource):
     def post(self):
@@ -34,7 +37,8 @@ class GetSentences(Resource):
             # 提取出拼音部分，并转换为汉字
             candidates = pre_process(sentence)
             scores = util.sentence_score(candidates)
-            pred_sentences = {candidate: score for candidate, score in zip(candidates, scores)}
+            pred_sentences = {candidate: score for candidate,
+                              score in zip(candidates, scores)}
         else:
             # 全是汉字
             pred_sentences, pred_detail = correct(sentence)
@@ -43,27 +47,29 @@ class GetSentences(Resource):
             sentences_maybe.append({'score': score, 'sentence': sentence})
         response['pred_sentences'] = sentences_maybe
         print(response)
-        return json.dumps(response,ensure_ascii=False)
+        return json.dumps(response, ensure_ascii=False)
+
 
 def pre_process(sentence):
     global value_candidate
-    value_candidate={}
-    result=re.sub('[a-z]+',repl,sentence)
-    return util.get_candidates([result],value_candidate)
+    value_candidate = {}
+    result = re.sub('[a-z]+', repl, sentence)
+    return util.get_candidates([result], value_candidate)
 
 def repl(matched):
     global value_candidate
-    value=str(matched.group())
-    print('value',value)
-    pinyin_list=cut(value)
-    candidate=list(util.pinyin2hanzi(pinyin_list).keys())
-    value_candidate.setdefault(value,[])
-    value_candidate[value]=candidate
-    print('value_candidate',value_candidate)
+    value = str(matched.group())
+    print('value', value)
+    pinyin_list = cut(value)
+    candidate = list(util.pinyin2hanzi(pinyin_list).keys())
+    value_candidate.setdefault(value, [])
+    value_candidate[value] = candidate
+    print('value_candidate', value_candidate)
     return '*'*len(value)
 
+
 api.add_resource(GetSentences,
-    '/',
-    '/get_maybe_sentence')
-if __name__=='__main__':
-    app.run(host='127.0.0.1',port=8002)
+                 '/',
+                 '/get_maybe_sentence')
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=8002)
