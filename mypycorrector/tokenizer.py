@@ -1,6 +1,7 @@
  # -*- coding: utf-8 -*-
 """
-@author:XuMing（xuming624@qq.com)
+@Author: cjh<492795090@qq.com>
+@Date: 19-12-01
 @description: 配置切词器
 """
 import logging

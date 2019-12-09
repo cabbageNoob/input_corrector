@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Author: cjh<492795090@qq.com>
+# Date: 19-12-01
 # fork from https://github.com/skydark/nstools/blob/master/zhtools/langconv.py
 
 from copy import deepcopy

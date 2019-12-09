@@ -1,4 +1,6 @@
 # coding: utf-8
+# Author: cjh<492795090@qq.com>
+# Date: 19-12-01
 from __future__ import (print_function, unicode_literals, absolute_import)
 
 from .interface import AbstractHmmParams, AbstractDagParams

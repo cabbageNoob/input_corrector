@@ -1,3 +1,5 @@
+# Author: cjh<492795090@qq.com>
+# Date: 19-12-01
 from __future__ import absolute_import
 
 from .interface import AbstractHmmParams, AbstractDagParams
