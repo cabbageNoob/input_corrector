@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author:XuMing（xuming624@qq.com)
+@author:cjh（492795090@qq.com）
 @description: 
 """
 import logging

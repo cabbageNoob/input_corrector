@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # coding: utf-8
 # File: pinyin_cut.py
-# Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
-# Date: 18-4-24
+# Author: cjh<492795090@qq.com>
+# Date: 19-11-25
 import pickle
 import sys
 from Pinyin2Hanzi import config
