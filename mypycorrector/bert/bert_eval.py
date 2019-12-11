@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
-# Author: cjh（492795090@qq.com）
+# Author: cjh <492795090@qq.com>
+# Data: 19-11-25
 # Brief:
-import re
 import os
 import sys
 sys.path.insert(0, os.getcwd())
-from codecs import open
-from mypycorrector import correct
-from mypycorrector.utils.io_utils import load_pkl
 from mypycorrector.utils.math_utils import find_all_idx
+from mypycorrector.bert import bert_corrector
 
+bertCorrector = bert_corrector.BertCorrector()
+
+pwd_path = os.path.abspath(os.path.dirname(__file__))
+bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
+clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
+sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 
 
 def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
@@ -70,7 +74,7 @@ def eval_bcmi_data(data_path, verbose=False):
                 print(e)
             if not error_sentence:
                 continue
-            pred_sentence, pred_detail = correct(error_sentence)
+            pred_sentence, pred_detail = bertCorrector.correct(error_sentence)
             if verbose:
                 print('input sentence:', error_sentence)
                 print('pred sentence:', pred_sentence, pred_detail)
@@ -119,69 +123,8 @@ def eval_bcmi_data(data_path, verbose=False):
 
     return right_count / sentence_size, right_result, wrong_result
 
-
-def eval_sighan_corpus(pkl_path, verbose=False):
-    sighan_data = load_pkl(pkl_path)
-    total_count = 1
-    right_count = 0
-    right_result = dict()
-    wrong_result = dict()
-    for error_sentence, right_detail in sighan_data:
-        #  pred_detail: list(wrong, right, begin_idx, end_idx)
-        pred_sentence, pred_detail = correct(error_sentence)
-        if verbose:
-            print('input sentence:', error_sentence, right_detail)
-            print('pred sentence:', pred_sentence, pred_detail)
-        if len(right_detail) != len(pred_detail):
-            total_count += 1
-        else:
-            right_count += 1
-    print("total_count", total_count)
-    print('right_count', right_count)
-    return right_count / total_count, right_result, wrong_result
-
-
-# -----------------test----------------
-def eval_sighan_corpus_test(pkl_path, verbose=False):
-    sighan_data = load_pkl(pkl_path)
-    total_count = 1
-    right_count = 0
-    right_result = dict()
-    wrong_result = dict()
-    for error_sentence, right_detail in sighan_data:
-        #  pred_detail: list(wrong, right, begin_idx, end_idx)
-        pred_sentence, pred_detail = correct(error_sentence)
-        if verbose:
-            print('input sentence:', error_sentence, right_detail)
-            print('pred sentence:', pred_sentence, pred_detail)
-        total_count += 1
-        if len(right_detail) != len(pred_detail):
-            continue
-            # total_count += 1
-        else:
-            right_count += 1
-    print("total_count", total_count)
-    print('right_count', right_count)
-    return right_count / total_count, right_result, wrong_result
-
-
 if __name__ == "__main__":
-    # lst = ['少先队员因（（应））该为老人让坐（（座））。',
-    #        '王老师心（（性））格温和，态度和爱（（蔼）），教学有方，得到了许多人的好平（（评））。',
-    #        '青蛙是庄家的好朋友，我们要宝（（保））护它们。']
-    # for i in lst:
-    #     print(get_bcmi_corpus(i))
-
-    ringht_rate, right_result, wrong_result = eval_bcmi_data(
-        r'D:\LMModel\pycorrector_git\mypycorrector\data\cn\bcmi.txt', verbose=True)
-    # print("right_count / total_count",ringht_rate)
-    # print("right_result",right_result)
-    # print("wrong_result",wrong_result)
-    # eval_sighan_corpus_test(r"D:\testFile\mypycorrector\mypycorrector\data\cn\sighan15_A2.pkl",verbose=True)
-    index_list = list()
-    test_str = '王老师心（（性））格温和，态度和爱（（蔼）），教学有方，得到了许多人的好平（（评））。'
-    index = test_str.find('（（')
-    while(index != -1):
-        index_list.append(index-5*len(index_list)-1)
-        index = test_str.find('（（', index+1)
-    print(index_list)
+    # get_gcmi_cor_test()
+    # eval_bcmi_data_test()
+    eval_bcmi_data(bcmi_path,verbose=True)
+    # get_confusion_、dict()
