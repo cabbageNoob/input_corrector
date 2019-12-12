@@ -30,21 +30,32 @@ git clone https://github.com/cabbageNoob/input_corrector.git
 git checkout -b query_corrector origin/query_corrector      #切换到query_corrector分支
 ```
 直接运行search_server目录下的manager.py文件，控制台会提示需要安装的模块，根据提示安装即可
+### ngram模型下载
+[ngram模型下载链接](https://pan.baidu.com/s/1J7D3lNPoQNOb8uR4vM4Tmg )
+提取码：47du 
+
+下载后放于**mypycorrector/data/kenlm**目录下
+
 ### 注意kenlm的安装
-#### windows
-```
-pip install -e git+https://github.com/kpu/kenlm.git#egg=kenlm
-```
-#### linux
-在官网下载 http://kheafield.com/code/kenlm.tar.gz，解压
-```
-cd kenlm
-mkdir build
-cd build
-cmake ..
-make
-python setup.py install
-```
+- 方法1：pip安装， pip install https://github.com/kpu/kenlm/archive/master.zip
+
+- 方法2：[linux下编译安装教程。](https://blog.csdn.net/mingzai624/article/details/79560063)
+
+- 方法3：同上：
+    - windows
+    ```
+    pip install -e git+https://github.com/kpu/kenlm.git#egg=kenlm
+    ```
+    - linux
+    ```
+    在官网下载 http://kheafield.com/code/kenlm.tar.gz，解压
+    cd kenlm
+    mkdir build
+    cd build
+    cmake ..
+    make
+    python setup.py install
+    ```
 运行成功后，向127.0.0.1:8001/get_maybe_sentence路由传递待纠错文本，可获得5个最可能的纠错结果
 ```
 (pytorch-gpu) D:\LMModel\pycorrector_git>curl 127.0.0.1:8001/get_maybe_sentence -X post -F "sentence"="beijing理工大学"
