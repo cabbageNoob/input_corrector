@@ -2,6 +2,7 @@ mypycorrector/data
 .idea
 .vscode
 __pycache__
+output
 
 # kenlm
 src
