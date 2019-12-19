@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-"""
-@author:cjh（492795090@qq.com)
-@data:19-11-25
-@description: use bert correct chinese char error
-"""
+'''
+@Descripttion: use bert correct chinese char error
+@version: 
+@Author: cjh <492795090@qq.com>
+@Date: 2019-12-19 14:12:17
+@LastEditors  : cjh <492795090@qq.com>
+@LastEditTime : 2019-12-19 16:09:52
+'''
+
 import operator
 import sys, os
 sys.path.insert(0,os.getcwd())
