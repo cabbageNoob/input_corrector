@@ -1,6 +1,7 @@
 mypycorrector/data/kenlm
 mypycorrector/data/bert_models
 mypycorrector/bert
+mypycorrector/conv_seq2seq
 .idea
 .vscode
 __pycache__

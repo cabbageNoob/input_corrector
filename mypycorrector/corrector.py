@@ -276,4 +276,5 @@ class Corrector(Detector):
         for sentence in sentences:
             scores.append(self.score(list(sentence)))
         sentence_score=dict(zip(sentences,scores))
+        sentence_score = dict(sorted(sentence_score.items(), key=lambda x: x[1],reverse=True))
         return sentence_score, detail
