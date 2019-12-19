@@ -1,14 +1,13 @@
+# -*- coding: utf-8 -*-
 '''
 @Descripttion: 
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-13 14:54:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2019-12-13 22:53:24
+@LastEditTime: 2019-12-17 14:17:05
 '''
-# -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief:
+
 import os
 import sys
 from codecs import open

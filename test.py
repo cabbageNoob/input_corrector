@@ -8,5 +8,5 @@
 '''
 from mypycorrector import correct
 
-ans=correct('溅的我一身水')
+ans=correct('溅了我一身水')
 print(ans)
