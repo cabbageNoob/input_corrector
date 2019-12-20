@@ -156,7 +156,7 @@ pbr==5.4.4
 pdfminer==20140328
 pdfminer3==2018.12.3.0
 pika==1.0.1
-Pillow==6.0.0
+Pillow==6.2.0
 Pinyin2Hanzi==0.1.1
 pluggy==0.13.0
 ply==3.11
