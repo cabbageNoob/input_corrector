@@ -1,4 +1,5 @@
-mypycorrector/data
+mypycorrector/data/bert_models
+mypycorrector/data/kenlm
 .idea
 .vscode
 __pycache__

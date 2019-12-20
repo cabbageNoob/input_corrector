@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-19 16:09:52
+@LastEditTime : 2019-12-19 23:53:48
 '''
 
 import operator
@@ -93,6 +93,9 @@ class BertCorrector(BertDetector):
             if masked_ids:
                 for idx, i in enumerate(masked_ids):
                     predicted_index = torch.argmax(predictions[0, i]).item()
+                    # predicted_indexes = torch.topk(predictions[0, i], 10)
+                    # predicted_indexes=list(predicted_indexes.indices.numpy())
+                    # print(predicted_indexes)
                     predicted_token = self.bert_tokenizer.convert_ids_to_tokens([predicted_index])[0]
                     logger.debug('original text is: %s' % f.input_tokens)
                     logger.debug('Mask predict is: %s' % predicted_token)
