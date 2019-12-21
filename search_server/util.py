@@ -3,15 +3,17 @@
 @version: 
 @Author: Jiahao
 @Date: 2019-12-12 10:59:28
-@LastEditors: Jiahao
-@LastEditTime: 2019-12-13 00:09:31
+@LastEditors  : cjh <492795090@qq.com>
+@LastEditTime : 2019-12-21 21:10:50
 '''
 # -*- coding: UTF-8 -*-
 import json
 import re
 import sys
 import os
+sys.path.insert(0, os.getcwd())
 
+from Pinyin2Hanzi import cut
 from mypycorrector import lm_correct_sentece
 from mypycorrector import score
 
@@ -69,11 +71,14 @@ def pinyin2hanzi(pinyin_list):
 
 
 def get_candidates(ss, value_candidate):
+    details = list()
     for value, candidate in value_candidate.items():
-        ss = [s.replace('*'*len(value), candi, 1)
-              for s in ss for candi in candidate]
+        length = len(cut(value))
+        detail_word = [value, ss[0].index('*'), ss[0].index('*') + length ]
+        details.append(detail_word)
+        ss = [s.replace('*'*length, candi, 1) for s in ss for candi in candidate]
         ss = lm_correct_sentece(ss)
-    return ss
+    return ss,details
 
 
 def sentence_score(candidates):

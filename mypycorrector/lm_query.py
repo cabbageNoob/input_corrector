@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-20 13:06:59
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-20 13:47:11
+@LastEditTime : 2019-12-20 16:31:42
 '''
 import subprocess
 
@@ -17,15 +17,14 @@ class KenLMQuery:
         self.model = model
         self.execute = execute
         self.encode = encode
+        self.process = None
 
     def _exec(self, txt):
-        try:
-            p = subprocess.Popen([self.execute, self.model], stdout = subprocess.PIPE, stdin = subprocess.PIPE)
-            out, error = p.communicate(txt.encode(self.encode))
-            return "" if out is None else out.decode(self.encode), "" if error is None else error.decode(self.encode)
-        except Exception as e:
-            print("occur exception")
-            print(e)
+        if self.process is None:
+            self.process = subprocess.Popen([self.execute, "-b", self.model], stdout = subprocess.PIPE, stdin = subprocess.PIPE)
+        self.process.stdin.write(f"{txt} \n".encode(self.encode))
+        self.process.stdin.flush()
+        return self.process.stdout.readline().decode(self.encode)
 
 
     def score(self, sentence):
@@ -34,9 +33,10 @@ class KenLMQuery:
         @param {type} 
         @return: 
         '''   
-        score_txt = self._exec(sentence+'UNK')[0]
+        score_txt = self._exec(sentence)
         total = 0.
         char_scores = score_txt.split('\t')
+        print(char_scores)
         return sum([float(_.split()[-1]) for _ in char_scores[:-1]])
 
 
