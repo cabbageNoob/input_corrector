@@ -4,14 +4,16 @@
 # Brief: error word detector
 import codecs
 import time
+import sys, os
 
 import numpy as np
-
+sys.path.insert(0,os.getcwd())
 from mypycorrector import config
 # from mypycorrector.rnn_lm.lm import LM
 from mypycorrector.tokenizer import Tokenizer
 from mypycorrector.utils.logger import logger
 from mypycorrector.utils.text_utils import uniform, is_alphabet_string
+from mypycorrector.lm_query import KenLMQuery
 
 PUNCTUATION_LIST = ".。,，,、?？:：;；{}[]【】“‘’”《》/!！%……（）<>@#$~^￥%&*\"\'=+-_——「」"
 
@@ -65,6 +67,7 @@ class Detector(object):
                                   'if you are Win, Please install kenlm in cgwin.')
 
             self.lm = kenlm.Model(self.language_model_path)
+            # self.lm = KenLMQuery(model=self.language_model_path, execute=config.kenlm_ngram_query_path)
             logger.debug('Loaded language model: %s, spend: %s s' %
                          (self.language_model_path, str(time.time() - t1)))
 
