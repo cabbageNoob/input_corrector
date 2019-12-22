@@ -266,8 +266,10 @@ class Corrector(Detector):
                     sentence = before_sent + corrected_item + after_sent
                     sentences.append(sentence)
                     # logger.debug('predict:' + item + '=>' + corrected_item)
-                    detail_word = [item, corrected_item, begin_idx, end_idx]
-                    detail.append(detail_word)
+                    # detail_word = [item, corrected_item, begin_idx, end_idx]
+                    # detail.append(detail_word)
+            detail_word = [item, begin_idx, end_idx]
+            detail.append(detail_word)
             # sentence取准确性最高的词，接着下一步纠错
             sentence=before_sent + corrected_items[0] + after_sent
         detail = sorted(detail, key=operator.itemgetter(2))

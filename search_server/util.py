@@ -4,9 +4,8 @@
 @Author: Jiahao
 @Date: 2019-12-12 10:59:28
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-21 21:10:50
+@LastEditTime : 2019-12-22 10:28:28
 '''
-# -*- coding: UTF-8 -*-
 import json
 import re
 import sys
@@ -62,8 +61,8 @@ def pinyin2hanzi(pinyin_list):
                 sorted(posting_data[pinyin_cur].items(), key=lambda x: x[1], reverse=True))
             value_hanzi_list.setdefault(pinyin_cur, [])
             value_hanzi_list[pinyin_cur] = path_score.keys()
-        candidates = get_candidates(
-            ['*'*len(''.join(pinyin_list))], value_hanzi_list)
+        candidates,details = get_candidates(
+            ['*'*len(pinyin_list)], value_hanzi_list)
         scores = sentence_score(candidates)
         candidate_scores = {candidate: score for candidate,
                             score in zip(candidates, scores)}

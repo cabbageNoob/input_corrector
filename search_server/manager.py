@@ -1,12 +1,12 @@
+# -*- coding: UTF-8 -*-
 '''
 @Descripttion: 
 @version: 
 @Author: Jiahao
 @Date: 2019-12-12 10:59:28
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-21 21:30:41
+@LastEditTime : 2019-12-22 10:59:21
 '''
-# -*- coding: UTF-8 -*-
 import json
 import re
 import sys
@@ -51,7 +51,7 @@ def get_maybe_sentence():
         # 得到的全是拼音
         pinyin_list = cut(sentence)
         pred_sentences = util.pinyin2hanzi(pinyin_list)
-        detail_word = [sentence, list(pred_sentences.keys())[0], 0, len(sentence)]
+        detail_word = [sentence, list(pred_sentences.keys())[0], 0, len(pinyin_list)]
         details_.append(detail_word)
         is_allpinyin=True
     elif util.contain_pinyin(sentence):
@@ -69,12 +69,12 @@ def get_maybe_sentence():
     print('pred_sentences', pred_sentences)
     for sentence, score in pred_sentences.items():
         if is_allhanzi:
-            details_=[[detail[0],sentence[detail[1]:detail[2]],detail[1],detail[2]] for detail in details]
+            details_ = [[detail[0], sentence[detail[1]:detail[2]], str(detail[1]), str(detail[2])] for detail in details if detail[0] != sentence[detail[1]:detail[2]]]       
             sentences_maybe.append({'score': score, 'sentence': sentence, 'detail': details_})
         if is_allpinyin:
             sentences_maybe.append({'score': score, 'sentence': sentence, 'detail': details_})
         if hanzi_pinyin:
-            details_=[[detail[0],sentence[detail[1]:detail[2]],detail[1],detail[2]] for detail in details]
+            details_=[[detail[0],sentence[detail[1]:detail[2]],str(detail[1]),str(detail[2])] for detail in details]
             sentences_maybe.append({'score': score, 'sentence': sentence, 'detail': details_})
     response['pred_sentences'] = sentences_maybe
     return json.dumps(response, ensure_ascii=False)
