@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
-# Author: cjh（492795090@qq.com）
-# Brief: corrector with spell and stroke
+'''
+@Descripttion: corrector with spell and stroke
+@version: 
+@Author: cjh <492795090@qq.com>
+@Date: 2019-12-19 14:12:17
+@LastEditors  : cjh <492795090@qq.com>
+@LastEditTime : 2019-12-26 14:29:32
+'''
 import codecs
 import operator
 import os

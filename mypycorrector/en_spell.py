@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
-# Author: cjh（492795090@qq.com）
-# Brief: english correction
-# refer to http://norvig.com/spell-correct.html
+'''
+@Descripttion: english correction,refer to http://norvig.com/spell-correct.html
+@version: 
+@Author: cjh <492795090@qq.com>
+@Date: 2019-12-19 14:12:17
+@LastEditors  : cjh <492795090@qq.com>
+@LastEditTime : 2019-12-26 19:17:52
+'''
+
 import re
 import os
 from collections import Counter

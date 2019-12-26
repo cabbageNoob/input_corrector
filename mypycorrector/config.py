@@ -1,14 +1,13 @@
+# -*- coding: utf-8 -*-
 '''
-@Descripttion: 
+@Descripttion: config
 @version: 
 @Author: Da Chuang
 @Date: 2019-12-12 10:59:27
-@LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2019-12-16 14:27:38
+@LastEditors  : cjh <492795090@qq.com>
+@LastEditTime : 2019-12-26 19:16:39
 '''
-# -*- coding: utf-8 -*-
-# Author: cjh（492795090@qq.com）
-# Brief: config
+
 
 import os
 

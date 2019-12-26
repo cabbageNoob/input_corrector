@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
-# Author: cjh（492795090@qq.com）
-# Brief: mypycorrector.api
+'''
+@Descripttion: mypycorrector.api
+@version: 
+@Author: cjh <492795090@qq.com>
+@Date: 2019-12-19 14:12:17
+@LastEditors  : cjh <492795090@qq.com>
+@LastEditTime : 2019-12-26 19:16:19
+'''
 
 from .corrector import Corrector
 from .detector import Detector
