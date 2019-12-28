@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-26 22:53:22
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-28 09:52:34
+@LastEditTime : 2019-12-28 13:22:12
 '''
 import operator
 import sys, os
@@ -148,7 +148,7 @@ class RuleBertCorrector(RuleBertDetector):
             candidates.extend(confusion)
         return candidates
     
-    def _convert_sentence_to_correct_features(self, sentence, candidates,begin_idx,end_idx):
+    def _convert_sentence_to_correct_features_1(self, sentence, candidates,begin_idx,end_idx):
         self.check_bert_detector_initialized()
         features = []
         tokens = self.bert_tokenizer.tokenize(sentence)
@@ -168,6 +168,37 @@ class RuleBertCorrector(RuleBertDetector):
                               id=begin_idx,
                               token=candidate))
         return features
+    
+    def _convert_sentence_to_correct_features_2(self, sentence, begin_idx, end_idx):
+        """Loads a sentence into a list of `InputBatch`s."""
+        features = []
+        tokens_a = self.bert_tokenizer.tokenize(sentence)
+
+        # For single sequences:
+        #  tokens:   [CLS] the dog is hairy . [SEP]
+        #  type_ids: 0      0   0   0  0    0   0
+        tokens = ["[CLS]"] + tokens_a + ["[SEP]"]
+        k = begin_idx + 1
+        for i in range(end_idx - begin_idx):
+            tokens[k] = '[MASK]'
+            k += 1
+        segment_ids = [0] * len(tokens)
+
+        input_ids = self.bert_tokenizer.convert_tokens_to_ids(tokens)
+        mask_ids = [i for i, v in enumerate(input_ids) if v == self.MASK_ID]
+
+        # Zero-pad up to the sequence length.
+        padding = [0] * (self.max_seq_length - len(input_ids))
+        input_ids += padding
+        segment_ids += padding
+
+        features.append(
+            InputFeatures(input_ids=input_ids,
+                          mask_ids=mask_ids,
+                          segment_ids=segment_ids,
+                          input_tokens=tokens))
+
+        return features
         
     
     def predict_candidates_prob(self, cur_item,sentence, candidates, begin_idx, end_idx):
@@ -180,7 +211,7 @@ class RuleBertCorrector(RuleBertDetector):
             candidates.append(cur_item)
         self.check_bert_detector_initialized()
         result = []
-        eval_features = self._convert_sentence_to_correct_features(sentence, candidates, begin_idx, end_idx)
+        eval_features = self._convert_sentence_to_correct_features_1(sentence, candidates, begin_idx, end_idx)
         for f in eval_features:
             input_ids = torch.tensor([f.input_ids])
             masked_lm_labels = torch.tensor([f.masked_lm_labels])
@@ -191,11 +222,43 @@ class RuleBertCorrector(RuleBertDetector):
         return result
         
     
-    def predict_mask_token(self, cur_item, sentence, candidates,begin_idx, end_idx):
+    def predict_mask_token_1(self, cur_item, sentence, candidates,begin_idx, end_idx):
         candidates_probs = self.predict_candidates_prob(cur_item, sentence, candidates, begin_idx, end_idx)
         candidates_probs=[[candidate_prob[0],candidate_prob[1].token] for candidate_prob in candidates_probs]
         correct_item = max(candidates_probs)
         return correct_item[1]
+    
+    def predict_mask_token_2(self, cur_item, sentence, candidates, begin_idx, end_idx):
+        if cur_item not in candidates:
+            candidates.append(cur_item)
+        eval_features = self._convert_sentence_to_correct_features_2(
+            sentence=sentence,
+            begin_idx=begin_idx,
+            end_idx=end_idx
+        )
+        
+        for f in eval_features:
+            input_ids = torch.tensor([f.input_ids])
+            segment_ids = torch.tensor([f.segment_ids])
+            outputs = self.model(input_ids, segment_ids)
+            predictions = outputs[0]
+            # confirm we were able to predict 'henson'
+            masked_ids = f.mask_ids
+            if masked_ids:
+                for idx, i in enumerate(masked_ids):
+                    candidates_ids = self.bert_tokenizer.convert_tokens_to_ids(candidates)
+                    candidates_probs = [[float(predictions[0, i, candidate_id].data), candidate] for candidate_id,candidate in zip(candidates_ids,candidates)]
+                    # predicted_index = torch.argmax(predictions[0, i]).item()
+                    # predicted_indexes = torch.topk(predictions[0, i], 10)
+                    # predicted_indexes=list(predicted_indexes.indices.numpy())
+                    # print(predicted_indexes)
+                    # predicted_token = self.bert_tokenizer.convert_ids_to_tokens([predicted_index])[0]
+                    predicted_token=max(candidates_probs)[1]
+                    logger.debug('original text is: %s' % f.input_tokens)
+                    logger.debug('Mask predict is: %s' % predicted_token)
+                    corrected_item = predicted_token
+        return corrected_item
+        
 
     def correct(self, sentence=''):
         """
@@ -221,7 +284,7 @@ class RuleBertCorrector(RuleBertDetector):
                 if not candidates:
                     continue
                 # 取得最可能正确的字
-                corrected_item = self.predict_mask_token(cur_item, sentence, candidates, begin_idx, end_idx)
+                corrected_item = self.predict_mask_token_2(cur_item, sentence, candidates, begin_idx, end_idx)
                 
             elif err_type == ErrorType.word:
                 corrected_item = cur_item
