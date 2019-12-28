@@ -5,9 +5,8 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-19 23:53:48
+@LastEditTime : 2019-12-27 17:43:33
 '''
-
 import operator
 import sys, os
 sys.path.insert(0,os.getcwd())
@@ -20,7 +19,6 @@ from mypycorrector.bert.bert_detector import BertDetector, InputFeatures
 from mypycorrector.detector import ErrorType
 from mypycorrector.utils.text_utils import is_chinese_string
 from mypycorrector.utils.logger import logger
-
 
 class BertCorrector(BertDetector):
     def __init__(self, bert_model_dir=config.bert_model_dir,
@@ -139,7 +137,8 @@ class BertCorrector(BertDetector):
 if __name__ == "__main__":
     bertCorrector = BertCorrector()
 
-    error_sentences = ['少先队员因该为老人让座',
+    error_sentences = ['少先队员因该为老人让坐',
+                        '少先队员因该为老人让座',
                        '少先队员因该为老人让坐',
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']

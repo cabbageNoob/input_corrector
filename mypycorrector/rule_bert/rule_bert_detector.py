@@ -4,377 +4,121 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-26 22:14:29
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-26 22:59:19
+@LastEditTime : 2019-12-27 17:28:34
 '''
-import codecs
+import sys,os
 import time
-import sys, os
 
 import numpy as np
+import torch
+from pytorch_transformers import BertForMaskedLM
+from pytorch_transformers import BertTokenizer
+
 sys.path.insert(0,os.getcwd())
-from mypycorrector.rule_bert import config
-from mypycorrector.tokenizer import Tokenizer
+from mypycorrector.detector import ErrorType
 from mypycorrector.utils.logger import logger
-from mypycorrector.utils.text_utils import uniform, is_alphabet_string
+from mypycorrector.rule_bert import config
 
-PUNCTUATION_LIST = ".。,，,、?？:：;；{}[]【】“‘’”《》/!！%……（）<>@#$~^￥%&*\"\'=+-_——「」"
+class InputFeatures(object):
+    """A single set of features of data."""
 
-class ErrorType(object):
-    # error_type = {"confusion": 1, "word": 2, "char": 3}
-    confusion = 'confusion'
-    word = 'word'
-    char = 'char'
+    def __init__(self, input_ids,
+                 segment_ids=None,
+                 mask_ids=None,
+                 masked_lm_labels=None,
+                 input_tokens=None,
+                 id=None,
+                 token=None):
+        self.input_ids = input_ids
+        self.segment_ids = segment_ids
+        self.mask_ids = mask_ids
+        self.masked_lm_labels = masked_lm_labels
+        self.input_tokens = input_tokens
+        self.id = id
+        self.token = token
 
-class RuleDetector(object):
-    '''
-    @Descripttion: rule detector
-    @param {type} 
-    @return: 
-    '''
-    def __init__(self, language_model_path=config.language_model_path,
-                 word_freq_path=config.word_freq_path,
-                 custom_word_freq_path=config.custom_word_freq_path,
-                 custom_confusion_path=config.custom_confusion_path,
-                 person_name_path=config.person_name_path,
-                 place_name_path=config.place_name_path,
-                 stopwords_path=config.stopwords_path):
-        self.name = 'detector'
-        self.language_model_path = language_model_path
-        self.word_freq_path = word_freq_path
-        self.custom_word_freq_path = custom_word_freq_path
-        self.custom_confusion_path = custom_confusion_path
-        self.person_name_path = person_name_path
-        self.place_name_path = place_name_path
-        self.stopwords_path = stopwords_path
-        self.is_char_error_detect = True
-        self.is_word_error_detect = True
-        self.initialized_detector = False
+class RuleBertDetector(object):
+    def __init__(self, bert_model_dir=config.bert_model_dir,
+                 bert_model_vocab=config.bert_model_vocab,
+                 threshold=0.1):
+        self.name = 'rule_bert_detector'
+        self.bert_model_dir = bert_model_dir
+        self.bert_model_vocab = bert_model_vocab
+        self.initialized_bert_detector = False
+        self.threshold = threshold
     
-    def initialize_detector(self):
+    def check_bert_detector_initialized(self):
+        if not self.initialized_bert_detector:
+            self.initialize_bert_detector()
+    
+    def initialize_bert_detector(self):
         t1 = time.time()
-        try:
-            import kenlm
-        except ImportError:
-            raise ImportError('mypycorrector dependencies are not fully installed, '
-                                'they are required for statistical language model.'
-                                'Please use "pip install kenlm" to install it.'
-                                'if you are Win, Please install kenlm in cgwin.')
+        self.bert_tokenizer = BertTokenizer(vocab_file=self.bert_model_vocab)
+        self.MASK_TOKEN = "[MASK]"
+        self.MASK_ID = self.bert_tokenizer.convert_tokens_to_ids([self.MASK_TOKEN])[0]
+        # Prepare model
+        self.model = BertForMaskedLM.from_pretrained(self.bert_model_dir)
+        logger.debug("Loaded model ok, path: %s, spend: %.3f s." % (self.bert_model_dir, time.time() - t1))
+        self.initialized_bert_detector = True
 
-        self.lm = kenlm.Model(self.language_model_path)
-        logger.debug('Loaded language model: %s, spend: %s s' %
-                        (self.language_model_path, str(time.time() - t1)))
+    def _convert_sentence_to_detect_features(self, sentence):
+        """Loads a sentence into a list of `InputBatch`s."""
+        self.check_bert_detector_initialized()
+        features = []
+        tokens = self.bert_tokenizer.tokenize(sentence)
+        token_ids = self.bert_tokenizer.convert_tokens_to_ids(tokens)
+        for idx, token_id in enumerate(token_ids):
+            masked_lm_labels = [-1] * len(token_ids)
+            masked_lm_labels[idx] = token_id
+            features.append(
+                InputFeatures(input_ids=token_ids,
+                              masked_lm_labels=masked_lm_labels,
+                              input_tokens=tokens,
+                              id=idx,
+                              token=tokens[idx]))
+        return features
 
-        # 词、频数dict
-        t2 = time.time()
-        self.word_freq = self.load_word_freq_dict(self.word_freq_path)
-        t3 = time.time()
-        logger.debug('Loaded word freq file: %s, size: %d, spend: %s s' %
-                     (self.word_freq_path, len(self.word_freq), str(t3 - t2)))
-        # 自定义混淆集
-        self.custom_confusion = self._get_custom_confusion_dict(
-            self.custom_confusion_path)
-        t4 = time.time()
-        logger.debug('Loaded confusion file: %s, size: %d, spend: %s s' %
-                     (self.custom_confusion_path, len(self.custom_confusion), str(t4 - t3)))
-        # 自定义切词词典
-        self.custom_word_freq = self.load_word_freq_dict(
-            self.custom_word_freq_path)
-        self.person_names = self.load_word_freq_dict(self.person_name_path)
-        self.place_names = self.load_word_freq_dict(self.place_name_path)
-        self.stopwords = self.load_word_freq_dict(self.stopwords_path)
-        # 合并切词词典及自定义词典
-        self.custom_word_freq.update(self.person_names)
-        self.custom_word_freq.update(self.place_names)
-        self.custom_word_freq.update(self.stopwords)
-
-        self.word_freq.update(self.custom_word_freq)
-        t5 = time.time()
-        logger.debug('Loaded custom word file: %s, size: %d, spend: %s s' %
-                     (self.custom_confusion_path, len(self.custom_word_freq), str(t5 - t4)))
-        self.tokenizer = Tokenizer(dict_path=self.word_freq_path, custom_word_freq_dict=self.custom_word_freq,
-                                   custom_confusion_dict=self.custom_confusion)
-        self.initialized_detector = True
-    
-    def check_detector_initialized(self):
-        if not self.initialized_detector:
-            self.initialize_detector()
-    
-    @staticmethod
-    def load_word_freq_dict(path):
-        '''
-        @Descripttion: 加载切词词典
-        @param {type} 
-        @return: 
-        '''
-        word_freq = {}
-        with codecs.open(path, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith('#'):
-                    continue
-                info = line.split()
-                if len(info) < 1:
-                    continue
-                word = info[0]
-                # 取词频，默认1
-                freq = int(info[1]) if len(info) > 1 else 1
-                word_freq[word] = freq
-        return word_freq
-
-    def _get_custom_confusion_dict(self, path):
-        '''
-        @Descripttion: 取自定义困惑集
-        @param {type} 
-        @return: 
-        '''
-        confusion = {}
-        with codecs.open(path, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith('#'):
-                    continue
-                info = line.split()
-                if len(info) < 2:
-                    continue
-                variant = info[0]
-                origin = info[1]
-                freq = int(info[2]) if len(info) > 2 else 1
-                self.word_freq[origin] = freq
-                confusion[variant] = origin
-        return confusion
-
-    def enable_char_error(self, enable=True):
-        """
-        is open char error detect
-        :param enable:
-        :return:
-        """
-        self.is_char_error_detect = enable
-
-    def enable_word_error(self, enable=True):
-        """
-        is open word error detect
-        :param enable:
-        :return:
-        """
-        self.is_word_error_detect = enable
-
-    def ngram_score(self, chars):
-        """
-        取n元文法得分
-        :param chars: list, 以词或字切分
-        :return:
-        """
-        self.check_detector_initialized()
-        return self.lm.score(' '.join(chars), bos=False, eos=False)
-
-    def char_scores(self, chars):
-        """
-        取RNN语言模型各字的得分
-        :param chars: list, 以字切分
-        :return: scores, list
-        """
-        self.check_detector_initialized()
-        return self.lm.char_scores(chars)
-
-    def ppl_score(self, words):
-        """
-        取语言模型困惑度得分，越小句子越通顺
-        :param words: list, 以词或字切分
-        :return:
-        """
-        self.check_detector_initialized()
-        return self.lm.perplexity(' '.join(words))
-
-    def score(self, words):
-        """
-        Return the log10 probability of a string.
-        :param words: list, 以词或字切分
-        :return:
-        """
-        self.check_detector_initialized()
-        return self.lm.score(' '.join(words))
-
-    def word_frequency(self, word):
-        """
-        取词在样本中的词频
-        :param word:
-        :return:
-        """
-        self.check_detector_initialized()
-        return self.word_freq.get(word, 0)
-
-    def set_word_frequency(self, word, num):
-        """
-        更新在样本中的词频
-        """
-        self.check_detector_initialized()
-        self.word_freq[word] = num
-        return self.word_freq
-
-    @staticmethod
-    def _check_contain_error(maybe_err, maybe_errors):
-        """
-        检测错误集合(maybe_errors)是否已经包含该错误位置（maybe_err)
-        :param maybe_err: [error_word, begin_pos, end_pos, error_type]
-        :param maybe_errors:
-        :return:
-        """
-        error_word_idx = 0
-        begin_idx = 1
-        end_idx = 2
-        for err in maybe_errors:
-            if maybe_err[error_word_idx] in err[error_word_idx] and maybe_err[begin_idx] >= err[begin_idx] and \
-                    maybe_err[end_idx] <= err[end_idx]:
-                return True
-        return False
-
-    def _add_maybe_error_item(self, maybe_err, maybe_errors):
-        """
-        新增错误
-        :param maybe_err:
-        :param maybe_errors:
-        :return:
-        """
-        if maybe_err not in maybe_errors and not self._check_contain_error(maybe_err, maybe_errors):
-            maybe_errors.append(maybe_err)
-
-    @staticmethod
-    def _get_maybe_error_index(scores, ratio=0.6745, threshold=1.4):
-        """
-        取疑似错字的位置，通过平均绝对离差（MAD）
-        :param scores: np.array
-        :param threshold: 阈值越小，得到疑似错别字越多
-        :return: 全部疑似错误字的index: list
-        """
+    def predict_token_prob(self, sentence):
+        self.check_bert_detector_initialized()
         result = []
-        scores = np.array(scores)
-        if len(scores.shape) == 1:
-            scores = scores[:, None]
-        median = np.median(scores, axis=0)  # get median of all scores
-        # deviation from the median
-        margin_median = np.abs(scores - median).flatten()
-        # 平均绝对离差值
-        med_abs_deviation = np.median(margin_median)
-        if med_abs_deviation == 0:
-            return result
-        y_score = ratio * margin_median / med_abs_deviation
-        # 打平
-        scores = scores.flatten()
-        maybe_error_indices = np.where(
-            (y_score > threshold) & (scores < median))
-        # 取全部疑似错误字的index
-        result = list(maybe_error_indices[0])
-        return result
+        eval_features = self._convert_sentence_to_detect_features(sentence)
 
-    @staticmethod
-    def _get_maybe_error_index_by_rnnlm(scores, n=3):
-        """
-        取疑似错字的位置，通过平均值上下三倍标准差之间属于正常点
-        :param scores: list, float
-        :param threshold: 阈值越小，得到疑似错别字越多
-        :return: 全部疑似错误字的index: list
-        """
-        std = np.std(scores, ddof=1)
-        mean = np.mean(scores)
-        down_limit = mean - n * std
-        upper_limit = mean + n * std
-        maybe_error_indices = np.where(
-            (scores > upper_limit) | (scores < down_limit))
-        # 取全部疑似错误字的index
-        result = list(maybe_error_indices[0])
-        return result
-
-    @staticmethod
-    def is_filter_token(token):
-        result = False
-        # pass blank
-        if not token.strip():
-            result = True
-        # pass punctuation
-        if token in PUNCTUATION_LIST:
-            result = True
-        # pass num
-        if token.isdigit():
-            result = True
-        # pass alpha
-        if is_alphabet_string(token.lower()):
-            result = True
+        for f in eval_features:
+            input_ids = torch.tensor([f.input_ids])
+            masked_lm_labels = torch.tensor([f.masked_lm_labels])
+            outputs = self.model(input_ids, masked_lm_labels=masked_lm_labels)
+            masked_lm_loss, predictions = outputs[:2]
+            prob = np.exp(-masked_lm_loss.item())
+            result.append([prob, f])
         return result
 
     def detect(self, sentence):
         """
-        检测句子中的疑似错误信息，包括[词、位置、错误类型]
-        :param sentence:
+        句子改错
+        :param sentence: 句子文本
+        :param threshold: 阈值
         :return: list[list], [error_word, begin_pos, end_pos, error_type]
         """
         maybe_errors = []
-        if not sentence.strip():
-            return maybe_errors
-        # 初始化
-        self.check_detector_initialized()
-        # 文本归一化
-        sentence = uniform(sentence)
-        # 切词
-        tokens = self.tokenizer.tokenize(sentence)
-        # print(tokens)
-        # 自定义混淆集加入疑似错误词典
-        for confuse in self.custom_confusion:
-            idx = sentence.find(confuse)
-            if idx > -1:
-                maybe_err = [confuse, idx, idx +
-                             len(confuse), ErrorType.confusion]
-                self._add_maybe_error_item(maybe_err, maybe_errors)
-
-        if self.is_word_error_detect:
-            # 未登录词加入疑似错误词典
-            for word, begin_idx, end_idx in tokens:
-                # pass filter word
-                if self.is_filter_token(word):
-                    continue
-                # pass in dict
-                if word in self.word_freq:
-                    continue
-                maybe_err = [word, begin_idx, end_idx, ErrorType.word]
-                self._add_maybe_error_item(maybe_err, maybe_errors)
-
-        if self.is_char_error_detect:
-            try:
-                ngram_avg_scores = []
-                for n in [2, 3]:
-                    scores = []
-                    for i in range(len(sentence) - n + 1):
-                        word = sentence[i:i + n]
-                        score = self.ngram_score(list(word))
-                        scores.append(score)
-                    if not scores:
-                        continue
-                    # 移动窗口补全得分
-                    for _ in range(n - 1):
-                        scores.insert(0, scores[0])
-                        scores.append(scores[-1])
-                    avg_scores = [sum(scores[i:i + n]) / len(scores[i:i + n])
-                                    for i in range(len(sentence))]
-                    ngram_avg_scores.append(avg_scores)
-
-                # 取拼接后的n-gram平均得分
-                sent_scores = list(np.average(
-                    np.array(ngram_avg_scores), axis=0))
-                # 取疑似错字信息
-                for i in self._get_maybe_error_index(sent_scores):
-                    token = sentence[i]
-                    # pass filter word
-                    if self.is_filter_token(token):
-                        continue
-                    # token, begin_idx, end_idx, error_type
-                    maybe_err = [token, i, i + 1, ErrorType.char]
-                    self._add_maybe_error_item(maybe_err, maybe_errors)
-            except IndexError as ie:
-                logger.warn("index error, sentence:" + sentence + str(ie))
-            except Exception as e:
-                logger.warn("detect error, sentence:" + sentence + str(e))
-        return sorted(maybe_errors, key=lambda k: k[1], reverse=False)
+        for prob, f in self.predict_token_prob(sentence):
+            logger.debug('prob:%s, token:%s, idx:%s' % (prob, f.token, f.id))
+            if prob < self.threshold:
+                maybe_errors.append([f.token, f.id, f.id + 1, ErrorType.char])
+        return maybe_errors
 
 
-    
-    
+if __name__ == "__main__":
+    d = RuleBertDetector()
+
+    error_sentences = ['少先队员因该为老人让座',
+                       '少先队员因该为老人让坐',
+                       '少 先 队 员 因 该 为老人让座',
+                       '少 先 队 员 因 该 为老人让坐',
+                       '机七学习是人工智能领遇最能体现智能的一个分支',
+                       '机七学习是人工智能领遇最能体现智能的一个分知']
+    t1 = time.time()
+    for sent in error_sentences:
+        err = d.detect(sent)
+        print("original sentence:{} => detect sentence:{}".format(sent, err))
+
+
