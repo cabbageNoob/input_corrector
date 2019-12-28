@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-27 17:43:33
+@LastEditTime : 2019-12-28 15:41:33
 '''
 import operator
 import sys, os
@@ -95,8 +95,8 @@ class BertCorrector(BertDetector):
                     # predicted_indexes=list(predicted_indexes.indices.numpy())
                     # print(predicted_indexes)
                     predicted_token = self.bert_tokenizer.convert_ids_to_tokens([predicted_index])[0]
-                    logger.debug('original text is: %s' % f.input_tokens)
-                    logger.debug('Mask predict is: %s' % predicted_token)
+                    # logger.debug('original text is: %s' % f.input_tokens)
+                    # logger.debug('Mask predict is: %s' % predicted_token)
                     corrected_item = predicted_token
         return corrected_item
 

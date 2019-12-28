@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-26 22:14:29
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-27 17:28:34
+@LastEditTime : 2019-12-28 15:29:33
 '''
 import sys,os
 import time
@@ -101,7 +101,7 @@ class RuleBertDetector(object):
         """
         maybe_errors = []
         for prob, f in self.predict_token_prob(sentence):
-            logger.debug('prob:%s, token:%s, idx:%s' % (prob, f.token, f.id))
+            # logger.debug('prob:%s, token:%s, idx:%s' % (prob, f.token, f.id))
             if prob < self.threshold:
                 maybe_errors.append([f.token, f.id, f.id + 1, ErrorType.char])
         return maybe_errors

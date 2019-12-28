@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-26 22:53:22
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-28 13:22:12
+@LastEditTime : 2019-12-28 15:31:56
 '''
 import operator
 import sys, os
@@ -254,8 +254,8 @@ class RuleBertCorrector(RuleBertDetector):
                     # print(predicted_indexes)
                     # predicted_token = self.bert_tokenizer.convert_ids_to_tokens([predicted_index])[0]
                     predicted_token=max(candidates_probs)[1]
-                    logger.debug('original text is: %s' % f.input_tokens)
-                    logger.debug('Mask predict is: %s' % predicted_token)
+                    # logger.debug('original text is: %s' % f.input_tokens)
+                    # logger.debug('Mask predict is: %s' % predicted_token)
                     corrected_item = predicted_token
         return corrected_item
         
@@ -299,8 +299,6 @@ class RuleBertCorrector(RuleBertDetector):
         return sentence, detail
 
 
-
-
 if __name__ == '__main__':
     corrector = RuleBertCorrector()
     error_sentences = ['少先队员因该为老人让座',
@@ -310,6 +308,9 @@ if __name__ == '__main__':
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
     for sentence in error_sentences:
-        corrector.correct(sentence)
+        pred_sentence, pred_detail = corrector.correct(sentence)
+        print("origin_sentence:",sentence)
+        print("pred_sentence:", pred_sentence)
+        print("pred_detail:",pred_detail)
     # print(d.detect(test))
     

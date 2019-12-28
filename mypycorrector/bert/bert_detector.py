@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-19 16:10:22
+@LastEditTime : 2019-12-28 15:41:52
 '''
 
 import sys
@@ -105,7 +105,7 @@ class BertDetector(object):
         """
         maybe_errors = []
         for prob, f in self.predict_token_prob(sentence):
-            logger.debug('prob:%s, token:%s, idx:%s' % (prob, f.token, f.id))
+            # logger.debug('prob:%s, token:%s, idx:%s' % (prob, f.token, f.id))
             if prob < self.threshold:
                 maybe_errors.append([f.token, f.id, f.id + 1, ErrorType.char])
         return maybe_errors
