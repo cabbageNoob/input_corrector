@@ -77,13 +77,13 @@ def eval_bcmi_data(data_path, verbose=False):
             rule_bert_pred_sentence,rule_bert_pred_detail=ruleBertCorrector.correct(error_sentence)
             if verbose:
                 print('input sentence:', error_sentence)
-                print('berd pred sentence:', bert_pred_sentence, bert_pred_detail)
+                print('bert pred sentence:', bert_pred_sentence, bert_pred_detail)
                 print('rule bert pred sentence', rule_bert_pred_sentence, rule_bert_pred_detail)
                 print('right sentence:', right_sentence)
                 print('wrong_index', index_list)
                 eval_file.write('input sentence:' + error_sentence + '\n')
-                eval_file.write('bred pred sentence:'+ bert_pred_sentence+ str(bert_pred_detail)+'\n')
-                eval_file.write('rule bred pred sentence:'+ rule_bert_pred_sentence+ str(rule_bert_pred_detail)+'\n')
+                eval_file.write('bert pred sentence:'+ bert_pred_sentence+ str(bert_pred_detail)+'\n')
+                eval_file.write('rule bert pred sentence:'+ rule_bert_pred_sentence+ str(rule_bert_pred_detail)+'\n')
                 eval_file.write('right sentence:'+right_sentence+'\n')
                 eval_file.write('wrong_index'+ str(index_list)+'\n\n')
             # sentence_size += 1
