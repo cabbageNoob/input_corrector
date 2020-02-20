@@ -9,7 +9,8 @@ from codecs import open
 from mypycorrector import correct
 from mypycorrector.utils.io_utils import load_pkl
 from mypycorrector.utils.math_utils import find_all_idx
-
+pwd_path = os.path.abspath(os.path.dirname(__file__))
+eval_result= os.path.join(pwd_path,'./eval_result/rule_char_eval_result.txt')
 
 
 def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
@@ -60,6 +61,7 @@ def eval_bcmi_data(data_path, verbose=False):
     word_wrong = 0
     word_forget = 0
     word_wrong_add = 0  # 误杀
+    eval_file=open(eval_result,'w',encoding='utf8')
     with open(data_path, 'r', encoding='utf-8') as f:
         for line in f:
             line = line.strip()
@@ -76,6 +78,10 @@ def eval_bcmi_data(data_path, verbose=False):
                 print('pred sentence:', pred_sentence, pred_detail)
                 print('right sentence:', right_sentence)
                 print('wrong_index', index_list)
+                eval_file.write('input sentence:' + error_sentence + '\n')
+                eval_file.write('pred sentence:'+ pred_sentence+ str(pred_detail)+'\n')
+                eval_file.write('right sentence:'+right_sentence+'\n')
+                eval_file.write('wrong_index'+ str(index_list)+'\n\n')
             sentence_size += 1
             word_count += len(index_list)
             word_detec_count += len(pred_detail)  # 预判错误个数
@@ -106,6 +112,7 @@ def eval_bcmi_data(data_path, verbose=False):
                 right_result[error_sentence] = [right_sentence, pred_sentence]
             else:
                 wrong_result[error_sentence] = [right_sentence, pred_sentence]
+    eval_file.close()
     if verbose:
         print('right count:', right_count, ';sentence size:', sentence_size)
         print('词错误数量:', word_count, ';预判字词错误总数量:', word_detec_count)

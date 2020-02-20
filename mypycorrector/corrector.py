@@ -4,8 +4,8 @@
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
-@LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-26 14:29:32
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-02-19 16:39:40
 '''
 import codecs
 import operator
@@ -215,11 +215,13 @@ class Corrector(Detector):
         """
         通过语音模型纠正字词错误
         """
+        corrected_items=list()
         import heapq
         if item not in maybe_right_items:
             maybe_right_items.append(item)
-        # corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
-        corrected_items=heapq.nsmallest(5,maybe_right_items,key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
+        corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
+        corrected_items.append(corrected_item)
+        # corrected_items=heapq.nsmallest(5,maybe_right_items,key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
         return corrected_items
 
     def lm_correct_sentece(self, sentences_list):
@@ -272,16 +274,18 @@ class Corrector(Detector):
                     sentence = before_sent + corrected_item + after_sent
                     sentences.append(sentence)
                     # logger.debug('predict:' + item + '=>' + corrected_item)
-                    # detail_word = [item, corrected_item, begin_idx, end_idx]
-                    # detail.append(detail_word)
-            detail_word = [item, begin_idx, end_idx]
-            detail.append(detail_word)
+                    detail_word = [item, corrected_item, begin_idx, end_idx]
+                    detail.append(detail_word)
+            # detail_word = [item, begin_idx, end_idx]
+            # detail.append(detail_word)
             # sentence取准确性最高的词，接着下一步纠错
-            sentence=before_sent + corrected_items[0] + after_sent
+            sentence = before_sent + corrected_items[0] + after_sent
+        sentence_ = sentence
         detail = sorted(detail, key=operator.itemgetter(2))
         scores=[]
         for sentence in sentences:
             scores.append(self.score(list(sentence)))
         sentence_score = dict(zip(sentences, scores))
         sentence_score = dict(sorted(sentence_score.items(), key=lambda x: x[1],reverse=True))
-        return sentence_score, detail
+        # return sentence_score, detail
+        return sentence_, detail

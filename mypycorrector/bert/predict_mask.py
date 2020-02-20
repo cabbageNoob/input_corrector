@@ -9,9 +9,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import sys
+import sys,os
 
-sys.path.append('../..')
+sys.path.insert(0, os.getcwd() + '/../../')
+print(sys.path)
 import argparse
 import os
 import random
@@ -22,7 +23,7 @@ import torch
 from pytorch_pretrained_bert import BertForMaskedLM
 from pytorch_pretrained_bert.tokenization import BertTokenizer
 
-from pycorrector.utils.logger import logger
+from mypycorrector.utils.logger import logger
 
 MASK_TOKEN = "[MASK]"
 
