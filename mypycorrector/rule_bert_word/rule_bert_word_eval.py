@@ -10,7 +10,8 @@ pwd_path = os.path.abspath(os.path.dirname(__file__))
 bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
-eval_result= os.path.join(pwd_path,'./eval_result/eval_result.txt')
+EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
+eval_result= os.path.join(pwd_path,'./eval_result/sighan_rule_bert_word_eval_result.txt')
 
 def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
     """
@@ -128,5 +129,5 @@ def eval_bcmi_data(data_path, verbose=False):
 if __name__ == "__main__":
     # get_gcmi_cor_test()
     # eval_bcmi_data_test()
-    eval_bcmi_data(bcmi_path,verbose=True)
+    eval_bcmi_data(EVAL_SIGHAN,verbose=True)
     # get_confusion_、dict()
