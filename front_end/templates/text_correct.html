@@ -1,0 +1,128 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: cjh <492795090@qq.com>
+ * @Date: 2020-02-24 15:38:36
+ * @LastEditors: cjh <492795090@qq.com>
+ * @LastEditTime: 2020-02-24 19:00:56
+ -->
+{% extends "base.html" %}
+{% block title %}文本自动校对系统{% endblock %}
+{% block head %}
+    <style type="text/css">
+        /* Necessary for full page carousel*/
+        html,
+        body,
+        header {
+            height: 100%;
+        }
+
+
+        @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #1C2331 !important;
+            }
+        }
+    </style>
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{url_for('static',filename='js/mdb.min.js')}}"></script>
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg  scrolling-navbar primary-color navbar-dark">
+{% endblock %}
+
+{% block content %}
+    <body>
+    <div class="container-fluid my-5 ">
+        <h1 align="center">文本自动校对系统</h1>
+        <div class="row col-10 offset-1 px-3 pb-1 mt-5">
+            <div class="input-group">
+                <div class="input-group-prepend px-2">
+                    <button type="button" class="btn btn-md btn-primary m-0 z-depth-0 waves-effect" id="testTextBtn">选择测试文本</button>
+                    <button type="button"
+                        class="btn btn-md btn-outline-primary m-0 p-2 z-depth-0 waves-effect dropdown-toggle dropdown-toggle-split"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="testTextDrop">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="testTextDrop">
+                        <a class="dropdown-item textSelect" href="#" id="text1">英文测试文本1</a>
+                        <a class="dropdown-item textSelect" href="#" id="text2">英文测试文本2</a>
+                        <a class="dropdown-item textSelect" href="#" id="text3">英文测试文本3</a>
+                        <a class="dropdown-item textSelect" href="#" id="text4">中文测试文本1</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-5 fadeIn">
+                <div class="col">
+                    <div>
+                        <textarea id="text-input" class="form-control z-depth-1 textarea pl-4 pt-4 pb-5"
+                            placeholder="请输入需要处理的内容"></textarea>
+                    </div>
+                    <div class="position-absolute" id="closeDiv">
+                        <button class="btn z-depth-0 px-1 py-0" data-toggle="tooltip" data-placement="top" title="清除文字"
+                            id="clearTextBtn">
+                            <i class="fa fa-times" id="clearTextIcon"></i>
+                        </button>
+                    </div>
+        
+                    <div class="d-inline-block position-absolute" id="wordCountDiv">
+                        <i class="fa fa-edit pr-2 text"></i>
+                        <span id="wordCountSpan" class="">0</span>
+                    </div>
+        
+        
+                    <div class="position-absolute" id="summarizeDiv">
+                        <button class="btn btn-outline-primary z-depth-1 p-2  waves-effect" data-toggle="tooltip"
+                            data-placement="top" title="生成校对后文字" id="summarizeBtn">
+                            <b>校对</b>
+                        </button>
+                        <div class="spinner-border position-relative text-primary" role="status" id="loader" hidden>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+            <div class="col-lg-5 fadeIn">
+                <div class="col">
+                    <div contenteditable="false" class="form-control z-depth-1 pl-4 py-4 pb-5 textarea" id="text-output"
+                        readonly="">
+                        <!--<textarea id="text-output" class="form-control z-depth-1 pl-4 py-4 pb-5  textarea " rows="7" readonly></textarea>-->
+                    </div>
+                    <div class="position-absolute" id="modifyDiv">
+                        <button class="btn btn-blue-grey z-depth-1 p-2  waves-effect" id="modifyBtn">修改建议</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script type="text/javascript" src="{{url_for('static',filename='js/myjs.js')}}"></script>
+    
+    </body>
+
+{% endblock %}
+
+
+
