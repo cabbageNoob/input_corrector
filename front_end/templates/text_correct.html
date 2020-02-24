@@ -4,7 +4,7 @@
  * @Author: cjh <492795090@qq.com>
  * @Date: 2020-02-24 15:38:36
  * @LastEditors: cjh <492795090@qq.com>
- * @LastEditTime: 2020-02-24 19:00:56
+ * @LastEditTime: 2020-02-24 19:59:24
  -->
 {% extends "base.html" %}
 {% block title %}文本自动校对系统{% endblock %}
@@ -53,10 +53,10 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="testTextDrop">
-                        <a class="dropdown-item textSelect" href="#" id="text1">英文测试文本1</a>
-                        <a class="dropdown-item textSelect" href="#" id="text2">英文测试文本2</a>
-                        <a class="dropdown-item textSelect" href="#" id="text3">英文测试文本3</a>
-                        <a class="dropdown-item textSelect" href="#" id="text4">中文测试文本1</a>
+                        <a class="dropdown-item textSelect" href="#" id="text1">中文测试文本1</a>
+                        <a class="dropdown-item textSelect" href="#" id="text2">中文测试文本2</a>
+                        <a class="dropdown-item textSelect" href="#" id="text3">中文测试文本3</a>
+                        <a class="dropdown-item textSelect" href="#" id="text4">中文测试文本4</a>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
         
                     <div class="position-absolute" id="summarizeDiv">
                         <button class="btn btn-outline-primary z-depth-1 p-2  waves-effect" data-toggle="tooltip"
-                            data-placement="top" title="生成校对后文字" id="summarizeBtn">
+                            data-placement="top" title="生成校对后文字" id="correctBtn">
                             <b>校对</b>
                         </button>
                         <div class="spinner-border position-relative text-primary" role="status" id="loader" hidden>
