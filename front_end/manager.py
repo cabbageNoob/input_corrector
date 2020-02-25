@@ -4,10 +4,16 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-02-24 15:22:22
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-24 20:52:23
+@LastEditTime: 2020-02-25 21:08:30
 '''
-import json
+import json, sys, os
+sys.path.insert(0, os.getcwd())
+from mypycorrector.rule_bert_word import rule_bert_word_corrector
+ruleBertWordCorrector = rule_bert_word_corrector.RuleBertWordCorrector()
+
 from flask import Flask, render_template, redirect, request
+ruleBertWordCorrector.correct('你号')
+
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -21,10 +27,14 @@ def text_correct():
 def as_client():
     tar_text={}
     src_text = request.form['src_text']
-    print(src_text)
-    tar_text['tar_text']=src_text
-    
+    pred_sentence, pred_detail = bert_rule(src_text)
+    tar_text['pred_sentence'] = pred_sentence
+    tar_text['pred_detail'] = pred_detail
     return json.dumps(tar_text, ensure_ascii=False)
 
+def bert_rule(src_text):
+    pred_sentence, pred_detail = ruleBertWordCorrector.correct(src_text)
+    return pred_sentence,pred_detail
+
 if __name__ == '__main__':
-    app.run(host='127.0.0.1',port=8002)
+    app.run(host='0.0.0.0',port=8002)

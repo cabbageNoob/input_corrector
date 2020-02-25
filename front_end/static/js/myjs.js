@@ -114,9 +114,7 @@ $(document).ready(function () {
                 success:function (response) {
                     console.log(response)
                     //返回校对结果
-                    correctText2 = response.tar_text
-                    console.log(correctText2)
-                    var correctText = response['tar_text'].trim();
+                    var correctText = response['pred_sentence'].trim();
                     console.log(correctText)
                     correctText = "<span class='text-primary'>" + correctText + "</span>";
                     console.log(correctText)
@@ -127,14 +125,18 @@ $(document).ready(function () {
                     $("#text-output").text("");
                     $("#text-output").append(correctText);        // 显示结果
                     $("#text-output").focus();
+
+                    $("#correctBtn").attr("disabled", false);    // 设置按钮可用
+                    $("#correctBtn").attr("hidden", false);
+                    $("#loader").attr("hidden", true);
                 },
                 error:function (msg) {
-                    
+                    $("#correctBtn").attr("disabled", false);    // 设置按钮可用
+                    $("#correctBtn").attr("hidden", false);
+                    $("#loader").attr("hidden", true);
                 }
             })
-            $("#correctBtn").attr("disabled", false);    // 设置按钮可用
-            $("#correctBtn").attr("hidden", false);
-            $("#loader").attr("hidden", true);
+           
         }
     });
 
