@@ -3,15 +3,14 @@ import sys
 sys.path.insert(0, os.getcwd())
 from mypycorrector.utils.math_utils import find_all_idx
 from mypycorrector.rule_bert_word import rule_bert_word_corrector
-
-ruleBertWordCorrector=rule_bert_word_corrector.RuleBertWordCorrector()
+ruleBertWordCorrector = rule_bert_word_corrector.RuleBertWordCorrector()
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result= os.path.join(pwd_path,'./eval_result/sighan_rule_bert_word_eval_result.txt')
+eval_result = os.path.join(pwd_path, './eval_result/sighan_rule_bert_word_eval_result.txt')
 
 def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
     """
@@ -45,7 +44,6 @@ def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
     error_sentence += line[begin:]
     correct_sentence += line[begin:]
     return error_sentence, correct_sentence, index_list
-
 
 def eval_bcmi_data(data_path, verbose=False):
     sentence_size = 1
