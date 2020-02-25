@@ -4,7 +4,7 @@
  * @Author: cjh <492795090@qq.com>
  * @Date: 2020-02-24 15:20:18
  * @LastEditors: cjh <492795090@qq.com>
- * @LastEditTime: 2020-02-25 10:34:17
+ * @LastEditTime: 2020-02-25 19:37:16
  -->
 {% extends "base.html" %}
 {% block title %}文本自动校对系统简介{% endblock %}
@@ -65,14 +65,7 @@
                             <a href="{{url_for('text_correct')}}" class="btn btn-outline-white btn-lg">在线使用
                                 <i class="fas fa-chevron-right ml-1"></i>
                             </a>
-                            <!--   <a class="btn btn-outline-white btn-lg" href="#" target="_blank" role="button">浏览器插件
-                                    <i class="fas fa-download ml-2"></i>
-                                </a>
-        -->
-                            <!-- <a class="mb-4 d-none d-md-block text-dark m-4" href="http://www.isclab.org.cn">
-                                    <strong>BFS出品</strong>
-                                </a> 
-        -->
+                           
         
                             <div class="wow fadeIn">
                                 <button class="btn position-relative" style="top:150px;" id="dropDownBtn">
@@ -80,9 +73,7 @@
                                 </button>
                             </div>
                         </div>
-        
-        
-        
+                       
                         <!-- Content -->
         
                     </div>
@@ -93,6 +84,7 @@
             <!--/Second slide-->
     </div>
 
+    <!-- footer -->
     <footer class="page-footer text-center font-small mt-4  fadeIn">
         <hr class="my-4">
         <div class="pb-4">
@@ -105,5 +97,6 @@
                     <a  target="_blank"> cai_jh@cuc.edu.cn </a>
         </div>
     </footer>
+    <!-- footer -->
 </body>
 {% endblock %}
