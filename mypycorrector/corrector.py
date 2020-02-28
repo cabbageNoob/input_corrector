@@ -5,16 +5,16 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-19 16:39:40
+@LastEditTime: 2020-02-28 16:36:04
 '''
 import codecs
 import operator
-import os
+import os, sys
 import time
 from math import pow
 
 from pypinyin import lazy_pinyin
-
+sys.path.insert(0,os.getcwd())
 from mypycorrector import config
 from mypycorrector.detector import Detector, ErrorType
 from mypycorrector.utils.logger import logger
@@ -259,6 +259,9 @@ class Corrector(Detector):
             if err_type == ErrorType.confusion:
                 # corrected_item = self.custom_confusion[item]
                 corrected_items.append(self.custom_confusion[item])
+            # 对碎片且不常用单字，可能错误是多字少字
+            elif err_type == ErrorType.word_char:
+                pass
             else:
                 # 对非中文的错字不做处理
                 if not is_chinese_string(item):
@@ -289,3 +292,10 @@ class Corrector(Detector):
         sentence_score = dict(sorted(sentence_score.items(), key=lambda x: x[1],reverse=True))
         # return sentence_score, detail
         return sentence_, detail
+
+if __name__ == '__main__':
+    c = Corrector()
+    test2 = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。 '
+    test1 = '少先队员因该为老人蝴让座'
+    pred_sentence, pred_detail = c.correct(test1)
+    print(pred_sentence,pred_detail)

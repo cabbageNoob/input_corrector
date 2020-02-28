@@ -5,14 +5,14 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-27 12:59:17
+@LastEditTime: 2020-02-28 16:23:53
 '''
 
 import codecs
 import time
-
+import sys, os
 import numpy as np
-
+sys.path.insert(0,os.getcwd())
 from mypycorrector import config
 from mypycorrector.tokenizer import Tokenizer
 from mypycorrector.utils.logger import logger
@@ -26,6 +26,10 @@ class ErrorType(object):
     confusion = 'confusion'
     word = 'word'
     char = 'char'
+    redundancy = 'redundancy'   #冗余
+    miss = 'miss'  #缺失
+    word_char='word_char'   #分词后的碎片单字错误
+    
 
 
 class Detector(object):
@@ -125,8 +129,8 @@ class Detector(object):
                 if len(info) < 1:
                     continue
                 word = info[0]
-                # 取词频，默认1
-                freq = int(info[1]) if len(info) > 1 else 1
+                # 取词频，默认200
+                freq = int(info[1]) if len(info) > 1 else 200
                 word_freq[word] = freq
         return word_freq
 
@@ -147,7 +151,7 @@ class Detector(object):
                     continue
                 variant = info[0]
                 origin = info[1]
-                freq = int(info[2]) if len(info) > 2 else 1
+                freq = int(info[2]) if len(info) > 2 else 200
                 self.word_freq[origin] = freq
                 confusion[variant] = origin
         return confusion
@@ -370,6 +374,18 @@ class Detector(object):
                     continue
                 # pass in dict
                 if word in self.word_freq:
+                    # 多字词或词频大于100的单字，可以continue
+                    if len(word) == 1 and self.word_freq[word] < 100:
+                        print(self.word_freq[word])                                     
+                        maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                        self._add_maybe_error_item(maybe_err, maybe_errors)
+                        continue
+                    continue
+                
+                # 对碎片单字进行检测，可能多字、少字、错字
+                if len(word) == 1:
+                    maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                    self._add_maybe_error_item(maybe_err, maybe_errors)
                     continue
                 maybe_err = [word, begin_idx, end_idx, ErrorType.word]
                 self._add_maybe_error_item(maybe_err, maybe_errors)
@@ -423,3 +439,20 @@ class Detector(object):
                 except Exception as e:
                     logger.warn("detect error, sentence:" + sentence + str(e))
         return sorted(maybe_errors, key=lambda k: k[1], reverse=False)
+
+if __name__ == '__main__':
+    d = Detector()
+    test1='少先先队员因该为老人让座'
+    test2 = '少先队员因该为老人让坐'
+    print('ppl(少先先队员因该为老人让座)', d.ppl_score(test1))
+    print('ppl(少先队员因该为老人让座)',d.ppl_score(test2))
+    error_sentences = ['少先先队员因该为老人让座',
+                       '少先队员因该为老人让坐',
+                       '少 先 队 员 因 该 为老人让座',
+                       '少 先 队 员 因 该 为老人让坐',
+                       '机七学习是人工智能领遇最能体现智能的一个分支',
+                       '机七学习是人工智能领遇最能体现智能的一个分知']
+    t1 = time.time()
+    for sent in error_sentences:
+        err = d.detect(sent)
+        print("original sentence:{} => detect sentence:{}".format(sent, err))
