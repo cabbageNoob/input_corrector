@@ -4,6 +4,7 @@ $(document).ready(function () {
     //var serverIP = "abstract.ibiter.org";
     //var serverPort = "80";
     // 内网配置
+    //var serverIP = "47.95.214.135"
      var serverIP = "127.0.0.1";
      var serverPort = "8002";
 
@@ -52,12 +53,6 @@ $(document).ready(function () {
         $("#text-input").focus();
     });
 
-
-    // // 语言选择
-    // $(".langSelect").click(function () {
-    //     $("#lang").text($(this).text());
-    // });
-
     // 测试文本选择
     $(".textSelect").click(function () {
         var textId = $(this).attr("id");  // text1
@@ -66,32 +61,14 @@ $(document).ready(function () {
         $("#text-input").focus();   // 设置焦点触发textarea自适应函数
     });
 
-
-    // function isChinese(str) {
-    //     return /[^\x00-\xff]/g.test(str);
-    // }
-
     // 点击对文本进行校对
     $("#correctBtn").click(function () {
-
-        // var lang = $("#lang").text().trim();   // 语言选项
         var srcText = $("#text-input").val();   // 输入的文本内容
 
         // 判断是否为空
         if (!srcText) {
             // 处理内容为空
         } else {
-            // // 检测语言类型
-            // if (lang == "English") {
-            //     lang = "Eng";
-            // } else if (lang == "中文") {
-            //     lang = "Zh"
-            // } else {
-            //     // 自动检测
-            //     lang = isChinese(srcText) ? "Zh" : "Eng";
-            //     $("#{0}".format(lang)).click();
-            // }
-
             // 清空结果
             $("#modifyBtn").hide();
             $("#text-output").text("");

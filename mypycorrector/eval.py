@@ -10,7 +10,7 @@ from mypycorrector import correct
 from mypycorrector.utils.io_utils import load_pkl
 from mypycorrector.utils.math_utils import find_all_idx
 pwd_path = os.path.abspath(os.path.dirname(__file__))
-eval_result = os.path.join(pwd_path, './eval_result/rule_sighan_eval_result.txt')
+eval_result = os.path.join(pwd_path, './eval_result/rule_word_sighan_eval_result.txt')
 EVAL_SIGHAN=os.path.join(pwd_path, './data/cn/sighan15_A2_clean.txt')
 EVAL_BCMI=os.path.join(pwd_path, './data/cn/bcmi.txt')
 
@@ -91,6 +91,7 @@ def eval_bcmi_data(data_path, verbose=False):
             for detail in pred_detail:
                 if len(detail[0]) == 1:
                     word_detec_count_char += 1
+                    eval_file.write('#'*20+str(detail)+'\n')
                 temp = detail[2]
                 while(temp < detail[3]):
                     pred_index_list.append(temp)
@@ -180,7 +181,7 @@ if __name__ == "__main__":
     # for i in lst:
     #     print(get_bcmi_corpus(i))
 
-    ringht_rate, right_result, wrong_result = eval_bcmi_data(EVAL_BCMI, verbose=True)
+    ringht_rate, right_result, wrong_result = eval_bcmi_data(EVAL_SIGHAN, verbose=True)
     # print("right_count / total_count",ringht_rate)
     # print("right_result",right_result)
     # print("wrong_result",wrong_result)
