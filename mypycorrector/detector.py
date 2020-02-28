@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-28 16:23:53
+@LastEditTime: 2020-02-28 21:46:07
 '''
 
 import codecs
@@ -375,8 +375,7 @@ class Detector(object):
                 # pass in dict
                 if word in self.word_freq:
                     # 多字词或词频大于100的单字，可以continue
-                    if len(word) == 1 and self.word_freq[word] < 100:
-                        print(self.word_freq[word])                                     
+                    if len(word) == 1 and self.word_freq[word] < 100:                                  
                         maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
                         self._add_maybe_error_item(maybe_err, maybe_errors)
                         continue

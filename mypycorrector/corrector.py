@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-28 16:36:04
+@LastEditTime: 2020-02-28 22:37:52
 '''
 import codecs
 import operator
@@ -20,6 +20,7 @@ from mypycorrector.detector import Detector, ErrorType
 from mypycorrector.utils.logger import logger
 from mypycorrector.utils.math_utils import edit_distance_word
 from mypycorrector.utils.text_utils import is_chinese_string
+from mypycorrector.bert.bert_corrector import BertCorrector
 
 
 def load_char_set(path):
@@ -103,6 +104,7 @@ class Corrector(Detector):
         self.common_char_path = common_char_path
         self.same_pinyin_text_path = same_pinyin_path
         self.same_stroke_text_path = same_stroke_path
+        self.bert_corrector = BertCorrector()
         self.initialized_corrector = False
 
     def initialize_corrector(self):
@@ -115,6 +117,7 @@ class Corrector(Detector):
         self.same_stroke = load_same_stroke(self.same_stroke_text_path)
         logger.debug("Loaded same pinyin file: %s, same stroke file: %s, spend: %.3f s." % (
             self.same_pinyin_text_path, self.same_stroke_text_path, time.time() - t1))
+        self.bert_corrector.check_bert_detector_initialized()
         self.initialized_corrector = True
 
     def check_corrector_initialized(self):
@@ -211,18 +214,35 @@ class Corrector(Detector):
         confusion_sorted = sorted(confusion_word_list, key=lambda k: self.word_frequency(k), reverse=True)
         return confusion_sorted[:len(confusion_word_list) // fraction + 1]
 
+    def generate_items_word_char(self, char, before_sent, after_sent, begin_idx, end_idx):
+        '''
+        @Descripttion: 生成可能多字少字误字的候选集
+        @param {type} 
+        @return: 
+        '''   
+        candidates = []
+        # same one char pinyin
+        confusion = [i for i in self._confusion_char_set(char) if i]
+        candidates.extend(confusion)
+        # multi char
+        candidates.append('')
+        # miss char
+        corrected_item=self.bert_corrector.predict_mask_token(before_sent+'*'+char+after_sent,begin_idx,begin_idx+1)
+        candidates.append(corrected_item + char)
+        corrected_item = self.bert_corrector.predict_mask_token(before_sent + char + '*' + after_sent, end_idx, end_idx + 1)
+        candidates.append(char+corrected_item)
+        return candidates
+
     def lm_correct_item(self, item, maybe_right_items, before_sent, after_sent):
         """
         通过语音模型纠正字词错误
         """
-        corrected_items=list()
         import heapq
         if item not in maybe_right_items:
             maybe_right_items.append(item)
         corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
-        corrected_items.append(corrected_item)
         # corrected_items=heapq.nsmallest(5,maybe_right_items,key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
-        return corrected_items
+        return corrected_item
 
     def lm_correct_sentece(self, sentences_list):
         """
@@ -249,19 +269,20 @@ class Corrector(Detector):
         # trick: 类似翻译模型，倒序处理
         maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=True)
         for item, begin_idx, end_idx, err_type in maybe_errors:
-            #可能正确的纠错结果
-            corrected_items=list()
             # 纠错，逐个处理
             before_sent = sentence[:begin_idx]
             after_sent = sentence[end_idx:]
 
             # 困惑集中指定的词，直接取结果
             if err_type == ErrorType.confusion:
-                # corrected_item = self.custom_confusion[item]
-                corrected_items.append(self.custom_confusion[item])
+                corrected_item = self.custom_confusion[item]
             # 对碎片且不常用单字，可能错误是多字少字
             elif err_type == ErrorType.word_char:
-                pass
+                 # 对非中文的错字不做处理
+                if not is_chinese_string(item):
+                    continue
+                maybe_right_items = self.generate_items_word_char(item, before_sent, after_sent, begin_idx, end_idx)
+                corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
             else:
                 # 对非中文的错字不做处理
                 if not is_chinese_string(item):
@@ -270,32 +291,25 @@ class Corrector(Detector):
                 maybe_right_items = self.generate_items(item)
                 if not maybe_right_items:
                     continue
-                corrected_items = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
+                corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
             # output
-            for corrected_item in corrected_items:
-                if corrected_item != item:
-                    sentence = before_sent + corrected_item + after_sent
-                    sentences.append(sentence)
-                    # logger.debug('predict:' + item + '=>' + corrected_item)
-                    detail_word = [item, corrected_item, begin_idx, end_idx]
-                    detail.append(detail_word)
-            # detail_word = [item, begin_idx, end_idx]
-            # detail.append(detail_word)
-            # sentence取准确性最高的词，接着下一步纠错
-            sentence = before_sent + corrected_items[0] + after_sent
-        sentence_ = sentence
+            if corrected_item != item:
+                sentence = before_sent + corrected_item + after_sent
+                # logger.debug('predict:' + item + '=>' + corrected_item)
+                detail_word = [item, corrected_item, begin_idx, end_idx]
+                detail.append(detail_word)
         detail = sorted(detail, key=operator.itemgetter(2))
-        scores=[]
-        for sentence in sentences:
-            scores.append(self.score(list(sentence)))
-        sentence_score = dict(zip(sentences, scores))
-        sentence_score = dict(sorted(sentence_score.items(), key=lambda x: x[1],reverse=True))
-        # return sentence_score, detail
-        return sentence_, detail
+        return sentence, detail
 
 if __name__ == '__main__':
+    # bert_correct = BertCorrector()
+    # bert_correct.correct('少先队员因该为老人蝴让座')
+    # correct_item = bert_correct.predict_mask_token('少先队员因该为老人蝴让座', 9, 10)
+    # print(correct_item)
     c = Corrector()
     test2 = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。 '
     test1 = '少先队员因该为老人蝴让座'
     pred_sentence, pred_detail = c.correct(test1)
-    print(pred_sentence,pred_detail)
+    print(pred_sentence, pred_detail)
+    pred_sentence, pred_detail = c.correct(test2)
+    print(pred_sentence, pred_detail)
