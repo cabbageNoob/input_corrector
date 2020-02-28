@@ -16,6 +16,8 @@ $(document).ready(function () {
         "这是一篇针砭时弊的文章，对当前产生的腐败现象产生的缘（（原））因分析的十分中肯。"
     ];
 
+    $("#text-input").val(textArray[2]);
+    $("#text-input").focus();
     $("#modifyBtn").hide();
 
     // 字符串格式化函数
