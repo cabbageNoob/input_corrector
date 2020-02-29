@@ -5,14 +5,14 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-27 12:59:17
+@LastEditTime: 2020-02-29 17:32:50
 '''
 
 import codecs
 import time
-
+import sys, os
 import numpy as np
-
+sys.path.insert(0,os.getcwd())
 from mypycorrector import config
 from mypycorrector.tokenizer import Tokenizer
 from mypycorrector.utils.logger import logger
@@ -26,11 +26,16 @@ class ErrorType(object):
     confusion = 'confusion'
     word = 'word'
     char = 'char'
+    redundancy = 'redundancy'   #冗余
+    miss = 'miss'  #缺失
+    word_char='word_char'   #分词后的碎片单字错误
+    
 
 
 class Detector(object):
     def __init__(self, language_model_path=config.language_model_path,
                  word_freq_path=config.word_freq_path,
+                 char_freq_path=config.char_freq_path,
                  custom_word_freq_path=config.custom_word_freq_path,
                  custom_confusion_path=config.custom_confusion_path,
                  person_name_path=config.person_name_path,
@@ -42,6 +47,7 @@ class Detector(object):
         self.name = 'detector'
         self.language_model_path = language_model_path
         self.word_freq_path = word_freq_path
+        self.char_freq_path = char_freq_path
         self.custom_word_freq_path = custom_word_freq_path
         self.custom_confusion_path = custom_confusion_path
         self.person_name_path = person_name_path
@@ -76,8 +82,9 @@ class Detector(object):
         # 词、频数dict
         t2 = time.time()
         self.word_freq = self.load_word_freq_dict(self.word_freq_path)
+        self.char_freq = self.load_char_freq_dict(self.char_freq_path)
         t3 = time.time()
-        logger.debug('Loaded word freq file: %s, size: %d, spend: %s s' %
+        logger.debug('Loaded word freq, char freq file: %s, size: %d, spend: %s s' %
                      (self.word_freq_path, len(self.word_freq), str(t3 - t2)))
         # 自定义混淆集
         self.custom_confusion = self._get_custom_confusion_dict(
@@ -130,6 +137,28 @@ class Detector(object):
                 word_freq[word] = freq
         return word_freq
 
+    @staticmethod
+    def load_char_freq_dict(path):
+        """
+        加载常用字碎片词典
+        :param path:
+        :return:
+        """
+        char_freq = {}
+        with codecs.open(path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith('#'):
+                    continue
+                info = line.split()
+                if len(info) < 1:
+                    continue
+                char = info[0]
+                # 取词频，默认1
+                freq = int(info[1]) if len(info) > 1 else 1
+                char_freq[char] = freq
+        return char_freq
+
     def _get_custom_confusion_dict(self, path):
         """
         取自定义困惑集
@@ -147,7 +176,7 @@ class Detector(object):
                     continue
                 variant = info[0]
                 origin = info[1]
-                freq = int(info[2]) if len(info) > 2 else 1
+                freq = int(info[2]) if len(info) > 2 else 200
                 self.word_freq[origin] = freq
                 confusion[variant] = origin
         return confusion
@@ -370,6 +399,21 @@ class Detector(object):
                     continue
                 # pass in dict
                 if word in self.word_freq:
+                    # 多字词或词频大于50000的单字，可以continue
+                    if len(word) == 1 and self.char_freq.get(word) < 50000:                                  
+                        maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                        self._add_maybe_error_item(maybe_err, maybe_errors)
+                        continue
+                    # 出现叠字，考虑是否多字
+                    if len(word) == 1 and sentence[begin_idx - 1] == word:
+                        maybe_err = [word, begin_idx, end_idx, ErrorType.redundancy]
+                        self._add_maybe_error_item(maybe_err, maybe_errors)
+                    continue
+                
+                # 对碎片单字进行检测，可能多字、少字、错字
+                if len(word) == 1:
+                    maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                    self._add_maybe_error_item(maybe_err, maybe_errors)
                     continue
                 maybe_err = [word, begin_idx, end_idx, ErrorType.word]
                 self._add_maybe_error_item(maybe_err, maybe_errors)
@@ -423,3 +467,21 @@ class Detector(object):
                 except Exception as e:
                     logger.warn("detect error, sentence:" + sentence + str(e))
         return sorted(maybe_errors, key=lambda k: k[1], reverse=False)
+
+if __name__ == '__main__':
+    d = Detector()
+    test1='小红的是北京'
+    test2 = '小红的籍贯是北京'
+    print('ppl(小红的是北京)', d.score(test1))
+    print('ppl(小红的籍贯是北京)', d.score(test2))
+    print('ppl(小红的祖籍是北京)',d.score('小红的祖籍是北京'))
+    error_sentences = ['少先先队员因该为老人让座',
+                       '少先队员因该为老人让坐',
+                       '少 先 队 员 因 该 为老人让座',
+                       '少 先 队 员 因 该 为老人让坐',
+                       '机七学习是人工智能领遇最能体现智能的一个分支',
+                       '机七学习是人工智能领遇最能体现智能的一个分知']
+    t1 = time.time()
+    for sent in error_sentences:
+        err = d.detect(sent)
+        print("original sentence:{} => detect sentence:{}".format(sent, err))

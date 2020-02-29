@@ -3,8 +3,8 @@
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
-@LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2020-01-04 13:56:05
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-02-29 20:19:10
 '''
 import codecs
 import operator
@@ -224,6 +224,25 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         confusion_sorted = sorted(confusion_word_list, key=lambda k: self.word_frequency(k), reverse=True)
         return confusion_sorted[:len(confusion_word_list) // fraction + 1]
 
+    def generate_items_word_char(self, char, before_sent, after_sent, begin_idx, end_idx):
+        '''
+        @Descripttion: 生成可能多字少字误字的候选集
+        @param {type} 
+        @return: 
+        '''   
+        candidates = []
+        # same one char pinyin
+        confusion = [i for i in self._confusion_char_set(char) if i]
+        candidates.extend(confusion)
+        # multi char
+        candidates.append('')
+        # miss char
+        corrected_item = self.predict_mask_token_(before_sent + '*' + char + after_sent, begin_idx, begin_idx + 1)
+        candidates.append(corrected_item + char)
+        corrected_item = self.predict_mask_token_(before_sent + char + '*' + after_sent, end_idx, end_idx + 1)
+        candidates.append(char+corrected_item)
+        return candidates
+
     def lm_correct_item(self, item, maybe_right_items, before_sent, after_sent):
         """
         通过语音模型纠正字词错误
@@ -266,6 +285,34 @@ class RuleBertWordCorrector(RuleBertWordDetector):
 
         return features
 
+    def predict_mask_token_(self, sentence, error_begin_idx, error_end_idx):
+        # 用于缺字，完形填空
+        corrected_item = sentence[error_begin_idx:error_end_idx]
+        eval_features = self._convert_sentence_to_correct_features(
+            sentence=sentence,
+            begin_idx=error_begin_idx,
+            end_idx=error_end_idx
+        )
+
+        for f in eval_features:
+            input_ids = torch.tensor([f.input_ids])
+            segment_ids = torch.tensor([f.segment_ids])
+            outputs = self.model(input_ids, segment_ids)
+            predictions = outputs[0]
+            # confirm we were able to predict 'henson'
+            masked_ids = f.mask_ids
+            if masked_ids:
+                for idx, i in enumerate(masked_ids):
+                    predicted_index = torch.argmax(predictions[0, i]).item()
+                    # predicted_indexes = torch.topk(predictions[0, i], 10)
+                    # predicted_indexes=list(predicted_indexes.indices.numpy())
+                    # print(predicted_indexes)
+                    predicted_token = self.bert_tokenizer.convert_ids_to_tokens([predicted_index])[0]
+                    # logger.debug('original text is: %s' % f.input_tokens)
+                    # logger.debug('Mask predict is: %s' % predicted_token)
+                    corrected_item = predicted_token
+        return corrected_item
+
     def predict_mask_token(self, cur_item, sentence, candidates, begin_idx, end_idx):
         if cur_item not in candidates:
             candidates.append(cur_item)
@@ -297,7 +344,7 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                     corrected_item = predicted_token
         return corrected_item
     
-    def correct(self, sentence):
+    def correct(self, sentence,reverse=True):
         """
         句子改错
         :param sentence: 句子文本
@@ -315,15 +362,22 @@ class RuleBertWordCorrector(RuleBertWordDetector):
             # 纠错，逐个处理
             before_sent = sentence[:begin_idx]
             after_sent = sentence[end_idx:]
-
+            # 对非中文的错字不做处理
+            if not is_chinese_string(cur_item):
+                continue
             # 困惑集中指定的词，直接取结果
             if err_type == ErrorType.confusion:
                 # corrected_item = self.custom_confusion[item]
                 corrected_item = self.custom_confusion[cur_item]
+            # 对碎片且不常用单字，可能错误是多字少字
+            elif err_type == ErrorType.word_char:
+                maybe_right_items = self.generate_items_word_char(cur_item, before_sent, after_sent, begin_idx, end_idx)
+                corrected_item = self.lm_correct_item(cur_item, maybe_right_items, before_sent, after_sent)
+            # 多字
+            elif err_type == ErrorType.redundancy:
+                maybe_right_items = ['']
+                corrected_item = self.lm_correct_item(cur_item, maybe_right_items, before_sent, after_sent)
             elif err_type == ErrorType.word:
-                # 对非中文的错字不做处理
-                if not is_chinese_string(cur_item):
-                    continue
                 # 取得所有可能正确的词
                 candidates = self.generate_items(cur_item)
                 if not candidates:
@@ -331,9 +385,6 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                 corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
             else:
                 '''err_type == ErrorType.char'''
-                # 对非中文的错字不做处理
-                if not is_chinese_string(cur_item):
-                    continue
                 # 取得所有可能正确的词
                 candidates = self.generate_items(cur_item)
                 if not candidates:
