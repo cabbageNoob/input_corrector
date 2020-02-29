@@ -5,7 +5,7 @@
 @Author: Da Chuang
 @Date: 2019-12-12 10:59:27
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-28 11:03:37
+@LastEditTime: 2020-02-29 15:47:07
 '''
 
 
@@ -14,6 +14,8 @@ import os
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 # 通用分词词典文件  format: 词语 词频
 word_freq_path = os.path.join(pwd_path, 'data/word_freq.txt')
+# 通用常用单字字典文件 format:字，字频
+char_freq_path = os.path.join(pwd_path, 'data/char_freq.txt')
 # 中文常用字符集
 common_char_path = os.path.join(pwd_path, 'data/common_char_set.txt')
 # 同音字

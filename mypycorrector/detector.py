@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-28 21:46:07
+@LastEditTime: 2020-02-29 17:32:50
 '''
 
 import codecs
@@ -35,6 +35,7 @@ class ErrorType(object):
 class Detector(object):
     def __init__(self, language_model_path=config.language_model_path,
                  word_freq_path=config.word_freq_path,
+                 char_freq_path=config.char_freq_path,
                  custom_word_freq_path=config.custom_word_freq_path,
                  custom_confusion_path=config.custom_confusion_path,
                  person_name_path=config.person_name_path,
@@ -46,6 +47,7 @@ class Detector(object):
         self.name = 'detector'
         self.language_model_path = language_model_path
         self.word_freq_path = word_freq_path
+        self.char_freq_path = char_freq_path
         self.custom_word_freq_path = custom_word_freq_path
         self.custom_confusion_path = custom_confusion_path
         self.person_name_path = person_name_path
@@ -80,8 +82,9 @@ class Detector(object):
         # 词、频数dict
         t2 = time.time()
         self.word_freq = self.load_word_freq_dict(self.word_freq_path)
+        self.char_freq = self.load_char_freq_dict(self.char_freq_path)
         t3 = time.time()
-        logger.debug('Loaded word freq file: %s, size: %d, spend: %s s' %
+        logger.debug('Loaded word freq, char freq file: %s, size: %d, spend: %s s' %
                      (self.word_freq_path, len(self.word_freq), str(t3 - t2)))
         # 自定义混淆集
         self.custom_confusion = self._get_custom_confusion_dict(
@@ -129,10 +132,32 @@ class Detector(object):
                 if len(info) < 1:
                     continue
                 word = info[0]
-                # 取词频，默认200
-                freq = int(info[1]) if len(info) > 1 else 200
+                # 取词频，默认1
+                freq = int(info[1]) if len(info) > 1 else 1
                 word_freq[word] = freq
         return word_freq
+
+    @staticmethod
+    def load_char_freq_dict(path):
+        """
+        加载常用字碎片词典
+        :param path:
+        :return:
+        """
+        char_freq = {}
+        with codecs.open(path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith('#'):
+                    continue
+                info = line.split()
+                if len(info) < 1:
+                    continue
+                char = info[0]
+                # 取词频，默认1
+                freq = int(info[1]) if len(info) > 1 else 1
+                char_freq[char] = freq
+        return char_freq
 
     def _get_custom_confusion_dict(self, path):
         """
@@ -374,11 +399,15 @@ class Detector(object):
                     continue
                 # pass in dict
                 if word in self.word_freq:
-                    # 多字词或词频大于100的单字，可以continue
-                    if len(word) == 1 and self.word_freq[word] < 100:                                  
+                    # 多字词或词频大于50000的单字，可以continue
+                    if len(word) == 1 and self.char_freq.get(word) < 50000:                                  
                         maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
                         self._add_maybe_error_item(maybe_err, maybe_errors)
                         continue
+                    # 出现叠字，考虑是否多字
+                    if len(word) == 1 and sentence[begin_idx - 1] == word:
+                        maybe_err = [word, begin_idx, end_idx, ErrorType.redundancy]
+                        self._add_maybe_error_item(maybe_err, maybe_errors)
                     continue
                 
                 # 对碎片单字进行检测，可能多字、少字、错字
@@ -441,10 +470,11 @@ class Detector(object):
 
 if __name__ == '__main__':
     d = Detector()
-    test1='少先先队员因该为老人让座'
-    test2 = '少先队员因该为老人让坐'
-    print('ppl(少先先队员因该为老人让座)', d.ppl_score(test1))
-    print('ppl(少先队员因该为老人让座)',d.ppl_score(test2))
+    test1='小红的是北京'
+    test2 = '小红的籍贯是北京'
+    print('ppl(小红的是北京)', d.score(test1))
+    print('ppl(小红的籍贯是北京)', d.score(test2))
+    print('ppl(小红的祖籍是北京)',d.score('小红的祖籍是北京'))
     error_sentences = ['少先先队员因该为老人让座',
                        '少先队员因该为老人让坐',
                        '少 先 队 员 因 该 为老人让座',

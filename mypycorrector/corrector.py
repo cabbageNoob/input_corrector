@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-28 22:37:52
+@LastEditTime: 2020-02-29 17:38:53
 '''
 import codecs
 import operator
@@ -254,7 +254,7 @@ class Corrector(Detector):
         sentences_list=heapq.nlargest(5,sentences_list,key=lambda sentence: self.score(list(sentence)))
         return sentences_list
 
-    def correct(self, sentence):
+    def correct(self, sentence, reverse=True):
         """
         句子改错
         :param sentence: 句子文本
@@ -267,7 +267,7 @@ class Corrector(Detector):
         # sentences = re.split(r"；|，|。|\?\s|;\s|,\s", sentence)
         maybe_errors = self.detect(sentence)
         # trick: 类似翻译模型，倒序处理
-        maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=True)
+        maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=reverse)
         for item, begin_idx, end_idx, err_type in maybe_errors:
             # 纠错，逐个处理
             before_sent = sentence[:begin_idx]
@@ -278,10 +278,17 @@ class Corrector(Detector):
                 corrected_item = self.custom_confusion[item]
             # 对碎片且不常用单字，可能错误是多字少字
             elif err_type == ErrorType.word_char:
-                 # 对非中文的错字不做处理
+                # 对非中文的错字不做处理
                 if not is_chinese_string(item):
                     continue
                 maybe_right_items = self.generate_items_word_char(item, before_sent, after_sent, begin_idx, end_idx)
+                corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
+            # 多字
+            elif err_type == ErrorType.redundancy:
+                # 对非中文的错字不做处理
+                if not is_chinese_string(item):
+                    continue
+                maybe_right_items = ['']
                 corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
             else:
                 # 对非中文的错字不做处理
@@ -308,8 +315,12 @@ if __name__ == '__main__':
     # print(correct_item)
     c = Corrector()
     test2 = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。 '
-    test1 = '少先队员因该为老人蝴让座'
-    pred_sentence, pred_detail = c.correct(test1)
-    print(pred_sentence, pred_detail)
-    pred_sentence, pred_detail = c.correct(test2)
+    test1 = '少先队员因该为老让座'
+    test3 = '今天在菜园里抓到一只蝴'
+    test4 = '在北京京的生活节奏奏是很快的'
+    test5='老师给我们讲解的明明白白的'
+    pred_sentence, pred_detail = c.correct(test5)
+    # print(pred_sentence, pred_detail)
+    # pred_sentence, pred_detail = c.correct('今天突然冷了起来，妈妈从箱子里翻出一件旧棉衣让我穿上。我不愿意。在妈妈得说服教育下，我终于穿上那件棉衣着哥儿上学去了。')
+    # pred_sentence, pred_detail = c.correct(pred_sentence,reverse=False)
     print(pred_sentence, pred_detail)
