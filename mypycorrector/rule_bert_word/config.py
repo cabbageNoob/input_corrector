@@ -3,8 +3,8 @@
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-03 19:03:59
-@LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2020-01-04 11:25:04
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-02-29 19:40:33
 '''
 import os
 
@@ -18,6 +18,8 @@ threshold = 0.1
 
 # 通用分词词典文件  format: 词语 词频
 word_freq_path = os.path.join(pwd_path, '../data/word_freq.txt')
+# 通用常用单字字典文件 format:字，字频
+char_freq_path = os.path.join(pwd_path, '../data/char_freq.txt')
 # 中文常用字符集
 common_char_path = os.path.join(pwd_path, '../data/common_char_set.txt')
 # 同音字

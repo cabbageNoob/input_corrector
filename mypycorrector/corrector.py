@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-29 17:38:53
+@LastEditTime: 2020-02-29 20:01:44
 '''
 import codecs
 import operator
@@ -29,7 +29,6 @@ def load_char_set(path):
         for w in f:
             words.add(w.strip())
     return words
-
 
 def load_same_pinyin(path, sep='\t'):
     """
@@ -57,7 +56,6 @@ def load_same_pinyin(path, sep='\t'):
                     continue
                 result[key_char] = value
     return result
-
 
 def load_same_stroke(path, sep='\t'):
     """
@@ -272,28 +270,22 @@ class Corrector(Detector):
             # 纠错，逐个处理
             before_sent = sentence[:begin_idx]
             after_sent = sentence[end_idx:]
-
+            
+            # 对非中文的错字不做处理
+            if not is_chinese_string(item):
+                continue
             # 困惑集中指定的词，直接取结果
             if err_type == ErrorType.confusion:
                 corrected_item = self.custom_confusion[item]
             # 对碎片且不常用单字，可能错误是多字少字
             elif err_type == ErrorType.word_char:
-                # 对非中文的错字不做处理
-                if not is_chinese_string(item):
-                    continue
                 maybe_right_items = self.generate_items_word_char(item, before_sent, after_sent, begin_idx, end_idx)
                 corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
             # 多字
             elif err_type == ErrorType.redundancy:
-                # 对非中文的错字不做处理
-                if not is_chinese_string(item):
-                    continue
                 maybe_right_items = ['']
                 corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
             else:
-                # 对非中文的错字不做处理
-                if not is_chinese_string(item):
-                    continue
                 # 取得所有可能正确的词
                 maybe_right_items = self.generate_items(item)
                 if not maybe_right_items:
