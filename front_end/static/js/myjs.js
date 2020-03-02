@@ -18,6 +18,8 @@ $(document).ready(function () {
         "在北京京的生活节奏奏是很快的"
     ];
 
+    $("#text-input").val(textArray[2]);
+    $("#text-input").focus();
     $("#modifyBtn").hide();
 
     // 字符串格式化函数
