@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-29 20:01:44
+@LastEditTime: 2020-03-04 13:07:50
 '''
 import codecs
 import operator
@@ -310,8 +310,9 @@ if __name__ == '__main__':
     test1 = '少先队员因该为老让座'
     test3 = '今天在菜园里抓到一只蝴'
     test4 = '在北京京的生活节奏奏是很快的'
-    test5='老师给我们讲解的明明白白的'
-    pred_sentence, pred_detail = c.correct(test5)
+    test5='令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
+    test6='我今天了红烧肉'
+    pred_sentence, pred_detail = c.correct(test6)
     # print(pred_sentence, pred_detail)
     # pred_sentence, pred_detail = c.correct('今天突然冷了起来，妈妈从箱子里翻出一件旧棉衣让我穿上。我不愿意。在妈妈得说服教育下，我终于穿上那件棉衣着哥儿上学去了。')
     # pred_sentence, pred_detail = c.correct(pred_sentence,reverse=False)
