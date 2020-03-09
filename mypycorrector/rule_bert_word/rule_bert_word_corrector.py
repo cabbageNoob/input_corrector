@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-09 13:03:10
+@LastEditTime: 2020-03-09 20:32:57
 '''
 import codecs
 import operator
@@ -225,6 +225,29 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         # confusion_sorted=[(item,ErrorType.word) for item in confusion_sorted]
         return confusion_sorted[:len(confusion_word_list) // fraction + 1]
 
+    def generate_items_for_word(self, word, fraction=1):
+        candidates_2_order = []
+        candidates_3_order = []
+        if len(word) == 2:
+            # same first char pinyin
+            confusion = [i + word[1:] for i in self._confusion_char_set(word[0]) if i]
+            candidates_2_order.extend(confusion)
+            # same last char pinyin
+            confusion = [word[:-1] + i for i in self._confusion_char_set(word[-1]) if i]
+            candidates_2_order.extend(confusion)
+        if len(word) > 2:
+            # same first char pinyin
+            confusion = [i + word[1:] for i in self._confusion_char_set(word[0]) if i]
+            candidates_3_order.extend(confusion)
+            # same last char pinyin
+            confusion = [word[:-1] + i for i in self._confusion_char_set(word[-1]) if i]
+            candidates_3_order.extend(confusion)
+        # add all confusion word list
+        confusion_word_set = set(candidates_2_order + candidates_3_order)
+        confusion_word_list = [item for item in confusion_word_set if is_chinese_string(item)]
+        confusion_sorted = sorted(confusion_word_list, key=lambda k: self.word_frequency(k), reverse=True)
+        return confusion_sorted[:len(confusion_word_list) // fraction + 1]
+
     def generate_items_word_char(self, char, before_sent, after_sent, begin_idx, end_idx):
         '''
         @Descripttion: 生成可能多字少字误字的候选集
@@ -385,6 +408,13 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                     continue
                 candidates=[(item,ErrorType.word) for item in candidates]
                 corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
+                # 对ErrorType.word错误进行双层检测
+                if corrected_item[0] not in self.word_freq:
+                    candidates = self.generate_items_for_word(corrected_item[0])
+                    if not candidates:
+                        continue
+                    candidates=[(item,ErrorType.word) for item in candidates]
+                    corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
             else:
                 '''err_type == ErrorType.char'''
                 # 取得所有可能正确的词
@@ -401,7 +431,7 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                 detail.append(detail_word)
 
         detail = sorted(detail, key=operator.itemgetter(2))
-        return sentence, detail,'/'.join(self.tokens)
+        return sentence, detail, '/'.join(self.tokens), maybe_errors
 
 if __name__ == '__main__':
     corrector = RuleBertWordCorrector()
@@ -411,12 +441,12 @@ if __name__ == '__main__':
                        '少 先 队 员 因 该 为老人让坐',
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
-    corrector.enable_word_error(enable=False)
+    # corrector.enable_word_error(enable=False)
     test='令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
-    pred_sentence, pred_detail,tokens = corrector.correct(test)
+    pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test)
     print(pred_sentence, pred_detail,tokens)
     corrector.enable_word_error(enable=True)
-    pred_sentence, pred_detail,tokens = corrector.correct(test)
+    pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test)
     print(pred_sentence, pred_detail,tokens)
     # for sentence in error_sentences:
     #     pred_sentence, pred_detail = corrector.correct(sentence)

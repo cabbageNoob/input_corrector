@@ -93,18 +93,30 @@ $(document).ready(function () {
                     src_text: srcText
                 },
                 success:function (response) {
-                    console.log(response)
                     //返回校对结果
                     var correctText = response['pred_sentence'].trim();
-                    console.log(correctText)
+                    var details = response['pred_detail']
+                    var segments = response['segments']
+                    var maybe_errors = response['maybe_errors']
+                    console.log(details)
+                    console.log(segments)
                     correctText = "<span class='text-primary'>" + correctText + "</span>";
+                    correctDetails = "<span class='text-primary'>" + eval(details) + "</span>";
+                    correctSegments = "<span class='text-primary'>" + segments + "</span>";
+                    correctMaybeErrors = "<span class='text-primary'>" + maybe_errors + "</span>";
                     console.log(correctText)
                     // 纠正内容上传服务器
                     $("#modifyBtn").show();
                     $("#modifyBtn").attr("hidden", false);
 
                     $("#text-output").text("");
-                    $("#text-output").append(correctText);        // 显示结果
+                    $("#text-output").append(correctText);// 显示结果
+                    $("#text-output").append('<br>');        
+                    $("#text-output").append(correctDetails);// 显示details
+                    $("#text-output").append('<br>');     
+                    $("#text-output").append(correctSegments);// 显示segments
+                    $("#text-output").append('<br>'); 
+                    $("#text-output").append(correctMaybeErrors);// 显示correctMaybeErrors
                     $("#text-output").focus();
 
                     $("#correctBtn").attr("disabled", false);    // 设置按钮可用

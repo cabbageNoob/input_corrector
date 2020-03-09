@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-02-24 15:22:22
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-25 21:09:30
+@LastEditTime: 2020-03-09 20:40:40
 '''
 import json, sys, os
 sys.path.insert(0, os.getcwd())
@@ -27,14 +27,16 @@ def text_correct():
 def as_client():
     tar_text={}
     src_text = request.form['src_text']
-    pred_sentence, pred_detail = bert_rule(src_text)
+    pred_sentence, pred_detail, segments, maybe_errors = bert_rule(src_text)
     tar_text['pred_sentence'] = pred_sentence
     tar_text['pred_detail'] = pred_detail
+    tar_text['segments'] = segments
+    tar_text['maybe_errors'] = maybe_errors
     return json.dumps(tar_text, ensure_ascii=False)
 
 def bert_rule(src_text):
-    pred_sentence, pred_detail = ruleBertWordCorrector.correct(src_text)
-    return pred_sentence,pred_detail
+    pred_sentence, pred_detail, segments,maybe_errors = ruleBertWordCorrector.correct(src_text)
+    return pred_sentence, pred_detail, segments,maybe_errors
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=8002)
