@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-09 20:32:57
+@LastEditTime: 2020-03-09 20:58:03
 '''
 import codecs
 import operator
@@ -431,6 +431,7 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                 detail.append(detail_word)
 
         detail = sorted(detail, key=operator.itemgetter(2))
+        maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=False)
         return sentence, detail, '/'.join(self.tokens), maybe_errors
 
 if __name__ == '__main__':

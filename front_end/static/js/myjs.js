@@ -111,11 +111,11 @@ $(document).ready(function () {
 
                     $("#text-output").text("");
                     $("#text-output").append(correctText);// 显示结果
-                    $("#text-output").append('<br>');        
+                    $("#text-output").append('<br><br>');        
                     $("#text-output").append(correctDetails);// 显示details
-                    $("#text-output").append('<br>');     
+                    $("#text-output").append('<br><br>');     
                     $("#text-output").append(correctSegments);// 显示segments
-                    $("#text-output").append('<br>'); 
+                    $("#text-output").append('<br><br>'); 
                     $("#text-output").append(correctMaybeErrors);// 显示correctMaybeErrors
                     $("#text-output").focus();
 
