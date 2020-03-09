@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-29 20:19:10
+@LastEditTime: 2020-03-09 13:03:10
 '''
 import codecs
 import operator
@@ -222,6 +222,7 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         confusion_word_set = set(candidates_1_order + candidates_2_order + candidates_3_order)
         confusion_word_list = [item for item in confusion_word_set if is_chinese_string(item)]
         confusion_sorted = sorted(confusion_word_list, key=lambda k: self.word_frequency(k), reverse=True)
+        # confusion_sorted=[(item,ErrorType.word) for item in confusion_sorted]
         return confusion_sorted[:len(confusion_word_list) // fraction + 1]
 
     def generate_items_word_char(self, char, before_sent, after_sent, begin_idx, end_idx):
@@ -232,15 +233,15 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         '''   
         candidates = []
         # same one char pinyin
-        confusion = [i for i in self._confusion_char_set(char) if i]
+        confusion = [(i,ErrorType.word) for i in self._confusion_char_set(char) if i]
         candidates.extend(confusion)
         # multi char
-        candidates.append('')
+        candidates.append(('',ErrorType.redundancy))
         # miss char
         corrected_item = self.predict_mask_token_(before_sent + '*' + char + after_sent, begin_idx, begin_idx + 1)
-        candidates.append(corrected_item + char)
+        candidates.append((corrected_item + char, ErrorType.miss))
         corrected_item = self.predict_mask_token_(before_sent + char + '*' + after_sent, end_idx, end_idx + 1)
-        candidates.append(char+corrected_item)
+        candidates.append((char + corrected_item, ErrorType.miss))
         return candidates
 
     def lm_correct_item(self, item, maybe_right_items, before_sent, after_sent):
@@ -248,9 +249,9 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         通过语音模型纠正字词错误
         """
         import heapq
-        if item not in maybe_right_items:
-            maybe_right_items.append(item)
-        corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
+        if item not in [maybe_right_item[0] for maybe_right_item in maybe_right_items]:
+            maybe_right_items.append((item,'itself'))
+        corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k[0] + after_sent)))
         # corrected_items=heapq.nsmallest(5,maybe_right_items,key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
         return corrected_item
 
@@ -368,20 +369,21 @@ class RuleBertWordCorrector(RuleBertWordDetector):
             # 困惑集中指定的词，直接取结果
             if err_type == ErrorType.confusion:
                 # corrected_item = self.custom_confusion[item]
-                corrected_item = self.custom_confusion[cur_item]
+                corrected_item = (self.custom_confusion[cur_item], ErrorType.confusion)
             # 对碎片且不常用单字，可能错误是多字少字
             elif err_type == ErrorType.word_char:
                 maybe_right_items = self.generate_items_word_char(cur_item, before_sent, after_sent, begin_idx, end_idx)
                 corrected_item = self.lm_correct_item(cur_item, maybe_right_items, before_sent, after_sent)
             # 多字
             elif err_type == ErrorType.redundancy:
-                maybe_right_items = ['']
+                maybe_right_items = [('',ErrorType.redundancy)]
                 corrected_item = self.lm_correct_item(cur_item, maybe_right_items, before_sent, after_sent)
             elif err_type == ErrorType.word:
                 # 取得所有可能正确的词
                 candidates = self.generate_items(cur_item)
                 if not candidates:
                     continue
+                candidates=[(item,ErrorType.word) for item in candidates]
                 corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
             else:
                 '''err_type == ErrorType.char'''
@@ -391,14 +393,15 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                     continue
                 # 取得最可能正确的字
                 corrected_item = self.predict_mask_token(cur_item, sentence, candidates, begin_idx, end_idx)
+                corrected_item = (corrected_item, ErrorType.char)
             # output
-            if corrected_item != cur_item:
-                sentence = before_sent + corrected_item + after_sent
-                detail_word = [cur_item, corrected_item, begin_idx, end_idx]
+            if corrected_item[0] != cur_item:
+                sentence = before_sent + corrected_item[0] + after_sent
+                detail_word = [cur_item, corrected_item[0], begin_idx, end_idx,corrected_item[1]]
                 detail.append(detail_word)
 
         detail = sorted(detail, key=operator.itemgetter(2))
-        return sentence, detail
+        return sentence, detail,'/'.join(self.tokens)
 
 if __name__ == '__main__':
     corrector = RuleBertWordCorrector()
@@ -408,9 +411,16 @@ if __name__ == '__main__':
                        '少 先 队 员 因 该 为老人让坐',
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
-    for sentence in error_sentences:
-        pred_sentence, pred_detail = corrector.correct(sentence)
-        print("origin_sentence:",sentence)
-        print("pred_sentence:", pred_sentence)
-        print("pred_detail:",pred_detail)
+    corrector.enable_word_error(enable=False)
+    test='令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
+    pred_sentence, pred_detail,tokens = corrector.correct(test)
+    print(pred_sentence, pred_detail,tokens)
+    corrector.enable_word_error(enable=True)
+    pred_sentence, pred_detail,tokens = corrector.correct(test)
+    print(pred_sentence, pred_detail,tokens)
+    # for sentence in error_sentences:
+    #     pred_sentence, pred_detail = corrector.correct(sentence)
+    #     print("origin_sentence:",sentence)
+    #     print("pred_sentence:", pred_sentence)
+    #     print("pred_detail:",pred_detail)
     

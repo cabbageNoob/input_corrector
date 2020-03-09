@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-03 19:04:59
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-29 19:45:58
+@LastEditTime: 2020-03-09 13:01:18
 '''
 import codecs
 import time
@@ -134,6 +134,22 @@ class RuleBertWordDetector(object):
     def check_detector_initialized(self):
         if not self.initialized_detector:
             self.initialize_detector()
+
+    def enable_char_error(self, enable=True):
+        """
+        is open char error detect
+        :param enable:
+        :return:
+        """
+        self.is_char_error_detect = enable
+
+    def enable_word_error(self, enable=True):
+        """
+        is open word error detect
+        :param enable:
+        :return:
+        """
+        self.is_word_error_detect = enable
 
     def _convert_sentence_to_detect_features(self, sentence):
         """Loads a sentence into a list of `InputBatch`s."""
@@ -327,6 +343,7 @@ class RuleBertWordDetector(object):
         sentence = uniform(sentence)
         # 切词
         tokens = self.tokenizer.tokenize(sentence)
+        self.tokens = [token[0] for token in tokens]
         # print(tokens)
         # 自定义混淆集加入疑似错误词典
         for confuse in self.custom_confusion:
@@ -370,7 +387,7 @@ class RuleBertWordDetector(object):
                     if prob < self.threshold:
                         maybe_err = [f.token, f.id, f.id + 1, ErrorType.char]
                         self._add_maybe_error_item(maybe_err, maybe_errors)
-                return maybe_errors
+                # return maybe_errors
             except IndexError as ie:
                 logger.warn("index error, sentence:" + sentence + str(ie))
             except Exception as e:
