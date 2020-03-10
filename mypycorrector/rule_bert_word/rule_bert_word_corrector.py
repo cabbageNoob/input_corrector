@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-09 20:58:03
+@LastEditTime: 2020-03-10 15:30:17
 '''
 import codecs
 import operator
@@ -226,8 +226,13 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         return confusion_sorted[:len(confusion_word_list) // fraction + 1]
 
     def generate_items_for_word(self, word, fraction=1):
+        candidates_1_order = []
         candidates_2_order = []
         candidates_3_order = []
+        # same pinyin word
+        candidates_1_order.extend(self._confusion_word_set(word))
+        # custom confusion word
+        candidates_1_order.extend(self._confusion_custom_set(word))
         if len(word) == 2:
             # same first char pinyin
             confusion = [i + word[1:] for i in self._confusion_char_set(word[0]) if i]
@@ -243,7 +248,7 @@ class RuleBertWordCorrector(RuleBertWordDetector):
             confusion = [word[:-1] + i for i in self._confusion_char_set(word[-1]) if i]
             candidates_3_order.extend(confusion)
         # add all confusion word list
-        confusion_word_set = set(candidates_2_order + candidates_3_order)
+        confusion_word_set = set(candidates_1_order + candidates_2_order + candidates_3_order)
         confusion_word_list = [item for item in confusion_word_set if is_chinese_string(item)]
         confusion_sorted = sorted(confusion_word_list, key=lambda k: self.word_frequency(k), reverse=True)
         return confusion_sorted[:len(confusion_word_list) // fraction + 1]
@@ -254,10 +259,17 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         @param {type} 
         @return: 
         '''   
+        candidates_1_order = []
         candidates = []
+        # same pinyin word
+        candidates_1_order.extend(self._confusion_word_set(char))
+        # custom confusion word
+        candidates_1_order.extend(self._confusion_custom_set(char))
+        candidates.extend(candidates_1_order)
         # same one char pinyin
-        confusion = [(i,ErrorType.word) for i in self._confusion_char_set(char) if i]
+        confusion = self._confusion_char_set(char)
         candidates.extend(confusion)
+        candidates = [(i, ErrorType.word) for i in candidates]
         # multi char
         candidates.append(('',ErrorType.redundancy))
         # miss char
@@ -443,15 +455,20 @@ if __name__ == '__main__':
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
     # corrector.enable_word_error(enable=False)
-    test='令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
+    test='其实这座活生生的近代历史薄物馆，应该打开大门，欢迎外宾来看看。'
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test)
     print(pred_sentence, pred_detail,tokens)
     corrector.enable_word_error(enable=True)
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test)
     print(pred_sentence, pred_detail,tokens)
+
     # for sentence in error_sentences:
     #     pred_sentence, pred_detail = corrector.correct(sentence)
     #     print("origin_sentence:",sentence)
     #     print("pred_sentence:", pred_sentence)
     #     print("pred_detail:",pred_detail)
+    # corrector.correct('niha')
+    # print(corrector._confusion_word_set('嬴'))
+    # print(corrector._confusion_custom_set('嬴'))
+    # print(corrector._confusion_char_set('嬴'))
     

@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-03 19:04:59
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-09 13:01:18
+@LastEditTime: 2020-03-10 10:18:12
 '''
 import codecs
 import time
@@ -362,7 +362,7 @@ class RuleBertWordDetector(object):
                 # pass in dict
                 if word in self.word_freq:
                     # 多字词或词频大于50000的单字，可以continue
-                    if len(word) == 1 and self.char_freq.get(word) < 50000:                                  
+                    if len(word) == 1 and word in self.char_freq and self.char_freq.get(word) < 50000:                                  
                         maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
                         self._add_maybe_error_item(maybe_err, maybe_errors)
                         continue
