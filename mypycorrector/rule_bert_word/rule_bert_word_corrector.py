@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-11 13:27:32
+@LastEditTime: 2020-03-11 14:20:27
 '''
 import codecs
 import operator
@@ -435,7 +435,7 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                     if not candidates:
                         continue
                     candidates=[(item,ErrorType.word) for item in candidates]
-                    corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
+                    corrected_item = self.lm_correct_item(corrected_item[0], candidates, before_sent, after_sent)
             else:
                 '''err_type == ErrorType.char'''
                 # 取得所有可能正确的词
@@ -464,7 +464,8 @@ if __name__ == '__main__':
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
     # corrector.enable_word_error(enable=False)
-    test='青蛙是庄家的好朋友，我们要保户它们。'
+    test = '晓红的藉贯是北京。'
+    # test='今天，老师的生体不好，可她艰持给我们上课。'
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test,reverse=False)
     print(pred_sentence, pred_detail,tokens)
     corrector.enable_word_error(enable=True)
