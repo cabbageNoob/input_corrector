@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-10 15:30:17
+@LastEditTime: 2020-03-11 09:36:45
 '''
 import codecs
 import operator
@@ -206,8 +206,16 @@ class RuleBertWordCorrector(RuleBertWordDetector):
             confusion = [word[:-1] + i for i in self._confusion_char_set(word[-1]) if i]
             candidates_2_order.extend(confusion)
         if len(word) > 2:
+            # same first char pinyin
+            confusion = [i + word[1:] for i in self._confusion_char_set(word[0])]
+            candidates_3_order.extend(confusion)
+
             # same mid char pinyin
             confusion = [word[0] + i + word[2:] for i in self._confusion_char_set(word[1])]
+            candidates_3_order.extend(confusion)
+
+            # same last char pinyin
+            confusion = [word[:-1] + i for i in self._confusion_char_set(word[-1])]
             candidates_3_order.extend(confusion)
 
             # same first word pinyin
@@ -393,7 +401,7 @@ class RuleBertWordCorrector(RuleBertWordDetector):
         # sentences = re.split(r"；|，|。|\?\s|;\s|,\s", sentence)
         maybe_errors = self.detect(sentence)
         # trick: 类似翻译模型，倒序处理
-        maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=True)
+        maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=reverse)
         for cur_item, begin_idx, end_idx, err_type in maybe_errors:
             # 纠错，逐个处理
             before_sent = sentence[:begin_idx]
@@ -421,7 +429,8 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                 candidates=[(item,ErrorType.word) for item in candidates]
                 corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
                 # 对ErrorType.word错误进行双层检测
-                if corrected_item[0] not in self.word_freq:
+                # 对多字词进行处理
+                if len(corrected_item[0]) > 2 and corrected_item[0] not in self.word_freq:
                     candidates = self.generate_items_for_word(corrected_item[0])
                     if not candidates:
                         continue
@@ -455,8 +464,8 @@ if __name__ == '__main__':
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
     # corrector.enable_word_error(enable=False)
-    test='其实这座活生生的近代历史薄物馆，应该打开大门，欢迎外宾来看看。'
-    pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test)
+    test='尽管发生了这场误会，我们仍是坚守环保工作者应有的立场，一如继往地关心我们的地球。'
+    pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test,reverse=False)
     print(pred_sentence, pred_detail,tokens)
     corrector.enable_word_error(enable=True)
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test)
