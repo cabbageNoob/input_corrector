@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-03 19:04:59
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-10 10:18:12
+@LastEditTime: 2020-03-11 13:18:08
 '''
 import codecs
 import time
@@ -72,6 +72,7 @@ class RuleBertWordDetector(object):
         self.stopwords_path = stopwords_path
         self.is_char_error_detect = True
         self.is_word_error_detect = True
+        self.is_redundancy_miss_error_detect = True
         self.initialized_detector = False
         self.bert_model_dir = bert_model_dir
         self.bert_model_vocab = bert_model_vocab
@@ -150,6 +151,14 @@ class RuleBertWordDetector(object):
         :return:
         """
         self.is_word_error_detect = enable
+
+    def enable_redundancy_miss_error(self, enable=True):
+        '''
+        @Descripttion: is open redundancy miss error detect
+        @param enable 
+        @return: 
+        '''    
+        self.is_redundancy_miss_error_detect = enable
 
     def _convert_sentence_to_detect_features(self, sentence):
         """Loads a sentence into a list of `InputBatch`s."""
@@ -361,21 +370,24 @@ class RuleBertWordDetector(object):
                     continue
                 # pass in dict
                 if word in self.word_freq:
-                    # 多字词或词频大于50000的单字，可以continue
-                    if len(word) == 1 and word in self.char_freq and self.char_freq.get(word) < 50000:                                  
+                    if self.is_redundancy_miss_error_detect:
+                        # 多字词或词频大于50000的单字，可以continue
+                        if len(word) == 1 and word in self.char_freq and self.char_freq.get(word) < 50000:                                  
+                            maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                            self._add_maybe_error_item(maybe_err, maybe_errors)
+                            continue
+                        # 出现叠字，考虑是否多字
+                        if len(word) == 1 and sentence[begin_idx - 1] == word:
+                            maybe_err = [word, begin_idx, end_idx, ErrorType.redundancy]
+                            self._add_maybe_error_item(maybe_err, maybe_errors)
+                            continue
+                    continue
+                # 对碎片单字进行检测，可能多字、少字、错字
+                if self.is_redundancy_miss_error_detect:
+                    if len(word) == 1:
                         maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
                         self._add_maybe_error_item(maybe_err, maybe_errors)
                         continue
-                    # 出现叠字，考虑是否多字
-                    if len(word) == 1 and sentence[begin_idx - 1] == word:
-                        maybe_err = [word, begin_idx, end_idx, ErrorType.redundancy]
-                        self._add_maybe_error_item(maybe_err, maybe_errors)
-                    continue
-                # 对碎片单字进行检测，可能多字、少字、错字
-                if len(word) == 1:
-                    maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
-                    self._add_maybe_error_item(maybe_err, maybe_errors)
-                    continue
                 maybe_err = [word, begin_idx, end_idx, ErrorType.word]
                 self._add_maybe_error_item(maybe_err, maybe_errors)
 

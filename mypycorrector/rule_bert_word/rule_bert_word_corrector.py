@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-11 09:36:45
+@LastEditTime: 2020-03-11 13:27:32
 '''
 import codecs
 import operator
@@ -464,7 +464,7 @@ if __name__ == '__main__':
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
     # corrector.enable_word_error(enable=False)
-    test='尽管发生了这场误会，我们仍是坚守环保工作者应有的立场，一如继往地关心我们的地球。'
+    test='青蛙是庄家的好朋友，我们要保户它们。'
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test,reverse=False)
     print(pred_sentence, pred_detail,tokens)
     corrector.enable_word_error(enable=True)
