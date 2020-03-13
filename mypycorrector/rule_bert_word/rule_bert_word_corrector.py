@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-11 14:20:27
+@LastEditTime: 2020-03-13 22:10:40
 '''
 import codecs
 import operator
@@ -12,8 +12,9 @@ import os, sys
 import time
 from math import pow
 import torch
-sys.path.insert(0, os.getcwd())
-
+sys.path.insert(0, os.getcwd()) 
+pwd_path = os.path.abspath(os.path.dirname(__file__))
+PATH = os.path.join(pwd_path, "../data/2013_pinyin.txt")
 from pypinyin import lazy_pinyin
 from mypycorrector.rule_bert_word import config
 from mypycorrector.rule_bert_word.rule_bert_word_detector import RuleBertWordDetector, ErrorType, InputFeatures
@@ -48,9 +49,9 @@ def load_same_pinyin(path, sep='\t'):
             parts = line.split(sep)
             if parts and len(parts) > 2:
                 key_char = parts[0]
-                same_pron_same_tone = set(list(parts[1]))
-                same_pron_diff_tone = set(list(parts[2]))
-                value = same_pron_same_tone.union(same_pron_diff_tone)
+                value = set()
+                for pron_tone in parts[1:]:
+                    value=value.union(set(list(pron_tone)))
                 if len(key_char) > 1 or not value:
                     continue
                 result[key_char] = value
@@ -74,8 +75,9 @@ def load_same_stroke(path, sep='\t'):
                 continue
             parts = line.split(sep)
             if parts and len(parts) > 1:
-                for i, c in enumerate(parts):
-                    result[c] = set(list(parts[:i] + parts[i + 1:]))
+                result[parts[0]]=set(list(parts[1]))
+                # for i, c in enumerate(parts):
+                #     result[c] = set(list(parts[:i] + parts[i + 1:]))
     return result
 
 class RuleBertWordCorrector(RuleBertWordDetector):
@@ -430,12 +432,12 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                 corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
                 # 对ErrorType.word错误进行双层检测
                 # 对多字词进行处理
-                if len(corrected_item[0]) > 2 and corrected_item[0] not in self.word_freq:
-                    candidates = self.generate_items_for_word(corrected_item[0])
-                    if not candidates:
-                        continue
-                    candidates=[(item,ErrorType.word) for item in candidates]
-                    corrected_item = self.lm_correct_item(corrected_item[0], candidates, before_sent, after_sent)
+                # if len(corrected_item[0]) > 2 and corrected_item[0] not in self.word_freq:
+                #     candidates = self.generate_items_for_word(corrected_item[0])
+                #     if not candidates:
+                #         continue
+                #     candidates=[(item,ErrorType.word) for item in candidates]
+                #     corrected_item = self.lm_correct_item(corrected_item[0], candidates, before_sent, after_sent)
             else:
                 '''err_type == ErrorType.char'''
                 # 取得所有可能正确的词
@@ -457,14 +459,14 @@ class RuleBertWordCorrector(RuleBertWordDetector):
 
 if __name__ == '__main__':
     corrector = RuleBertWordCorrector()
-    error_sentences = ['少先队员因该为老人让座',
-                       '少先队员因该为老人让坐',
-                       '少 先 队 员 因 该 为老人让座',
-                       '少 先 队 员 因 该 为老人让坐',
-                       '机七学习是人工智能领遇最能体现智能的一个分支',
-                       '机七学习是人工智能领遇最能体现智能的一个分知']
+    # error_sentences = ['少先队员因该为老人让座',
+    #                    '少先队员因该为老人让坐',
+    #                    '少 先 队 员 因 该 为老人让座',
+    #                    '少 先 队 员 因 该 为老人让坐',
+    #                    '机七学习是人工智能领遇最能体现智能的一个分支',
+    #                    '机七学习是人工智能领遇最能体现智能的一个分知']
     # corrector.enable_word_error(enable=False)
-    test = '晓红的藉贯是北京。'
+    test = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
     # test='今天，老师的生体不好，可她艰持给我们上课。'
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test,reverse=False)
     print(pred_sentence, pred_detail,tokens)
@@ -481,4 +483,5 @@ if __name__ == '__main__':
     # print(corrector._confusion_word_set('嬴'))
     # print(corrector._confusion_custom_set('嬴'))
     # print(corrector._confusion_char_set('嬴'))
+    # load_same_pinyin(path=PATH)
     
