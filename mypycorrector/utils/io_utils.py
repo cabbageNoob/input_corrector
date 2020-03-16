@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-02-20 19:42:08
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-22 15:34:42
+@LastEditTime: 2020-03-15 20:37:03
 '''
 # -*- coding: utf-8 -*-
 # Author: cjh <492795090@qq.com>
@@ -12,6 +12,7 @@
 # Brief: 
 import os
 import pickle
+import json
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 SIGHAN_TXT=os.path.join(pwd_path,'../data/cn/sighan15_A2.txt')
 SIGHAN_PKL=os.path.join(pwd_path,'../data/cn/sighan15_A2_1.pkl')
@@ -50,6 +51,22 @@ def load_txt(txt_path):
             # data=line.strip().split(',',1)
             sighan_data.append(data)
         return sighan_data
+
+
+def load_json(json_path, encoding='utf-8'):
+    with open(json_path, mode='r', encoding=encoding) as json_file:
+        data = json.load(json_file)
+    return data
+
+
+def save_json(data, json_path, mode='w', encoding='utf-8'):
+    dir = os.path.dirname(os.path.abspath(json_path))
+    if not os.path.exists(dir):
+        print(dir)
+        os.makedirs(dir)
+    with open(json_path, mode=mode, encoding=encoding) as f:
+        f.write(json.dumps(data, ensure_ascii=False, indent=4))
+
 
 if __name__ == '__main__':
     sighan_data = load_txt(SIGHAN_TXT)

@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-13 22:10:40
+@LastEditTime: 2020-03-15 22:06:56
 '''
 import codecs
 import operator
@@ -13,8 +13,6 @@ import time
 from math import pow
 import torch
 sys.path.insert(0, os.getcwd()) 
-pwd_path = os.path.abspath(os.path.dirname(__file__))
-PATH = os.path.join(pwd_path, "../data/2013_pinyin.txt")
 from pypinyin import lazy_pinyin
 from mypycorrector.rule_bert_word import config
 from mypycorrector.rule_bert_word.rule_bert_word_detector import RuleBertWordDetector, ErrorType, InputFeatures
@@ -432,12 +430,12 @@ class RuleBertWordCorrector(RuleBertWordDetector):
                 corrected_item = self.lm_correct_item(cur_item, candidates, before_sent, after_sent)
                 # 对ErrorType.word错误进行双层检测
                 # 对多字词进行处理
-                # if len(corrected_item[0]) > 2 and corrected_item[0] not in self.word_freq:
-                #     candidates = self.generate_items_for_word(corrected_item[0])
-                #     if not candidates:
-                #         continue
-                #     candidates=[(item,ErrorType.word) for item in candidates]
-                #     corrected_item = self.lm_correct_item(corrected_item[0], candidates, before_sent, after_sent)
+                if len(corrected_item[0]) > 2 and corrected_item[0] not in self.word_freq:
+                    candidates = self.generate_items_for_word(corrected_item[0])
+                    if not candidates:
+                        continue
+                    candidates=[(item,ErrorType.word) for item in candidates]
+                    corrected_item = self.lm_correct_item(corrected_item[0], candidates, before_sent, after_sent)
             else:
                 '''err_type == ErrorType.char'''
                 # 取得所有可能正确的词
@@ -466,7 +464,7 @@ if __name__ == '__main__':
     #                    '机七学习是人工智能领遇最能体现智能的一个分支',
     #                    '机七学习是人工智能领遇最能体现智能的一个分知']
     # corrector.enable_word_error(enable=False)
-    test = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
+    test = '但是我不能去参加，因为我有一点事情阿！'
     # test='今天，老师的生体不好，可她艰持给我们上课。'
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test,reverse=False)
     print(pred_sentence, pred_detail,tokens)
