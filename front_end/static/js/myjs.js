@@ -15,7 +15,8 @@ $(document).ready(function () {
         "令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。 ",
         "这是一篇针砭时弊的文章，对当前产生的腐败现象产生的缘因分析的十分中肯。",
         "今天在菜园里抓到一只蝴",
-        "在北京京的生活节奏奏是很快的"
+        "在北京京的生活节奏奏是很快的",
+        "上天慷概地赐予我们很多，包括友情。随着时间的飞势，友情会像陈洒一般越阵越香"
     ];
 
     $("#text-input").val(textArray[2]);
@@ -100,6 +101,13 @@ $(document).ready(function () {
                     var maybe_errors = response['maybe_errors']
                     console.log(details)
                     console.log(segments)
+                    test=""
+                    for (x in details) {
+                        console.log(x)
+                        $("#text-output").append("<span class='text-primary'>" + details[x] + "</span>")
+                        console.log(details[x])
+                    }
+                    var correctResult = gen_sentence_error_right(details, srcText)
                     correctText = "<span class='text-primary'>" + correctText + "</span>";
                     correctDetails = "<span class='text-primary'>" + eval(details) + "</span>";
                     correctSegments = "<span class='text-primary'>" + segments + "</span>";
@@ -110,7 +118,7 @@ $(document).ready(function () {
                     $("#modifyBtn").attr("hidden", false);
 
                     $("#text-output").text("");
-                    $("#text-output").append(correctText);// 显示结果
+                    $("#text-output").append(correctResult);// 显示结果
                     $("#text-output").append('<br><br>');        
                     $("#text-output").append(correctDetails);// 显示details
                     $("#text-output").append('<br><br>');     
@@ -149,5 +157,22 @@ $(document).ready(function () {
         }
     });
 
+    function gen_sentence_error_right(details, src_text) {
+        var result = ""
+        var before_index = 0
+        for (var index = 0; index < details.length; index++) {
+            var detail = details[index];
+            sub_right_sentence = '<span>' + src_text.substring(before_index, detail[2]) + '</span>';
+            before_index = detail[3];
+            sub_error_sentence = '<del style="color:red;">' + detail[0] + '</del>';
+            sub_correct_sentence = '<ins style="color:blue;">' + detail[1] + '</ins>';
+            result += sub_right_sentence;
+            result += sub_error_sentence;
+            result += sub_correct_sentence;
+        }
+        left = '<span>' + src_text.substring(before_index) + '</span>';
+        result += left;
+        return result
+    }
 
 });
