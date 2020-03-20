@@ -5,12 +5,12 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-29 17:32:50
+@LastEditTime: 2020-03-20 16:44:34
 '''
 
 import codecs
 import time
-import sys, os
+import sys, os, re
 import numpy as np
 sys.path.insert(0,os.getcwd())
 from mypycorrector import config
@@ -19,7 +19,10 @@ from mypycorrector.utils.logger import logger
 from mypycorrector.utils.text_utils import uniform, is_alphabet_string
 
 PUNCTUATION_LIST = ".。,，,、?？:：;；{}[]【】“‘’”《》/!！%……（）<>@#$~^￥%&*\"\'=+-_——「」"
-
+# \u4E00-\u9FD5a-zA-Z0-9+#&\._ : All non-space characters. Will be handled with re_han
+# \r\n|\s : whitespace characters. Will not be handled.
+re_han = re.compile("([\u4E00-\u9FD5a-zA-Z0-9+#&]+)", re.U)
+re_skip = re.compile("(\r\n\\s)", re.U)
 
 class ErrorType(object):
     # error_type = {"confusion": 1, "word": 2, "char": 3}
@@ -367,6 +370,28 @@ class Detector(object):
             result = True
         return result
 
+    @staticmethod
+    def split_2_short_text(text, include_symbol=False):
+        """
+        长句切分为短句
+        :param text: str
+        :param include_symbol: bool
+        :return: (sentence, idx)
+        """
+        result = []
+        blocks = re_han.split(text)
+        start_idx = 0
+        for blk in blocks:
+            if not blk:
+                continue
+            if include_symbol:
+                result.append((blk, start_idx))
+            else:
+                if re_han.match(blk):
+                    result.append((blk, start_idx))
+            start_idx += len(blk)
+        return result
+    
     def detect(self, sentence):
         """
         检测句子中的疑似错误信息，包括[词、位置、错误类型]

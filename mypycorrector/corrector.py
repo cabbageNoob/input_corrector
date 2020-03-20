@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-08 13:59:34
+@LastEditTime: 2020-03-20 17:11:51
 '''
 import codecs
 import operator
@@ -146,6 +146,7 @@ class Corrector(Detector):
         :param words:
         :return:
         """
+        self.check_detector_initialized()
         return set(word for word in words if word in self.word_freq)
 
     def _confusion_char_set(self, c):
@@ -174,6 +175,7 @@ class Corrector(Detector):
         :param fraction:
         :return:
         """
+        self.check_corrector_initialized()
         candidates_1_order = []
         candidates_2_order = []
         candidates_3_order = []

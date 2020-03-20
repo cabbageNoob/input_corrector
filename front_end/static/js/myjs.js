@@ -4,8 +4,8 @@ $(document).ready(function () {
     //var serverIP = "abstract.ibiter.org";
     //var serverPort = "80";
     // 内网配置
-    //var serverIP = "47.95.214.135"
-     var serverIP = "127.0.0.1";
+    var serverIP = "47.95.214.135"
+    //  var serverIP = "127.0.0.1";
      var serverPort = "8002";
 
     // 定义测试文本
