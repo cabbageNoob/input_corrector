@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-20 17:11:51
+@LastEditTime: 2020-03-21 20:10:58
 '''
 import codecs
 import operator
@@ -115,7 +115,7 @@ class Corrector(Detector):
         self.same_stroke = load_same_stroke(self.same_stroke_text_path)
         logger.debug("Loaded same pinyin file: %s, same stroke file: %s, spend: %.3f s." % (
             self.same_pinyin_text_path, self.same_stroke_text_path, time.time() - t1))
-        self.bert_corrector.check_bert_detector_initialized()
+        # self.bert_corrector.check_bert_detector_initialized()
         self.initialized_corrector = True
 
     def check_corrector_initialized(self):
@@ -220,17 +220,24 @@ class Corrector(Detector):
         @param {type} 
         @return: 
         '''   
+        candidates_1_order = []
         candidates = []
+        # same pinyin word
+        candidates_1_order.extend(self._confusion_word_set(char))
+        # custom confusion word
+        candidates_1_order.extend(self._confusion_custom_set(char))
+        candidates.extend(candidates_1_order)
         # same one char pinyin
-        confusion = [i for i in self._confusion_char_set(char) if i]
+        confusion = self._confusion_char_set(char)
         candidates.extend(confusion)
+        candidates = [(i, ErrorType.word) for i in candidates]
         # multi char
-        candidates.append('')
+        candidates.append(('',ErrorType.redundancy))
         # miss char
-        corrected_item=self.bert_corrector.predict_mask_token(before_sent+'*'+char+after_sent,begin_idx,begin_idx+1)
-        candidates.append(corrected_item + char)
-        corrected_item = self.bert_corrector.predict_mask_token(before_sent + char + '*' + after_sent, end_idx, end_idx + 1)
-        candidates.append(char+corrected_item)
+        corrected_item = self.predict_mask_token_(before_sent + '*' + char + after_sent, begin_idx, begin_idx + 1)
+        candidates.append((corrected_item + char, ErrorType.miss))
+        corrected_item = self.predict_mask_token_(before_sent + char + '*' + after_sent, end_idx, end_idx + 1)
+        candidates.append((char + corrected_item, ErrorType.miss))
         return candidates
 
     def lm_correct_item(self, item, maybe_right_items, before_sent, after_sent):
@@ -240,7 +247,7 @@ class Corrector(Detector):
         import heapq
         if item not in maybe_right_items:
             maybe_right_items.append(item)
-        corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
+        corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k[0] + after_sent)))
         # corrected_items=heapq.nsmallest(5,maybe_right_items,key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
         return corrected_item
 
