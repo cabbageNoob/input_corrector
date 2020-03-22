@@ -53,10 +53,11 @@ def eval_bcmi_data(data_path, verbose=False):
     # 其他数据
     word_count = 0
     word_detec_count = 0
-    word_detec_count_char = 0  # 预测出字的数目
+    word_detec_count_char = 0  # 预测字的数目
     word_detec_count_miss = 0   # 预测少字的数目
     word_detec_count_redundancy = 0  # 预测多字的数目
     word_detec_count_error = 0  #预测词错数目
+    word_confusion=0  #困惑集数目
     word_detec_index_right = 0  # 预测位置正确
     word_right = 0
     word_wrong = 0
@@ -97,6 +98,8 @@ def eval_bcmi_data(data_path, verbose=False):
                     word_detec_count_miss += 1
                 elif detail[-1] == 'word':
                     word_detec_count_error += 1
+                elif detail[-1] == 'confusion':
+                    word_confusion += 1
                 temp = detail[2]
                 while(temp < detail[3]):
                     pred_index_list.append(temp)
@@ -125,7 +128,8 @@ def eval_bcmi_data(data_path, verbose=False):
         print('词错误数量:', word_count, ';预判字词错误总数量:', word_detec_count)
         print('预测出错字数目:', word_detec_count_char, \
             '预测多字数目:', word_detec_count_redundancy, \
-            '预测少字数目:', word_detec_count_miss,\
+            '预测少字数目:', word_detec_count_miss, \
+            '预测困惑集数目',word_confusion,\
             '预测词错数目:', word_detec_count_error)
         print('预测错误词位置正确数目: ', word_detec_index_right)
         print('准确预测错误，并成功纠错数目:', word_right)

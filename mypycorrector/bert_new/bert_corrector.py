@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-21 20:13:44
+@LastEditTime: 2020-03-21 22:17:50
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -17,10 +17,10 @@ sys.path.append('../..')
 sys.path.insert(0,os.getcwd())
 from mypycorrector.bert_new import config
 from mypycorrector.utils.text_utils import is_chinese_string, convert_to_unicode
+from mypycorrector.utils.text_utils import uniform, is_alphabet_string
 from mypycorrector.utils.logger import logger
 from mypycorrector.corrector import Corrector
 from mypycorrector.detector import ErrorType
-from mypycorrector.bert_new.bert_detector import BertDetector
 
 
 class BertCorrector(Corrector):
@@ -32,7 +32,6 @@ class BertCorrector(Corrector):
 
         super(BertCorrector, self).__init__()
         self.name = 'bert_corrector'
-        self.bertDetector=BertDetector()
         t1 = time.time()
         self.model = pipeline('fill-mask',
                               model=bert_model_path,
@@ -86,6 +85,59 @@ class BertCorrector(Corrector):
         corrected_item=self.model.tokenizer.convert_ids_to_tokens(corrected_item_idx)
         candidates.append((char + corrected_item, ErrorType.miss))
         return candidates
+
+    def detect(self, sentence):
+        """
+        检测句子中的疑似错误信息，包括[词、位置、错误类型]
+        :param text:
+        :return: list[list], [error_word, begin_pos, end_pos, error_type]
+        """
+        maybe_errors = []
+        if not sentence.strip():
+            return maybe_errors
+        # 初始化
+        self.check_detector_initialized()
+        # 编码统一，utf-8 to unicode
+        sentence = convert_to_unicode(sentence)
+        # 文本归一化
+        sentence = uniform(sentence)
+        # 切词
+        tokens = self.tokenizer.tokenize(sentence)
+        
+        # 自定义混淆集加入疑似错误词典
+        for confuse in self.custom_confusion:
+            idx = sentence.find(confuse)
+            if idx > -1:
+                maybe_err = [confuse, idx, idx + len(confuse), ErrorType.confusion]
+                self._add_maybe_error_item(maybe_err, maybe_errors)
+        
+        if self.is_word_error_detect:
+            # 未登录词加入疑似错误词典
+            for word, begin_idx, end_idx in tokens:
+                # pass filter word
+                if self.is_filter_token(word):
+                    continue
+                # pass in dict
+                if word in self.word_freq:
+                    # 多字词或词频大于50000的单字，可以continue
+                    if len(word) == 1 and word in self.char_freq and self.char_freq.get(word) < 50000:                                  
+                        maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                        self._add_maybe_error_item(maybe_err, maybe_errors)
+                        continue
+                    # 出现叠字，考虑是否多字
+                    if len(word) == 1 and sentence[begin_idx - 1] == word:
+                        maybe_err = [word, begin_idx, end_idx, ErrorType.redundancy]
+                        self._add_maybe_error_item(maybe_err, maybe_errors)
+                    continue
+                
+                # 对碎片单字进行检测，可能多字、少字、错字
+                if len(word) == 1:
+                    maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                    self._add_maybe_error_item(maybe_err, maybe_errors)
+                    continue
+                maybe_err = [word, begin_idx, end_idx, ErrorType.word]
+                self._add_maybe_error_item(maybe_err, maybe_errors)
+        return sorted(maybe_errors, key=lambda k: k[1], reverse=False)
     
     def bert_correct(self, text):
         """
@@ -99,7 +151,7 @@ class BertCorrector(Corrector):
         # 编码统一，utf-8 to unicode
         text = convert_to_unicode(text)
         if self.enable_word_error:
-            maybe_errors = self.bertDetector.detect(text)
+            maybe_errors = self.detect(text)
             # trick: 类似翻译模型，倒序处理
             maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=True)
             for cur_item, begin_idx, end_idx, err_type in maybe_errors:
@@ -179,6 +231,7 @@ class BertCorrector(Corrector):
 if __name__ == "__main__":
     d = BertCorrector()
     error_sentences = [
+        '张爱文和林美美不能一起去那理',
         '今天我在菜园里抓到一只蝴',
         '少先队员因该为老人让坐',
         '少 先  队 员 因 该 为 老人让坐',

@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-21 20:10:58
+@LastEditTime: 2020-03-21 22:03:17
 '''
 import codecs
 import operator
@@ -214,6 +214,34 @@ class Corrector(Detector):
         confusion_sorted = sorted(confusion_word_list, key=lambda k: self.word_frequency(k), reverse=True)
         return confusion_sorted[:len(confusion_word_list) // fraction + 1]
 
+    def generate_items_for_word(self, word, fraction=1):
+        candidates_1_order = []
+        candidates_2_order = []
+        candidates_3_order = []
+        # same pinyin word
+        candidates_1_order.extend(self._confusion_word_set(word))
+        # custom confusion word
+        candidates_1_order.extend(self._confusion_custom_set(word))
+        if len(word) == 2:
+            # same first char pinyin
+            confusion = [i + word[1:] for i in self._confusion_char_set(word[0]) if i]
+            candidates_2_order.extend(confusion)
+            # same last char pinyin
+            confusion = [word[:-1] + i for i in self._confusion_char_set(word[-1]) if i]
+            candidates_2_order.extend(confusion)
+        if len(word) > 2:
+            # same first char pinyin
+            confusion = [i + word[1:] for i in self._confusion_char_set(word[0]) if i]
+            candidates_3_order.extend(confusion)
+            # same last char pinyin
+            confusion = [word[:-1] + i for i in self._confusion_char_set(word[-1]) if i]
+            candidates_3_order.extend(confusion)
+        # add all confusion word list
+        confusion_word_set = set(candidates_1_order + candidates_2_order + candidates_3_order)
+        confusion_word_list = [item for item in confusion_word_set if is_chinese_string(item)]
+        confusion_sorted = sorted(confusion_word_list, key=lambda k: self.word_frequency(k), reverse=True)
+        return confusion_sorted[:len(confusion_word_list) // fraction + 1]
+    
     def generate_items_word_char(self, char, before_sent, after_sent, begin_idx, end_idx):
         '''
         @Descripttion: 生成可能多字少字误字的候选集
@@ -246,7 +274,7 @@ class Corrector(Detector):
         """
         import heapq
         if item not in maybe_right_items:
-            maybe_right_items.append(item)
+            maybe_right_items.append((item,'itself'))
         corrected_item = min(maybe_right_items, key=lambda k: self.ppl_score(list(before_sent + k[0] + after_sent)))
         # corrected_items=heapq.nsmallest(5,maybe_right_items,key=lambda k: self.ppl_score(list(before_sent + k + after_sent)))
         return corrected_item

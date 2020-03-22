@@ -15,7 +15,7 @@ bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result= os.path.join(pwd_path,'./eval_result/sighan_eval_1.txt')
+eval_result= os.path.join(pwd_path,'./eval_result/sighan_eval_word_char.txt')
 
 def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
     """
@@ -60,6 +60,11 @@ def eval_bcmi_data(data_path, verbose=False):
     word_count = 0
     word_detec_count = 0
     word_detec_count_char = 0  # 预测出字的数目
+    word_detec_count_miss = 0   # 预测少字的数目
+    word_detec_count_redundancy = 0  # 预测多字的数目
+    word_detec_count_error = 0  #预测词错数目
+    word_confusion=0  #困惑集数目
+    word_detec_count_char = 0  # 预测出字的数目
     word_detec_index_right = 0  # 预测位置正确
     word_right = 0
     word_wrong = 0
@@ -92,8 +97,16 @@ def eval_bcmi_data(data_path, verbose=False):
             # 预测的错误字词
             pred_index_list = list()
             for detail in pred_detail:
-                if len(detail[0]) == 1:
+                if detail[-1]=='char':
                     word_detec_count_char += 1
+                elif detail[-1] == 'redundancy':
+                    word_detec_count_redundancy += 1
+                elif detail[-1] == 'miss':
+                    word_detec_count_miss += 1
+                elif detail[-1] == 'word':
+                    word_detec_count_error += 1
+                elif detail[-1] == 'confusion':
+                    word_confusion += 1
                 temp = detail[2]
                 while(temp < detail[3]):
                     pred_index_list.append(temp)
@@ -102,10 +115,14 @@ def eval_bcmi_data(data_path, verbose=False):
             for i, index in enumerate(index_list):
                 if index in pred_index_list:
                     word_detec_index_right += 1
-                    if(pred_sentence[index] == right_sentence[index]):
-                        word_right += 1  # 词预测正确
-                    else:
-                        word_wrong += 1
+                    try:
+                        if(pred_sentence[index] == right_sentence[index]):
+                            word_right += 1  # 词预测正确
+                        else:
+                            word_wrong += 1
+                    except Exception as e:
+                        print(e)
+                    
             # 遗漏词
             word_forget = word_count-word_detec_index_right
             # 误杀误判词
@@ -120,8 +137,11 @@ def eval_bcmi_data(data_path, verbose=False):
     if verbose:
         print('right count:', right_count, ';sentence size:', sentence_size)
         print('词错误数量:', word_count, ';预判字词错误总数量:', word_detec_count)
-        print('预测出错字数目:', word_detec_count_char, '预测出错词数目:',
-              word_detec_count-word_detec_count_char)
+        print('预测出错字数目:', word_detec_count_char, \
+            '预测多字数目:', word_detec_count_redundancy, \
+            '预测少字数目:', word_detec_count_miss, \
+            '预测困惑集数目',word_confusion,\
+            '预测词错数目:', word_detec_count_error)
         print('预测错误词位置正确数目: ', word_detec_index_right)
         print('准确预测错误，并成功纠错数目:', word_right)
         print('准确预测错误，但纠错失败:', word_wrong)
