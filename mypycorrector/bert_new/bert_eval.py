@@ -1,16 +1,21 @@
+# -*- coding: utf-8 -*-
+# Author: cjh <492795090@qq.com>
+# Data: 19-11-25
+# Brief:
 import os
 import sys
 sys.path.insert(0, os.getcwd())
 from mypycorrector.utils.math_utils import find_all_idx
-from mypycorrector.rule_bert_word import rule_bert_word_corrector
-ruleBertWordCorrector = rule_bert_word_corrector.RuleBertWordCorrector()
+from mypycorrector.bert_new import bert_corrector
+
+bertCorrector = bert_corrector.BertCorrector()
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result = os.path.join(pwd_path, './eval_result/sighan_eval.txt')
+eval_result= os.path.join(pwd_path,'./eval_result/sighan_eval_word_char.txt')
 
 def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
     """
@@ -45,6 +50,7 @@ def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
     correct_sentence += line[begin:]
     return error_sentence, correct_sentence, index_list
 
+
 def eval_bcmi_data(data_path, verbose=False):
     sentence_size = 1
     right_count = 0
@@ -53,11 +59,12 @@ def eval_bcmi_data(data_path, verbose=False):
     # 其他数据
     word_count = 0
     word_detec_count = 0
-    word_detec_count_char = 0  # 预测字的数目
+    word_detec_count_char = 0  # 预测出字的数目
     word_detec_count_miss = 0   # 预测少字的数目
     word_detec_count_redundancy = 0  # 预测多字的数目
     word_detec_count_error = 0  #预测词错数目
     word_confusion=0  #困惑集数目
+    word_detec_count_char = 0  # 预测出字的数目
     word_detec_index_right = 0  # 预测位置正确
     word_right = 0
     word_wrong = 0
@@ -74,7 +81,7 @@ def eval_bcmi_data(data_path, verbose=False):
                 print(e)
             if not error_sentence:
                 continue
-            pred_sentence,pred_detail,tokens,maybe_errors=ruleBertWordCorrector.correct(error_sentence)
+            pred_sentence, pred_detail = bertCorrector.bert_correct(error_sentence)
             if verbose:
                 print('input sentence:', error_sentence)
                 print('pred sentence:', pred_sentence, pred_detail)
@@ -108,10 +115,14 @@ def eval_bcmi_data(data_path, verbose=False):
             for i, index in enumerate(index_list):
                 if index in pred_index_list:
                     word_detec_index_right += 1
-                    if(pred_sentence[index] == right_sentence[index]):
-                        word_right += 1  # 词预测正确
-                    else:
-                        word_wrong += 1
+                    try:
+                        if(pred_sentence[index] == right_sentence[index]):
+                            word_right += 1  # 词预测正确
+                        else:
+                            word_wrong += 1
+                    except Exception as e:
+                        print(e)
+                    
             # 遗漏词
             word_forget = word_count-word_detec_index_right
             # 误杀误判词
@@ -137,7 +148,7 @@ def eval_bcmi_data(data_path, verbose=False):
         print('错误词遗漏数: ', word_forget)
         print('误杀误判词数', word_wrong_add)
 
-    # return right_count / sentence_size, right_result, wrong_result
+    return right_count / sentence_size, right_result, wrong_result
 
 if __name__ == "__main__":
     # get_gcmi_cor_test()
