@@ -4,8 +4,8 @@ $(document).ready(function () {
     //var serverIP = "abstract.ibiter.org";
     //var serverPort = "80";
     // 内网配置
-    //var serverIP = "47.95.214.135"
-     var serverIP = "127.0.0.1";
+    var serverIP = "47.95.214.135"
+    //  var serverIP = "127.0.0.1";
      var serverPort = "8002";
 
     // 定义测试文本
@@ -119,12 +119,12 @@ $(document).ready(function () {
 
                     $("#text-output").text("");
                     $("#text-output").append(correctResult);// 显示结果
-                    $("#text-output").append('<br><br>');        
-                    $("#text-output").append(correctDetails);// 显示details
-                    $("#text-output").append('<br><br>');     
-                    $("#text-output").append(correctSegments);// 显示segments
-                    $("#text-output").append('<br><br>'); 
-                    $("#text-output").append(correctMaybeErrors);// 显示correctMaybeErrors
+                    // $("#text-output").append('<br><br>');        
+                    // $("#text-output").append(correctDetails);// 显示details
+                    // $("#text-output").append('<br><br>');     
+                    // $("#text-output").append(correctSegments);// 显示segments
+                    // $("#text-output").append('<br><br>'); 
+                    // $("#text-output").append(correctMaybeErrors);// 显示correctMaybeErrors
                     $("#text-output").focus();
 
                     $("#correctBtn").attr("disabled", false);    // 设置按钮可用
