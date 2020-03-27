@@ -4,12 +4,14 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-02-24 15:22:22
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-09 20:40:40
+@LastEditTime: 2020-03-27 18:15:14
 '''
 import json, sys, os
 sys.path.insert(0, os.getcwd())
 from mypycorrector.rule_bert_word import rule_bert_word_corrector
+from mypycorrector.bert_new import bert_corrector
 ruleBertWordCorrector = rule_bert_word_corrector.RuleBertWordCorrector()
+bertCorrector=bert_corrector.BertCorrector()
 
 from flask import Flask, render_template, redirect, request
 ruleBertWordCorrector.correct('你号')
