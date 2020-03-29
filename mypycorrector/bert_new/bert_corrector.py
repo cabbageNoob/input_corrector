@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-21 22:17:50
+@LastEditTime: 2020-03-29 13:49:22
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -26,12 +26,15 @@ from mypycorrector.detector import ErrorType
 class BertCorrector(Corrector):
     def __init__(self, bert_model_dir=config.bert_model_dir,
                  bert_config_path=config.bert_config_path,
-                 bert_model_path=config.bert_model_path):
+                 bert_model_path=config.bert_model_path,
+                 hanzi_ssc_path=config.hanzi_ssc_path):
                 #  bert_config_path='../data/bert_models/chinese_finetuned_lm/config.json',
                 #  bert_model_path='../data/bert_models/chinese_finetuned_lm/pytorch_model.bin'):
-
         super(BertCorrector, self).__init__()
         self.name = 'bert_corrector'
+        t1 = time.time()
+        self.hanziSSCDict = self._getHanziSSCDict(hanzi_ssc_path)
+        logger.debug('Loaded ssc dict: %s, spend: %.3f s.' % (hanzi_ssc_path, time.time() - t1))
         t1 = time.time()
         self.model = pipeline('fill-mask',
                               model=bert_model_path,
@@ -40,6 +43,24 @@ class BertCorrector(Corrector):
         if self.model:
             self.mask = self.model.tokenizer.mask_token
             logger.debug('Loaded bert model: %s, spend: %.3f s.' % (bert_model_dir, time.time() - t1))
+
+    def _getHanziSSCDict(self, hanzi_ssc_path):
+        hanziSSCDict = {}#汉子：SSC码
+        with open(hanzi_ssc_path, 'r', encoding='UTF-8') as f:#文件特征：U+4EFF\t仿\t音形码\n
+        for line in f:
+            line = line.split()
+            hanziSSCDict[line[1]] = line[2]
+        return hanziSSCDict
+
+    def _getSSC(self, char, encode_way='ALL'):
+        ssc = self.hanziSSCDict.get(char, '0' * 11)
+        if encode_way=="SOUND":
+            ssc=ssc[:4]
+        elif encode_way=="SHAPE":
+            ssc=ssc[4:]
+        else:
+            pass
+        return ssc
 
     @staticmethod
     def _check_contain_details_error(maybe_err, details):
