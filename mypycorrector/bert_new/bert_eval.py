@@ -15,7 +15,7 @@ bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result= os.path.join(pwd_path,'./eval_result/sighan_eval_word_char.txt')
+eval_result= os.path.join(pwd_path,'./eval_result/sighan_eval_ssc_char.txt')
 
 def get_bcmi_corpus(line, left_symbol='（（', right_symbol='））'):
     """
@@ -81,7 +81,7 @@ def eval_bcmi_data(data_path, verbose=False):
                 print(e)
             if not error_sentence:
                 continue
-            pred_sentence, pred_detail = bertCorrector.bert_correct(error_sentence)
+            pred_sentence, pred_detail = bertCorrector.bert_correct_ssc(error_sentence)
             if verbose:
                 print('input sentence:', error_sentence)
                 print('pred sentence:', pred_sentence, pred_detail)

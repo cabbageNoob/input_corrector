@@ -1,3 +1,11 @@
+'''
+@Descripttion: 
+@version: 
+@Author: cjh <492795090@qq.com>
+@Date: 2020-02-24 10:30:07
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-03-30 11:10:40
+'''
 # -*- coding: utf-8 -*-
 """
 @author:cjh（492795090@qq.com)
@@ -8,7 +16,8 @@ import sys
 import os
 sys.path.append("../")
 sys.path.append(os.getcwd())
-from mypycorrector.bert import bert_corrector
+# from mypycorrector.bert import bert_corrector
+from mypycorrector.bert_new import bert_corrector
 
 error_sentences = [
     '汽车新式在这条路上',
@@ -54,6 +63,7 @@ badcase = ['这个跟 原木纯品 那个啥区别？不是原木纸浆做的?',
 error_sentences.extend(badcase)
 
 bertCorrector = bert_corrector.BertCorrector()
+bertCorrector.enable_word_error(enable=False)
 for line in error_sentences:
-    correct_sent = bertCorrector.correct(line)
+    correct_sent = bertCorrector.bert_correct(line)
     print("original sentence:{} => correct sentence:{}".format(line, correct_sent))
