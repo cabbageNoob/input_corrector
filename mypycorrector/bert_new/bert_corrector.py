@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-29 13:49:22
+@LastEditTime: 2020-03-30 13:05:25
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -19,8 +19,10 @@ from mypycorrector.bert_new import config
 from mypycorrector.utils.text_utils import is_chinese_string, convert_to_unicode
 from mypycorrector.utils.text_utils import uniform, is_alphabet_string
 from mypycorrector.utils.logger import logger
+from mypycorrector.utils.ssc_utils import computeSSCSimilarity
 from mypycorrector.corrector import Corrector
 from mypycorrector.detector import ErrorType
+
 
 
 class BertCorrector(Corrector):
@@ -47,9 +49,9 @@ class BertCorrector(Corrector):
     def _getHanziSSCDict(self, hanzi_ssc_path):
         hanziSSCDict = {}#汉子：SSC码
         with open(hanzi_ssc_path, 'r', encoding='UTF-8') as f:#文件特征：U+4EFF\t仿\t音形码\n
-        for line in f:
-            line = line.split()
-            hanziSSCDict[line[1]] = line[2]
+            for line in f:
+                line = line.split()
+                hanziSSCDict[line[1]] = line[2]
         return hanziSSCDict
 
     def _getSSC(self, char, encode_way='ALL'):
@@ -62,6 +64,23 @@ class BertCorrector(Corrector):
             pass
         return ssc
 
+    def ssc_correct_item(self, char, top_tokens):
+        '''
+        @Descripttion: 通过ssc量化计算字符间相似度，选出最佳tokens
+        @param {type} 
+        @return: 
+        '''
+        top_tokens_score = {}
+        for token in top_tokens:
+            token_str = token.get('token_str')
+            bert_score = token.get('bert_score')
+            ssc_similar = token.get('ssc_similar')
+            if bert_score > 0.1 and ssc_similar > 0.45:
+                return token_str
+        return char
+        # return max(top_tokens_score, key=lambda  k: top_tokens_score[k])
+        # return max(top_tokens, key=lambda k: top_tokens[k]*computeSSCSimilarity(char_ssc,self._getSSC(k)))
+        
     @staticmethod
     def _check_contain_details_error(maybe_err, details):
         """
@@ -171,7 +190,7 @@ class BertCorrector(Corrector):
         self.check_corrector_initialized()
         # 编码统一，utf-8 to unicode
         text = convert_to_unicode(text)
-        if self.enable_word_error:
+        if self.is_word_error_detect:
             maybe_errors = self.detect(text)
             # trick: 类似翻译模型，倒序处理
             maybe_errors = sorted(maybe_errors, key=operator.itemgetter(2), reverse=True)
@@ -216,7 +235,7 @@ class BertCorrector(Corrector):
                     detail_word = [cur_item, corrected_item[0], begin_idx, end_idx, corrected_item[1]]
                     details.append(detail_word)
 
-        if self.enable_char_error:
+        if self.is_char_error_detect:
             text_new = ""
             for idx, s in enumerate(text):
                 # 对非中文的错误不做处理
@@ -248,9 +267,65 @@ class BertCorrector(Corrector):
         details = sorted(details, key=operator.itemgetter(2))
         return text_new, details
 
+    def bert_correct_ssc(self, text):
+        """
+        使用ssc音形码进行句子纠错
+        :param text: 句子文本
+        :return: list[list], [error_word, begin_pos, end_pos, error_type]
+        """
+        text_new = ''
+        details = []
+        self.check_corrector_initialized()
+        # 编码统一，utf-8 to unicode
+        text = convert_to_unicode(text)
+        if self.is_char_error_detect:
+            text_new = ""
+            for idx, s in enumerate(text):
+                # 对非中文的错误不做处理
+                if is_chinese_string(s):
+                    # 对已包含错误不处理
+                    maybe_err = [s, idx, idx + 1, ErrorType.char]
+                    if not self._check_contain_details_error(maybe_err, details):
+                        sentence_lst = list(text_new + text[idx:])
+                        sentence_lst[idx] = self.mask
+                        sentence_new = ''.join(sentence_lst)
+                        predicts = self.model(sentence_new)
+                        top_tokens = []
+                        ssc_s = self._getSSC(s)
+                        for p in predicts:
+                            token_id = p.get('token', 0)
+                            token_score = p.get('score', 0)
+                            token_str = self.model.tokenizer.convert_ids_to_tokens(token_id)
+                            ssc_token=self._getSSC(token_str)
+                            ssc_similarity = computeSSCSimilarity(ssc_s, ssc_token)
+                            top_tokens.append({'bert_score':token_score,'token_str':token_str,'ssc_similar':ssc_similarity})
+
+                        if top_tokens and (s not in [token.get('token_str') for token in top_tokens]):
+                            correct_item = self.ssc_correct_item(s, top_tokens)
+                            if correct_item != s:
+                                details.append([s, correct_item, idx, idx + 1, ErrorType.char])
+                            s = correct_item
+                            # 取得所有可能正确的词
+                            # candidates = self.generate_items(s)
+                            # if candidates:
+                            #     for token_str in top_tokens:
+                            #         if token_str in candidates:
+                            #             details.append([s, token_str, idx, idx + 1,ErrorType.char])
+                            #             s = token_str
+                            #             break
+                text_new += s
+
+        details = sorted(details, key=operator.itemgetter(2))
+        return text_new, details
+
 
 if __name__ == "__main__":
     d = BertCorrector()
+    d.enable_word_error()
+    print(d._getSSC('因'))
+    print(d._getSSC('应'))
+    print(computeSSCSimilarity(d._getSSC('因'), d._getSSC('应')))
+    # print(computeSSCSimilarity(d._getSSC('哼'), d._getSSC('跟')))
     error_sentences = [
         '张爱文和林美美不能一起去那理',
         '今天我在菜园里抓到一只蝴',
@@ -259,6 +334,9 @@ if __name__ == "__main__":
         '机七学习是人工智能领遇最能体现智能的一个分知',
         '今天心情很好',
     ]
-    for sent in error_sentences:
-        corrected_sent, err = d.bert_correct(sent)
-        print("original sentence:{} => {}, err:{}".format(sent, corrected_sent, err))
+    # for sent in error_sentences:
+    #     corrected_sent, err = d.bert_correct_ssc(sent)
+    #     print("original sentence:{} => {}, err:{}".format(sent, corrected_sent, err))
+    test = '坐在沙发，喝酒和看般球给我很高兴。'
+    corrected_sent, err = d.bert_correct_ssc(test)
+    print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))

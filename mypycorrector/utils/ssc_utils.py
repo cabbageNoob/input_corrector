@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-03-29 13:15:34
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-29 13:28:28
+@LastEditTime: 2020-03-29 18:08:12
 '''
 
 strokesDictReverse = {'1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'A':10,
@@ -44,7 +44,7 @@ def computeShapeCodeSimilarity(shapeCode1, shapeCode2):#shapeCode=['5', '6', '0'
         shapeSimilarity += wights[i]*multiplier[i]
     return shapeSimilarity
 
-def computeSSCSimilaruty(ssc1, ssc2, ssc_encode_way):
+def computeSSCSimilarity(ssc1, ssc2, ssc_encode_way='ALL'):
     '''
     @Descripttion: 
     @param ssc_encode_way 1、ALL    2、SOUND    3、SHAPE 

@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-21 08:50:49
+@LastEditTime: 2020-03-29 14:16:37
 '''
 
 import codecs
@@ -43,10 +43,7 @@ class Detector(object):
                  custom_confusion_path=config.custom_confusion_path,
                  person_name_path=config.person_name_path,
                  place_name_path=config.place_name_path,
-                 stopwords_path=config.stopwords_path,
-                 enable_rnnlm=False,  # False
-                 rnnlm_vocab_path=config.rnnlm_vocab_path,
-                 rnnlm_model_dir=config.rnnlm_model_dir):
+                 stopwords_path=config.stopwords_path):
         self.name = 'detector'
         self.language_model_path = language_model_path
         self.word_freq_path = word_freq_path
@@ -59,28 +56,20 @@ class Detector(object):
         self.is_char_error_detect = True
         self.is_word_error_detect = True
         self.initialized_detector = False
-        self.enable_rnnlm = enable_rnnlm
-        self.rnnlm_vocab_path = rnnlm_vocab_path
-        self.rnnlm_model_dir = rnnlm_model_dir
 
     def initialize_detector(self):
         t1 = time.time()
-        if self.enable_rnnlm:
-            self.lm = LM(self.rnnlm_model_dir, self.rnnlm_vocab_path)
-            logger.debug('Loaded language model: %s, spend: %s s' %
-                         (self.rnnlm_model_dir, str(time.time() - t1)))
-        else:
-            try:
-                import kenlm
-            except ImportError:
-                raise ImportError('mypycorrector dependencies are not fully installed, '
-                                  'they are required for statistical language model.'
-                                  'Please use "pip install kenlm" to install it.'
-                                  'if you are Win, Please install kenlm in cgwin.')
+        try:
+            import kenlm
+        except ImportError:
+            raise ImportError('mypycorrector dependencies are not fully installed, '
+                                'they are required for statistical language model.'
+                                'Please use "pip install kenlm" to install it.'
+                                'if you are Win, Please install kenlm in cgwin.')
 
-            self.lm = kenlm.Model(self.language_model_path)
-            logger.debug('Loaded language model: %s, spend: %s s' %
-                         (self.language_model_path, str(time.time() - t1)))
+        self.lm = kenlm.Model(self.language_model_path)
+        logger.debug('Loaded language model: %s, spend: %s s' %
+                        (self.language_model_path, str(time.time() - t1)))
 
         # 词、频数dict
         t2 = time.time()
@@ -236,15 +225,6 @@ class Detector(object):
         self.check_detector_initialized()
         return self.lm.score(' '.join(chars), bos=False, eos=False)
 
-    def char_scores(self, chars):
-        """
-        取RNN语言模型各字的得分
-        :param chars: list, 以字切分
-        :return: scores, list
-        """
-        self.check_detector_initialized()
-        return self.lm.char_scores(chars)
-
     def ppl_score(self, words):
         """
         取语言模型困惑度得分，越小句子越通顺
@@ -331,24 +311,6 @@ class Detector(object):
         scores = scores.flatten()
         maybe_error_indices = np.where(
             (y_score > threshold) & (scores < median))
-        # 取全部疑似错误字的index
-        result = list(maybe_error_indices[0])
-        return result
-
-    @staticmethod
-    def _get_maybe_error_index_by_rnnlm(scores, n=3):
-        """
-        取疑似错字的位置，通过平均值上下三倍标准差之间属于正常点
-        :param scores: list, float
-        :param threshold: 阈值越小，得到疑似错别字越多
-        :return: 全部疑似错误字的index: list
-        """
-        std = np.std(scores, ddof=1)
-        mean = np.mean(scores)
-        down_limit = mean - n * std
-        upper_limit = mean + n * std
-        maybe_error_indices = np.where(
-            (scores > upper_limit) | (scores < down_limit))
         # 取全部疑似错误字的index
         result = list(maybe_error_indices[0])
         return result
@@ -445,10 +407,29 @@ class Detector(object):
 
         if self.is_char_error_detect:
             # 语言模型检测疑似错误字
-            if self.enable_rnnlm:
-                scores = self.char_scores(sentence)
+            try:
+                ngram_avg_scores = []
+                for n in [2, 3]:
+                    scores = []
+                    for i in range(len(sentence) - n + 1):
+                        word = sentence[i:i + n]
+                        score = self.ngram_score(list(word))
+                        scores.append(score)
+                    if not scores:
+                        continue
+                    # 移动窗口补全得分
+                    for _ in range(n - 1):
+                        scores.insert(0, scores[0])
+                        scores.append(scores[-1])
+                    avg_scores = [sum(scores[i:i + n]) / len(scores[i:i + n])
+                                    for i in range(len(sentence))]
+                    ngram_avg_scores.append(avg_scores)
+
+                # 取拼接后的n-gram平均得分
+                sent_scores = list(np.average(
+                    np.array(ngram_avg_scores), axis=0))
                 # 取疑似错字信息
-                for i in self._get_maybe_error_index_by_rnnlm(scores):
+                for i in self._get_maybe_error_index(sent_scores):
                     token = sentence[i]
                     # pass filter word
                     if self.is_filter_token(token):
@@ -456,41 +437,10 @@ class Detector(object):
                     # token, begin_idx, end_idx, error_type
                     maybe_err = [token, i, i + 1, ErrorType.char]
                     self._add_maybe_error_item(maybe_err, maybe_errors)
-            else:
-                try:
-                    ngram_avg_scores = []
-                    for n in [2, 3]:
-                        scores = []
-                        for i in range(len(sentence) - n + 1):
-                            word = sentence[i:i + n]
-                            score = self.ngram_score(list(word))
-                            scores.append(score)
-                        if not scores:
-                            continue
-                        # 移动窗口补全得分
-                        for _ in range(n - 1):
-                            scores.insert(0, scores[0])
-                            scores.append(scores[-1])
-                        avg_scores = [sum(scores[i:i + n]) / len(scores[i:i + n])
-                                      for i in range(len(sentence))]
-                        ngram_avg_scores.append(avg_scores)
-
-                    # 取拼接后的n-gram平均得分
-                    sent_scores = list(np.average(
-                        np.array(ngram_avg_scores), axis=0))
-                    # 取疑似错字信息
-                    for i in self._get_maybe_error_index(sent_scores):
-                        token = sentence[i]
-                        # pass filter word
-                        if self.is_filter_token(token):
-                            continue
-                        # token, begin_idx, end_idx, error_type
-                        maybe_err = [token, i, i + 1, ErrorType.char]
-                        self._add_maybe_error_item(maybe_err, maybe_errors)
-                except IndexError as ie:
-                    logger.warn("index error, sentence:" + sentence + str(ie))
-                except Exception as e:
-                    logger.warn("detect error, sentence:" + sentence + str(e))
+            except IndexError as ie:
+                logger.warn("index error, sentence:" + sentence + str(ie))
+            except Exception as e:
+                logger.warn("detect error, sentence:" + sentence + str(e))
         return sorted(maybe_errors, key=lambda k: k[1], reverse=False)
 
 if __name__ == '__main__':
