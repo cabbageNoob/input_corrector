@@ -4,11 +4,11 @@
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
-@LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-28 15:41:52
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-03-30 10:40:49
 '''
 
-import sys
+import sys,os
 import time
 
 import numpy as np
@@ -17,6 +17,7 @@ from pytorch_transformers import BertForMaskedLM
 from pytorch_transformers import BertTokenizer
 
 sys.path.append('../..')
+sys.path.insert(0,os.getcwd())
 from mypycorrector.detector import ErrorType
 from mypycorrector.utils.logger import logger
 from mypycorrector.bert import config

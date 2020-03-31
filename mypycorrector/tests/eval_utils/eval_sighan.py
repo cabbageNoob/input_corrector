@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-02-22 13:05:23
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-02-22 15:45:35
+@LastEditTime: 2020-03-30 20:26:34
 '''
 import os
 import sys
@@ -38,9 +38,9 @@ def generate_sighan_clean(pkl_path):
         sentence = list("".join(error_sentence))
         num = 0
         repeat_num=1
-        before_detail=(0,"")
+        before_detail = (0, "")
         for detail in right_detail:
-            if detail[1] == before_detail[1] and detail[0]<=before_detail[0]+len(detail[1]):
+            if detail[1] == before_detail[1] and detail[0] <= before_detail[0] + len(detail[1]):
                 repeat_num += 1
                 sentence.insert(detail[0] + num, '（（' + detail[2][dete_error_index(detail[1], detail[2],repeat_num)] + '））')
             else:

@@ -1,12 +1,17 @@
 '''
-@Descripttion: 通过音形码计算汉字间的相似度
+@Descripttion: 
 @version: 
-@Author: cjh <492795090@qq.com>
-@Date: 2020-03-29 13:15:34
+@Author: cjh (492795090@qq.com)
+@Date: 2020-03-28 11:01:06
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-31 09:43:44
+@LastEditTime: 2020-03-29 13:11:29
 '''
+#coding=utf-8
+'''
+Created on 2019-4-8
 
+@author: Yoga
+'''
 strokesDictReverse = {'1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'A':10,
                'B':11, 'C':12, 'D':13, 'E':14, 'F':15, 'G':16, 'H':17, 'I':18, 'J':19, 'K':20,
                'L':21, 'M':22, 'N':23, 'O':24, 'P':25, 'Q':26, 'R':27, 'S':28, 'T':29, 'U':30,
@@ -44,12 +49,7 @@ def computeShapeCodeSimilarity(shapeCode1, shapeCode2):#shapeCode=['5', '6', '0'
         shapeSimilarity += wights[i]*multiplier[i]
     return shapeSimilarity
 
-def computeSSCSimilarity(ssc1, ssc2, ssc_encode_way='ALL'):
-    '''
-    @Descripttion: 
-    @param ssc_encode_way 1、ALL    2、SOUND    3、SHAPE 
-    @return: 
-    '''
+def computeSSCSimilaruty(ssc1, ssc2, ssc_encode_way):
     #return 0.5*computeSoundCodeSimilarity(ssc1[:4], ssc2[:4])+0.5*computeShapeCodeSimilarity(ssc1[4:], ssc2[4:])
     if ssc_encode_way=="SOUND":
         return computeSoundCodeSimilarity(ssc1, ssc2)
@@ -60,6 +60,11 @@ def computeSSCSimilarity(ssc1, ssc2, ssc_encode_way='ALL'):
         shapeSimi=computeShapeCodeSimilarity(ssc1[4:], ssc2[4:])
         return soundWeight * soundSimi + shapeWeight * shapeSimi
 
-
-# if __name__ == '__main__':
-#     computeSSCSimilaruty()
+"""
+if __name__ == '__main__':
+    lang1 = 'F70211313B'
+    lang2 = 'F70214323A'
+    niang = 'F74214343A'
+    similar = computeSSCSimilaruty(lang1, niang, ssc_encode_way="ALL")
+    print(similar)
+"""
