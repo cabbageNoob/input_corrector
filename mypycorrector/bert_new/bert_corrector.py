@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-31 09:42:54
+@LastEditTime: 2020-04-05 21:50:11
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -19,7 +19,7 @@ from mypycorrector.bert_new import config
 from mypycorrector.utils.text_utils import is_chinese_string, convert_to_unicode
 from mypycorrector.utils.text_utils import uniform, is_alphabet_string
 from mypycorrector.utils.logger import logger
-from mypycorrector.utils.ssc_utils import computeSSCSimilarity
+from mypycorrector.utils.ssc_utils import computeSSCSimilarity,computeSoundCodeSimilarity,computeShapeCodeSimilarity
 from mypycorrector.corrector import Corrector
 from mypycorrector.detector import ErrorType
 
@@ -45,6 +45,7 @@ class BertCorrector(Corrector):
         if self.model:
             self.mask = self.model.tokenizer.mask_token
             logger.debug('Loaded bert model: %s, spend: %.3f s.' % (bert_model_dir, time.time() - t1))
+        self.score_data_file=open(config.score_2013_data_path,'w',encoding='utf8')
 
     def _getHanziSSCDict(self, hanzi_ssc_path):
         hanziSSCDict = {}#汉子：SSC码
@@ -80,7 +81,24 @@ class BertCorrector(Corrector):
         return char
         # return max(top_tokens_score, key=lambda  k: top_tokens_score[k])
         # return max(top_tokens, key=lambda k: top_tokens[k]*computeSSCSimilarity(char_ssc,self._getSSC(k)))
+
+    def write2scorefile(self, char, top_tokens, idx, id_lists, right_item):
+        if idx not in id_lists:
+            return
+        for token in top_tokens:
+            token_str = token.get('token_str')
+            bert_score = token.get('bert_score')
+            sound_similar = token.get('sound_similar')
+            shape_similar = token.get('shape_similar')
+            ssc_similar = token.get('ssc_similar')
+            if token_str == right_item:
+                self.score_data_file.write(char+','+token_str+','+str(bert_score) + ',' + str(sound_similar) + ',' + \
+                str(shape_similar) + ',' + '1' + '\n')
+            else:
+                self.score_data_file.write(char+','+token_str+','+str(bert_score) + ',' + str(sound_similar) + ',' + \
+                str(shape_similar) + ',' + '0' + '\n')
         
+
     @staticmethod
     def _check_contain_details_error(maybe_err, details):
         """
@@ -302,6 +320,62 @@ class BertCorrector(Corrector):
 
                         if top_tokens and (s not in [token.get('token_str') for token in top_tokens]):
                             correct_item = self.ssc_correct_item(s, top_tokens)
+                            if correct_item != s:
+                                details.append([s, correct_item, idx, idx + 1, ErrorType.char])
+                            s = correct_item
+                            # 取得所有可能正确的词
+                            # candidates = self.generate_items(s)
+                            # if candidates:
+                            #     for token_str in top_tokens:
+                            #         if token_str in candidates:
+                            #             details.append([s, token_str, idx, idx + 1,ErrorType.char])
+                            #             s = token_str
+                            #             break
+                text_new += s
+
+        details = sorted(details, key=operator.itemgetter(2))
+        return text_new, details
+
+    def generate_bertScore_sound_shape_file(self, text, right_sentence,id_lists):
+        """
+        生成bert_score、sound_score、shape_score文件
+        :param text: 句子文本
+        :return: file
+        """
+        text_new = ''
+        details = []
+        self.check_corrector_initialized()
+        # 编码统一，utf-8 to unicode
+        text = convert_to_unicode(text)
+        if self.is_char_error_detect:
+            text_new = ""
+            for idx, s in enumerate(text):
+                # 对非中文的错误不做处理
+                if is_chinese_string(s):
+                    # 对已包含错误不处理
+                    maybe_err = [s, idx, idx + 1, ErrorType.char]
+                    if not self._check_contain_details_error(maybe_err, details):
+                        sentence_lst = list(text_new + text[idx:])
+                        sentence_lst[idx] = self.mask
+                        sentence_new = ''.join(sentence_lst)
+                        predicts = self.model(sentence_new)
+                        top_tokens = []
+                        ssc_s = self._getSSC(s)
+                        for p in predicts:
+                            token_id = p.get('token', 0)
+                            token_score = p.get('score', 0)
+                            token_str = self.model.tokenizer.convert_ids_to_tokens(token_id)
+                            ssc_token = self._getSSC(token_str)
+                            soundSimi=computeSoundCodeSimilarity(ssc_s[:4], ssc_token[:4])
+                            shapeSimi=computeShapeCodeSimilarity(ssc_s[4:], ssc_token[4:])
+                            ssc_similarity = computeSSCSimilarity(ssc_s, ssc_token)
+                            top_tokens.append({'bert_score': token_score, 'token_str': token_str, \
+                                'ssc_similar': ssc_similarity, 'sound_similar': soundSimi, 'shape_similar': shapeSimi})
+
+                        if top_tokens and (s not in [token.get('token_str') for token in top_tokens]):
+                            self.write2scorefile(s, top_tokens, idx, id_lists,right_sentence[idx])
+                            # correct_item = self.write2scorefile(s, top_tokens)
+                            correct_item = right_sentence[idx]
                             if correct_item != s:
                                 details.append([s, correct_item, idx, idx + 1, ErrorType.char])
                             s = correct_item
