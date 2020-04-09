@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-05 21:50:58
+@LastEditTime: 2020-04-09 09:47:58
 '''
 # -*- coding: utf-8 -*-
 
@@ -27,3 +27,7 @@ score_2013_data_path = os.path.join(pwd_path, '../data/cn/sighan/score_data/scor
 score_2013_dry_path = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2013_dry.txt')
 score_2014_dry_path = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2014_dry.txt')
 score_2015_dry_path = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2015_dry.txt')
+
+# neural_network model path
+neural_network_model_path = os.path.join(pwd_path, '../data/network_whole.pth')
+

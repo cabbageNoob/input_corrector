@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-29 14:16:37
+@LastEditTime: 2020-04-09 09:10:21
 '''
 
 import codecs
@@ -58,18 +58,18 @@ class Detector(object):
         self.initialized_detector = False
 
     def initialize_detector(self):
-        t1 = time.time()
-        try:
-            import kenlm
-        except ImportError:
-            raise ImportError('mypycorrector dependencies are not fully installed, '
-                                'they are required for statistical language model.'
-                                'Please use "pip install kenlm" to install it.'
-                                'if you are Win, Please install kenlm in cgwin.')
+        # t1 = time.time()
+        # try:
+        #     import kenlm
+        # except ImportError:
+        #     raise ImportError('mypycorrector dependencies are not fully installed, '
+        #                         'they are required for statistical language model.'
+        #                         'Please use "pip install kenlm" to install it.'
+        #                         'if you are Win, Please install kenlm in cgwin.')
 
-        self.lm = kenlm.Model(self.language_model_path)
-        logger.debug('Loaded language model: %s, spend: %s s' %
-                        (self.language_model_path, str(time.time() - t1)))
+        # self.lm = kenlm.Model(self.language_model_path)
+        # logger.debug('Loaded language model: %s, spend: %s s' %
+        #                 (self.language_model_path, str(time.time() - t1)))
 
         # 词、频数dict
         t2 = time.time()

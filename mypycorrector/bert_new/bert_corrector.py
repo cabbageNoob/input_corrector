@@ -4,12 +4,13 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-05 21:50:11
+@LastEditTime: 2020-04-09 10:13:09
 '''
 # -*- coding: utf-8 -*-
 import operator
 import sys,os
 import time
+import torch
 
 from transformers import pipeline
 pwd_path = os.path.abspath(os.path.dirname(__file__))
@@ -20,6 +21,9 @@ from mypycorrector.utils.text_utils import is_chinese_string, convert_to_unicode
 from mypycorrector.utils.text_utils import uniform, is_alphabet_string
 from mypycorrector.utils.logger import logger
 from mypycorrector.utils.ssc_utils import computeSSCSimilarity,computeSoundCodeSimilarity,computeShapeCodeSimilarity
+from mypycorrector.utils.knn_utils import KNearestNeighbor
+from mypycorrector.utils.neural_network_utils import Net
+from mypycorrector.utils import neural_network_utils
 from mypycorrector.corrector import Corrector
 from mypycorrector.detector import ErrorType
 
@@ -45,7 +49,15 @@ class BertCorrector(Corrector):
         if self.model:
             self.mask = self.model.tokenizer.mask_token
             logger.debug('Loaded bert model: %s, spend: %.3f s.' % (bert_model_dir, time.time() - t1))
-        self.score_data_file=open(config.score_2013_data_path,'w',encoding='utf8')
+        # self.score_data_file=open(config.score_2013_data_path,'w',encoding='utf8')
+        t1 = time.time()
+        self.knn = KNearestNeighbor()
+        self.knnTrainingset = self.knn.loadDataset(filename=config.score_2013_data_path, split=0.75)
+        logger.debug('Loaded knn training data: %s, spend: %.3f s.' % (config.score_2013_data_path, time.time() - t1))
+
+        t1 = time.time()
+        self.neural_model=neural_network_utils.load_model(config.neural_network_model_path)
+        logger.debug('Loaded neural network: %s, spend: %.3f s.' % (config.neural_network_model_path, time.time() - t1))
 
     def _getHanziSSCDict(self, hanzi_ssc_path):
         hanziSSCDict = {}#汉子：SSC码
@@ -82,6 +94,40 @@ class BertCorrector(Corrector):
         # return max(top_tokens_score, key=lambda  k: top_tokens_score[k])
         # return max(top_tokens, key=lambda k: top_tokens[k]*computeSSCSimilarity(char_ssc,self._getSSC(k)))
 
+    def knn_ssc_correct_item(self, char, top_tokens):
+        '''
+        @Descripttion: knn分类用于过滤，选出最佳tokens
+        @param {type} 
+        @return: 
+        '''
+        top_tokens_score = {}
+        for token in top_tokens:
+            token_str = token.get('token_str')
+            bert_score = token.get('bert_score')
+            sound_similar = token.get('sound_similar')
+            shape_similar = token.get('shape_similar')
+            ssc_similar = token.get('ssc_similar')
+            if self.knn.getKnnResult(self.knnTrainingset, [bert_score, sound_similar, shape_similar]) == 1:
+                return token_str
+        return char
+
+    def neural_ssc_correct_item(self, char, top_tokens):
+        '''
+        @Descripttion: 三层简单神经网络分类器用于过滤，选出最佳tokens
+        @param {type} 
+        @return: 
+        '''
+        top_tokens_score = {}
+        for token in top_tokens:
+            token_str = token.get('token_str')
+            bert_score = token.get('bert_score')
+            sound_similar = token.get('sound_similar')
+            shape_similar = token.get('shape_similar')
+            ssc_similar = token.get('ssc_similar')
+            if self.neural_model.predict(torch.Tensor([[bert_score, sound_similar, shape_similar]]).type(torch.FloatTensor)) == 1:
+                return token_str
+        return char
+        
     def write2scorefile(self, char, top_tokens, idx, id_lists, right_item):
         if idx not in id_lists:
             return
@@ -314,12 +360,16 @@ class BertCorrector(Corrector):
                             token_id = p.get('token', 0)
                             token_score = p.get('score', 0)
                             token_str = self.model.tokenizer.convert_ids_to_tokens(token_id)
-                            ssc_token=self._getSSC(token_str)
+                            ssc_token = self._getSSC(token_str)
+                            soundSimi=computeSoundCodeSimilarity(ssc_s[:4], ssc_token[:4])
+                            shapeSimi=computeShapeCodeSimilarity(ssc_s[4:], ssc_token[4:])
                             ssc_similarity = computeSSCSimilarity(ssc_s, ssc_token)
-                            top_tokens.append({'bert_score':token_score,'token_str':token_str,'ssc_similar':ssc_similarity})
+                            top_tokens.append({'bert_score': token_score, 'token_str': token_str, \
+                                'ssc_similar': ssc_similarity, 'sound_similar': soundSimi, 'shape_similar': shapeSimi})
 
                         if top_tokens and (s not in [token.get('token_str') for token in top_tokens]):
-                            correct_item = self.ssc_correct_item(s, top_tokens)
+                            # correct_item = self.ssc_correct_item(s, top_tokens)
+                            correct_item = self.neural_ssc_correct_item(s, top_tokens)
                             if correct_item != s:
                                 details.append([s, correct_item, idx, idx + 1, ErrorType.char])
                             s = correct_item
@@ -395,11 +445,7 @@ class BertCorrector(Corrector):
 
 if __name__ == "__main__":
     d = BertCorrector()
-    d.enable_word_error()
-    print(d._getSSC('因'))
-    print(d._getSSC('应'))
-    print(computeSSCSimilarity(d._getSSC('因'), d._getSSC('应')))
-    # print(computeSSCSimilarity(d._getSSC('哼'), d._getSSC('跟')))
+    d.enable_word_error(enable=False)
     error_sentences = [
         '张爱文和林美美不能一起去那理',
         '今天我在菜园里抓到一只蝴',
@@ -408,9 +454,9 @@ if __name__ == "__main__":
         '机七学习是人工智能领遇最能体现智能的一个分知',
         '今天心情很好',
     ]
-    # for sent in error_sentences:
-    #     corrected_sent, err = d.bert_correct_ssc(sent)
-    #     print("original sentence:{} => {}, err:{}".format(sent, corrected_sent, err))
-    test = '坐在沙发，喝酒和看般球给我很高兴。'
-    corrected_sent, err = d.bert_correct_ssc(test)
-    print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))
+    for sent in error_sentences:
+        corrected_sent, err = d.bert_correct_ssc(sent)
+        print("original sentence:{} => {}, err:{}".format(sent, corrected_sent, err))
+    # test = '坐在沙发，喝酒和看般球给我很高兴。'
+    # corrected_sent, err = d.bert_correct_ssc(test)
+    # print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))
