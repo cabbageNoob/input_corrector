@@ -7,6 +7,7 @@ import sys
 sys.path.insert(0, os.getcwd())
 from mypycorrector.utils.math_utils import find_all_idx
 from mypycorrector.bert_new import bert_corrector
+from mypycorrector.utils.neural_network_utils import Net
 
 bertCorrector = bert_corrector.BertCorrector()
 bertCorrector.enable_word_error(enable=False)
@@ -16,7 +17,7 @@ bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result = os.path.join(pwd_path, './eval_result/sighan_2013_eval.txt')
+eval_result = os.path.join(pwd_path, './eval_result/filter_knn_neural/sighan_neural_eval.txt')
 
 sighan_2013 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2013_test.txt')
 sighan_2014 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2014_test.txt')
@@ -92,7 +93,7 @@ def eval_bcmi_data(data_path, verbose=False):
                 print(e)
             if not error_sentence:
                 continue
-            pred_sentence, pred_detail = bertCorrector.bert_correct(error_sentence)
+            pred_sentence, pred_detail = bertCorrector.bert_correct_ssc(error_sentence)
             if verbose:
                 print('input sentence:', error_sentence)
                 print('pred sentence:', pred_sentence, pred_detail)
@@ -178,5 +179,5 @@ def eval_bcmi_data(data_path, verbose=False):
 if __name__ == "__main__":
     # get_gcmi_cor_test()
     # eval_bcmi_data_test()
-    eval_bcmi_data(sighan_2013,verbose=True)
+    eval_bcmi_data(EVAL_SIGHAN,verbose=True)
     # get_confusion_、dict()

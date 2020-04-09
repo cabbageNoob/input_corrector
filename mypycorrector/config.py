@@ -5,7 +5,7 @@
 @Author: Da Chuang
 @Date: 2019-12-12 10:59:27
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-29 14:13:25
+@LastEditTime: 2020-04-09 18:59:26
 '''
 
 
@@ -19,9 +19,9 @@ char_freq_path = os.path.join(pwd_path, 'data/char_freq.txt')
 # 中文常用字符集
 common_char_path = os.path.join(pwd_path, 'data/common_char_set.txt')
 # 同音字
-same_pinyin_path = os.path.join(pwd_path, 'data/same_pinyin.txt')
+same_pinyin_path = os.path.join(pwd_path, 'data/2013_simple_pinyin.txt')# 2013_simple_pinyin.txt
 # 形似字
-same_stroke_path = os.path.join(pwd_path, 'data/same_stroke.txt')
+same_stroke_path = os.path.join(pwd_path, 'data/2013_simple_shape.txt')# 2013_simple_shape.txt
 # language model path
 # language_model_path = r'C:\Users\cjh\.pycorrector\datasets\zh_giga.no_cna_cmn.prune01244.klm'
 language_model_path = os.path.join(pwd_path, 'data/kenlm/zh_giga.no_cna_cmn.prune01244.klm')#people2014corpus_chars.klm  #THUCNews_char.klm  #THUCNews_people2014_merge_char.klm
