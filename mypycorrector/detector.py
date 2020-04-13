@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-09 09:10:21
+@LastEditTime: 2020-04-13 10:24:34
 '''
 
 import codecs
@@ -58,18 +58,18 @@ class Detector(object):
         self.initialized_detector = False
 
     def initialize_detector(self):
-        # t1 = time.time()
-        # try:
-        #     import kenlm
-        # except ImportError:
-        #     raise ImportError('mypycorrector dependencies are not fully installed, '
-        #                         'they are required for statistical language model.'
-        #                         'Please use "pip install kenlm" to install it.'
-        #                         'if you are Win, Please install kenlm in cgwin.')
+        t1 = time.time()
+        try:
+            import kenlm
+        except ImportError:
+            raise ImportError('mypycorrector dependencies are not fully installed, '
+                                'they are required for statistical language model.'
+                                'Please use "pip install kenlm" to install it.'
+                                'if you are Win, Please install kenlm in cgwin.')
 
-        # self.lm = kenlm.Model(self.language_model_path)
-        # logger.debug('Loaded language model: %s, spend: %s s' %
-        #                 (self.language_model_path, str(time.time() - t1)))
+        self.lm = kenlm.Model(self.language_model_path)
+        logger.debug('Loaded language model: %s, spend: %s s' %
+                        (self.language_model_path, str(time.time() - t1)))
 
         # 词、频数dict
         t2 = time.time()
@@ -369,14 +369,13 @@ class Detector(object):
         sentence = uniform(sentence)
         # 切词
         tokens = self.tokenizer.tokenize(sentence)
-        # print(tokens)
         # 自定义混淆集加入疑似错误词典
-        for confuse in self.custom_confusion:
-            idx = sentence.find(confuse)
-            if idx > -1:
-                maybe_err = [confuse, idx, idx +
-                             len(confuse), ErrorType.confusion]
-                self._add_maybe_error_item(maybe_err, maybe_errors)
+        # for confuse in self.custom_confusion:
+        #     idx = sentence.find(confuse)
+        #     if idx > -1:
+        #         maybe_err = [confuse, idx, idx +
+        #                      len(confuse), ErrorType.confusion]
+        #         self._add_maybe_error_item(maybe_err, maybe_errors)
 
         if self.is_word_error_detect:
             # 未登录词加入疑似错误词典
@@ -386,22 +385,22 @@ class Detector(object):
                     continue
                 # pass in dict
                 if word in self.word_freq:
-                    # 多字词或词频大于50000的单字，可以continue
-                    if len(word) == 1 and word in self.char_freq and self.char_freq.get(word) < 50000:                                  
-                        maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
-                        self._add_maybe_error_item(maybe_err, maybe_errors)
-                        continue
-                    # 出现叠字，考虑是否多字
-                    if len(word) == 1 and sentence[begin_idx - 1] == word:
-                        maybe_err = [word, begin_idx, end_idx, ErrorType.redundancy]
-                        self._add_maybe_error_item(maybe_err, maybe_errors)
+                    # # 多字词或词频大于50000的单字，可以continue
+                    # if len(word) == 1 and word in self.char_freq and self.char_freq.get(word) < 50000:                                  
+                    #     maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                    #     self._add_maybe_error_item(maybe_err, maybe_errors)
+                    #     continue
+                    # # 出现叠字，考虑是否多字
+                    # if len(word) == 1 and sentence[begin_idx - 1] == word:
+                    #     maybe_err = [word, begin_idx, end_idx, ErrorType.redundancy]
+                    #     self._add_maybe_error_item(maybe_err, maybe_errors)
                     continue
                 
-                # 对碎片单字进行检测，可能多字、少字、错字
-                if len(word) == 1:
-                    maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
-                    self._add_maybe_error_item(maybe_err, maybe_errors)
-                    continue
+                # # 对碎片单字进行检测，可能多字、少字、错字
+                # if len(word) == 1:
+                #     maybe_err = [word, begin_idx, end_idx, ErrorType.word_char]
+                #     self._add_maybe_error_item(maybe_err, maybe_errors)
+                #     continue
                 maybe_err = [word, begin_idx, end_idx, ErrorType.word]
                 self._add_maybe_error_item(maybe_err, maybe_errors)
 
@@ -445,11 +444,6 @@ class Detector(object):
 
 if __name__ == '__main__':
     d = Detector()
-    test1='小红的是北京'
-    test2 = '小红的籍贯是北京'
-    print('ppl(小红的是北京)', d.score(test1))
-    print('ppl(小红的籍贯是北京)', d.score(test2))
-    print('ppl(小红的祖籍是北京)',d.score('小红的祖籍是北京'))
     error_sentences = ['少先先队员因该为老人让座',
                        '少先队员因该为老人让坐',
                        '少 先 队 员 因 该 为老人让座',
@@ -457,6 +451,9 @@ if __name__ == '__main__':
                        '机七学习是人工智能领遇最能体现智能的一个分支',
                        '机七学习是人工智能领遇最能体现智能的一个分知']
     t1 = time.time()
-    for sent in error_sentences:
-        err = d.detect(sent)
-        print("original sentence:{} => detect sentence:{}".format(sent, err))
+    # for sent in error_sentences:
+    #     err = d.detect(sent)
+    #     print("original sentence:{} => detect sentence:{}".format(sent, err))
+    test = '老师工作非常幸苦，我们要遵敬老师。'
+    err = d.detect(test)
+    print("original sentence:{} => detect sentence:{}".format(test, err))

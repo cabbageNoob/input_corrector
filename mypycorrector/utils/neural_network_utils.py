@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-09 09:38:45
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-09 10:09:54
+@LastEditTime: 2020-04-12 16:41:16
 '''
 # -*- coding: utf-8 -*-
 import csv
@@ -20,32 +20,26 @@ import numpy as np
 np.random.seed(0)
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
-test_data = os.path.join(pwd_path, './KNN_classification/data/sighan_2013_score_data/score_data_sighan_2013.txt')
+test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2015_A2.txt')
 
 
 def loadDataset(filename, split, training_X, training_y, test_X, test_y):
     with open(filename, 'r', encoding='utf8') as csvfile:
         lines = csv.reader(csvfile)  # 读取所有的行
         dataset = list(lines)  # 转化成列表
-        data_X = list()
         data_y = list()
-
         for x in range(len(dataset) - 1):
             temp = list()
-            temp_add = list()
             for y in range(3):
+                print(float(dataset[x][y + 2]))
                 temp.append(float(dataset[x][y + 2]))
-            temp_add=[temp[0],temp[2],temp[1]]
-            data_X.append(temp)
+            # data_X.append(temp)
             data_y.append(int(dataset[x][-1]))
             if random.random() < split:   # 将所有数据加载到train和test中
-                training_X.append(data_X[x])
+                training_X.append(temp)
                 training_y.append(data_y[x])
-
-                training_X.append(temp_add)
-                training_y.append(int(dataset[x][-1]))
             else:
-                test_X.append(data_X[x])
+                test_X.append(temp)
                 test_y.append(data_y[x])
     training_X = torch.Tensor(training_X).type(torch.FloatTensor)
     training_y = torch.Tensor(training_y).type(torch.LongTensor)
@@ -114,7 +108,7 @@ def make_save_model(training_X,training_y):
         loss.backward()
         #Adjust weights
         optimizer.step()
-    torch.save(model, 'network_add.pth')  # 保存整个网络
+    torch.save(model, 'network_sighan_15_A2.pth')  # 保存整个网络
     print(accuracy_score(model.predict(training_X), training_y))
 
 def load_model(model_path):
@@ -149,7 +143,7 @@ def run():
     training_y = []
     test_X = []
     test_y = []
-    split = 0.75
+    split = 1.0
     training_X, training_y, test_X, test_y=loadDataset(
         test_data, split, training_X, training_y, test_X, test_y)
     make_save_model(training_X, training_y)
@@ -158,13 +152,13 @@ def run():
 if __name__ == '__main__':
     # network_whole = load_model()
     # print(accuracy_score(network_whole.predict(X), y))
-    # run()
-    training_X = []
-    training_y = []
-    test_X = []
-    test_y = []
-    split = 0.75
-    training_X, training_y, test_X, test_y = loadDataset(
-        test_data, split, training_X, training_y, test_X, test_y)
-    model = load_model()
-    print(accuracy_score(model.predict(test_X), test_y))
+    run()
+    # training_X = []
+    # training_y = []
+    # test_X = []
+    # test_y = []
+    # split = 0.75
+    # training_X, training_y, test_X, test_y = loadDataset(
+    #     test_data, split, training_X, training_y, test_X, test_y)
+    # model = load_model()
+    # print(accuracy_score(model.predict(test_X), test_y))

@@ -5,7 +5,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-09 19:02:02
+@LastEditTime: 2020-04-13 10:09:05
 '''
 import codecs
 import operator
@@ -317,7 +317,8 @@ class Corrector(Detector):
                 continue
             # 困惑集中指定的词，直接取结果
             if err_type == ErrorType.confusion:
-                corrected_item = self.custom_confusion[item]
+                # corrected_item = self.custom_confusion[item]
+                corrected_item = (self.custom_confusion[item], ErrorType.confusion)
             # 对碎片且不常用单字，可能错误是多字少字
             elif err_type == ErrorType.word_char:
                 maybe_right_items = self.generate_items_word_char(item, before_sent, after_sent, begin_idx, end_idx)
@@ -326,17 +327,28 @@ class Corrector(Detector):
             elif err_type == ErrorType.redundancy:
                 maybe_right_items = ['']
                 corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
+            elif err_type==ErrorType.word:
+                # 取得所有可能正确的词
+                maybe_right_items = self.generate_items(item)
+                # print(maybe_right_items)
+                if not maybe_right_items:
+                    continue
+                maybe_right_items=[(item,ErrorType.word) for item in maybe_right_items]
+                corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
             else:
+                '''err_type == ErrorType.char'''
                 # 取得所有可能正确的词
                 maybe_right_items = self.generate_items(item)
                 if not maybe_right_items:
                     continue
+                maybe_right_items=[(item,ErrorType.char) for item in maybe_right_items]
+                # 取得最可能正确的字
                 corrected_item = self.lm_correct_item(item, maybe_right_items, before_sent, after_sent)
             # output
-            if corrected_item != item:
-                sentence = before_sent + corrected_item + after_sent
+            if corrected_item[0] != item:
+                sentence = before_sent + corrected_item[0] + after_sent
                 # logger.debug('predict:' + item + '=>' + corrected_item)
-                detail_word = [item, corrected_item, begin_idx, end_idx]
+                detail_word = [item, corrected_item[0], begin_idx, end_idx,corrected_item[1]]
                 detail.append(detail_word)
         detail = sorted(detail, key=operator.itemgetter(2))
         return sentence, detail
@@ -354,7 +366,7 @@ if __name__ == '__main__':
     test4 = '在北京京的生活节奏奏是很快的'
     test5='令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
     test6 = '我今天了红烧肉'
-    test7='这样，你就会尝到泰国人死爱的味道。'
+    test7='老师工作非常幸苦，我们要遵敬老师。'
     pred_sentence, pred_detail = c.correct(test7)
     # print(pred_sentence, pred_detail)
     # pred_sentence, pred_detail = c.correct('今天突然冷了起来，妈妈从箱子里翻出一件旧棉衣让我穿上。我不愿意。在妈妈得说服教育下，我终于穿上那件棉衣着哥儿上学去了。')

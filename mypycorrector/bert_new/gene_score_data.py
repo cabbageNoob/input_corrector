@@ -4,19 +4,21 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-05 14:42:04
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-05 21:50:30
+@LastEditTime: 2020-04-12 15:32:32
 '''
 import os
 import sys
 sys.path.insert(0, os.getcwd())
 from mypycorrector.utils.math_utils import find_all_idx
 from mypycorrector.bert_new import bert_corrector
+from mypycorrector.utils.neural_network_utils import Net
 
 bertCorrector = bert_corrector.BertCorrector()
 bertCorrector.enable_word_error(enable=False)
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 sighan_2013 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2013_test.txt')
+EVAL_SIGHAN = os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
 
 score_2013_dry_path = os.path.join(pwd_path, '../data/cn/sighan/sighan_dry_test/sighan_2013_dry_test.txt')
 score_2014_dry_path = os.path.join(pwd_path, '../data/cn/sighan/sighan_dry_test/sighan_2014_dry_test.txt')
@@ -78,6 +80,6 @@ def eval_bcmi_data(data_path, verbose=False):
 
 
 if __name__ == '__main__':
-    eval_bcmi_data(sighan_2013, verbose=True)
+    eval_bcmi_data(EVAL_SIGHAN, verbose=True)
     
             
