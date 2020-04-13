@@ -4,8 +4,8 @@
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-19 14:12:17
-@LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-28 15:41:33
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-04-13 17:23:32
 '''
 import operator
 import sys, os
@@ -128,7 +128,7 @@ class BertCorrector(BertDetector):
             # output
             if corrected_item != item:
                 sentence = before_sent + corrected_item + after_sent
-                detail_word = [item, corrected_item, begin_idx, end_idx]
+                detail_word = [item, corrected_item, begin_idx, end_idx, ErrorType.char]
                 detail.append(detail_word)
         detail = sorted(detail, key=operator.itemgetter(2))
         return sentence, detail
