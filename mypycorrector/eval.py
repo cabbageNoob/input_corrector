@@ -7,11 +7,11 @@ import sys
 sys.path.insert(0, os.getcwd())
 from codecs import open
 from mypycorrector import corrector
-corrector.enable_word_error(enable=False)
+# corrector.enable_word_error(enable=False)
 from mypycorrector.utils.io_utils import load_pkl
 from mypycorrector.utils.math_utils import find_all_idx
 pwd_path = os.path.abspath(os.path.dirname(__file__))
-eval_result = os.path.join(pwd_path, './eval_result/N-Gram/rule_char_sighan15_eval_result_4_13.txt')
+eval_result = os.path.join(pwd_path, './eval_result/N-Gram/rule_double_sighan13_eval_result_4_13.txt')
 EVAL_SIGHAN=os.path.join(pwd_path, './data/cn/sighan15_A2_clean.txt')
 EVAL_BCMI = os.path.join(pwd_path, './data/cn/bcmi.txt')
 
@@ -90,10 +90,11 @@ def eval_bcmi_data(data_path, verbose=False):
                 continue
             pred_sentence, pred_detail = corrector.correct(error_sentence)
             if verbose:
-                print('input sentence:', error_sentence)
-                print('pred sentence:', pred_sentence, pred_detail)
-                print('right sentence:', right_sentence)
-                print('wrong_index', index_list)
+                # print('input sentence:', error_sentence)
+                # print('pred sentence:', pred_sentence, pred_detail)
+                # print('right sentence:', right_sentence)
+                # print('wrong_index', index_list)
+                print(sentence_size)
                 eval_file.write('input sentence:' + error_sentence + '\n')
                 eval_file.write('pred sentence:'+ pred_sentence+ str(pred_detail)+'\n')
                 eval_file.write('right sentence:'+right_sentence+'\n')
@@ -224,7 +225,7 @@ if __name__ == "__main__":
     # for i in lst:
     #     print(get_bcmi_corpus(i))
 
-    eval_bcmi_data(sighan_2015, verbose=True)
+    eval_bcmi_data(sighan_2013, verbose=True)
     # print("right_count / total_count",ringht_rate)
     # print("right_result",right_result)
     # print("wrong_result",wrong_result)
