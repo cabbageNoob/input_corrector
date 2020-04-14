@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-03 19:04:59
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-11 13:18:08
+@LastEditTime: 2020-04-14 11:19:54
 '''
 import codecs
 import time
@@ -355,12 +355,12 @@ class RuleBertWordDetector(object):
         self.tokens = [token[0] for token in tokens]
         # print(tokens)
         # 自定义混淆集加入疑似错误词典
-        for confuse in self.custom_confusion:
-            idx = sentence.find(confuse)
-            if idx > -1:
-                maybe_err = [confuse, idx, idx +
-                             len(confuse), ErrorType.confusion]
-                self._add_maybe_error_item(maybe_err, maybe_errors)
+        # for confuse in self.custom_confusion:
+        #     idx = sentence.find(confuse)
+        #     if idx > -1:
+        #         maybe_err = [confuse, idx, idx +
+        #                      len(confuse), ErrorType.confusion]
+        #         self._add_maybe_error_item(maybe_err, maybe_errors)
 
         if self.is_word_error_detect:
             # 未登录词加入疑似错误词典

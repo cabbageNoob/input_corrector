@@ -3,8 +3,8 @@
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-26 22:53:22
-@LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2020-01-04 13:51:35
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-04-14 15:21:39
 '''
 import operator
 import sys, os
@@ -40,9 +40,12 @@ def load_same_pinyin(path, sep='\t'):
             parts = line.split(sep)
             if parts and len(parts) > 2:
                 key_char = parts[0]
-                same_pron_same_tone = set(list(parts[1]))
-                same_pron_diff_tone = set(list(parts[2]))
-                value = same_pron_same_tone.union(same_pron_diff_tone)
+                # same_pron_same_tone = set(list(parts[1]))
+                # same_pron_diff_tone = set(list(parts[2]))
+                # value = same_pron_same_tone.union(same_pron_diff_tone)
+                value=set()
+                for part in parts[1:]:
+                    value=value.union(set(list(part)))
                 if len(key_char) > 1 or not value:
                     continue
                 result[key_char] = value
@@ -67,8 +70,9 @@ def load_same_stroke(path, sep='\t'):
                 continue
             parts = line.split(sep)
             if parts and len(parts) > 1:
-                for i, c in enumerate(parts):
-                    result[c] = set(list(parts[:i] + parts[i + 1:]))
+                # for i, c in enumerate(parts):
+                #     result[c] = set(list(parts[:i] + parts[i + 1:]))
+                result[parts[0]] = set(list(parts[1]))
     return result
 class RuleBertCorrector(RuleBertDetector):
     def __init__(self, bert_model_dir=config.bert_model_dir,

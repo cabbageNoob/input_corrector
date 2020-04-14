@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-01-04 12:02:32
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-03-18 18:26:29
+@LastEditTime: 2020-04-14 15:22:09
 '''
 import codecs
 import operator
@@ -73,9 +73,9 @@ def load_same_stroke(path, sep='\t'):
                 continue
             parts = line.split(sep)
             if parts and len(parts) > 1:
-                # result[parts[0]]=set(list(parts[1]))
-                for i, c in enumerate(parts):
-                    result[c] = set(list(parts[:i] + parts[i + 1:]))
+                result[parts[0]]=set(list(parts[1]))
+                # for i, c in enumerate(parts):
+                #     result[c] = set(list(parts[:i] + parts[i + 1:]))
     return result
 
 class RuleBertWordCorrector(RuleBertWordDetector):
@@ -466,6 +466,7 @@ if __name__ == '__main__':
     # corrector.enable_word_error(enable=False)
     test = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。 '
     # test='今天，老师的生体不好，可她艰持给我们上课。'
+    test='在北京京的生活节奏奏是很快的'
     pred_sentence, pred_detail,tokens,maybe_errors = corrector.correct(test,reverse=False)
     print(pred_sentence, pred_detail,tokens)
     corrector.enable_word_error(enable=True)

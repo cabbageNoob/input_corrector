@@ -3,8 +3,8 @@
 @version: 
 @Author: cjh <492795090@qq.com>
 @Date: 2019-12-26 22:10:50
-@LastEditors  : cjh <492795090@qq.com>
-@LastEditTime : 2019-12-26 23:01:53
+@LastEditors: cjh <492795090@qq.com>
+@LastEditTime: 2020-04-14 15:18:51
 '''
 import os
 
@@ -21,9 +21,9 @@ word_freq_path = os.path.join(pwd_path, '../data/word_freq.txt')
 # 中文常用字符集
 common_char_path = os.path.join(pwd_path, '../data/common_char_set.txt')
 # 同音字
-same_pinyin_path = os.path.join(pwd_path, '../data/same_pinyin.txt')
+same_pinyin_path = os.path.join(pwd_path, '../data/2013_simple_pinyin.txt')
 # 形似字
-same_stroke_path = os.path.join(pwd_path, '../data/same_stroke.txt')
+same_stroke_path = os.path.join(pwd_path, '../data/2013_simple_shape.txt')
 # language model path
 language_model_path = os.path.join(pwd_path, '../data/kenlm/zh_giga.no_cna_cmn.prune01244.klm')#people2014corpus_chars.klm  #THUCNews_char.klm  #THUCNews_people2014_merge_char.klm
 # 用户自定义错别字混淆集  format:变体	本体   本体词词频（可省略）
