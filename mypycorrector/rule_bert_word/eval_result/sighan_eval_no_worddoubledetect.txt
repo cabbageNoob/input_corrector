@@ -1,0 +1,4170 @@
+input sentence:但是我不能去参加，因为我有一点事情阿！
+pred sentence:但是我不能去参加，因为我有一点事情啊！[['阿', '啊', 17, 18, 'char']]
+right sentence:但是我不能去参加，因为我有一点事情啊！
+wrong_index[17]
+
+input sentence:听起来是一份很好的公司。又意思又很多钱。
+pred sentence:听起来是一份很好的公司。又意思又很多钱。[]
+right sentence:听起来是一份很好的公司。有意思又很多钱。
+wrong_index[12]
+
+input sentence:听起来是一份很好的公司。又意思又很多钱。
+pred sentence:听起来是一份很好的公司。又意思又很多钱。[]
+right sentence:听起来是一份很好的公司。有意思又很多钱。
+wrong_index[12]
+
+input sentence:敬祝身体建慷。
+pred sentence:敬祝身体健慷。[['建慷', '健慷', 4, 6, 'word']]
+right sentence:敬祝身体健康。
+wrong_index[4, 5]
+
+input sentence:我很高兴听说你已经找到了工作。我真恭喜妳阿。
+pred sentence:我很高兴听说你已经找到了工作。我真恭喜你啊。[['妳', '你', 19, 20, 'char'], ['阿', '啊', 20, 21, 'char']]
+right sentence:我很高兴听说你已经找到了工作。我真恭喜妳啊。
+wrong_index[20]
+
+input sentence:听说你准备开一个祝会，那天我不能跟你参加。我很抱见阿。
+pred sentence:听说你准备开一个属会，那天我不能跟你参加。我很想抱见阿。[['祝会', '属会', 8, 10, 'word'], ['抱', '想抱', 23, 24, 'miss']]
+right sentence:听说你准备开一个祝会，那天我不能跟你参加。我很抱歉啊。
+wrong_index[24, 25]
+
+input sentence:我知道，你很久以前找工作很幸苦。
+pred sentence:我知道，你很久以前找工作很辛苦。[['幸苦', '辛苦', 13, 15, 'word']]
+right sentence:我知道，你很久以前找工作很辛苦。
+wrong_index[13]
+
+input sentence:我很想参家你的舞会因为你的舞会总是很好玩。
+pred sentence:我很想参加你的舞会因为你的舞会总是很好玩。[['参家', '参加', 3, 5, 'word']]
+right sentence:我很想参加你的舞会因为你的舞会总是很好玩。
+wrong_index[4]
+
+input sentence:我下个星期非常忙所以我不能参家你的舞会。
+pred sentence:我下个星期非常忙所以我不能参加你的舞会。[['参家', '参加', 13, 15, 'word']]
+right sentence:我下个星期非常忙所以我不能参加你的舞会。
+wrong_index[14]
+
+input sentence:我下个星期天我妈妈回来台湾。
+pred sentence:我下个星期天我妈妈回来台湾。[]
+right sentence:我下个星期天我妈妈会来台湾。
+wrong_index[9]
+
+input sentence:因为我不能参家你的舞会所以我要请你跟我去吃晚饭再看电影。
+pred sentence:因为我不能参加你的舞会所以我要请你跟我去吃晚饭再看电影。[['参家', '参加', 5, 7, 'word']]
+right sentence:因为我不能参加你的舞会所以我要请你跟我去吃晚饭再看电影。
+wrong_index[6]
+
+input sentence:你的家人的生体好？
+pred sentence:你的家人的身体好？[['生体', '身体', 5, 7, 'word']]
+right sentence:你的家人的身体好？
+wrong_index[5]
+
+input sentence:你小的时候总视看了这个杂志，所以我很高兴你可能找到这个工作！
+pred sentence:你小的时候总是看了这个杂志，所以我很高兴你可能找到这个工作！[['总视', '总是', 5, 7, 'word']]
+right sentence:你小的时候总是看了这个杂志，所以我很高兴你可能找到这个工作！
+wrong_index[6]
+
+input sentence:我希望可能参加你的晚会，可是他的生体真的不太好！
+pred sentence:我希望可能参加你的晚会，可是他的身体真的不太好！[['生体', '身体', 16, 18, 'word']]
+right sentence:我希望可能参加你的晚会，可是他的身体真的不太好！
+wrong_index[16]
+
+input sentence:对不起，我不能参加你开的庆祝会，因为我有事情。但是我一定送给你一把很大的化。
+pred sentence:对不起，我不能参加你开的庆祝会，因为我有事情。但是我一定送给你一把很大的化。[]
+right sentence:对不起，我不能参加你开的庆祝会，因为我有事情。但是我一定送给你一把很大的花。
+wrong_index[36]
+
+input sentence:出你：万事如意，身体健康。
+pred sentence:笨拙你：万事如意，身体健康。[['出', '笨拙', 0, 1, 'char']]
+right sentence:祝你：万事如意，身体健康。
+wrong_index[0]
+
+input sentence:我觉得你高心得不得了。
+pred sentence:我觉得你高心得不得了。[]
+right sentence:我觉得你高兴得不得了。
+wrong_index[5]
+
+input sentence:你找到你最喜欢的工作，我也很高心。
+pred sentence:你找到你最喜欢的工作，我也很高薪。[['高心', '高薪', 14, 16, 'word']]
+right sentence:你找到你最喜欢的工作，我也很高兴。
+wrong_index[15]
+
+input sentence:我要先说你恭喜的话，应为我者到现在很难找到工作，所以很棒。
+pred sentence:我要先说你恭喜的话，应为我都到现在很难找到工作，所以很棒。[['我者', '我都', 12, 14, 'word']]
+right sentence:我要先说你恭喜的话，因为我知道现在很难找到工作，所以很棒。
+wrong_index[10, 13, 14]
+
+input sentence:我真的洗碗我可以去看你。
+pred sentence:我真的洗碗我可以去看你。[]
+right sentence:我真的希望我可以去看你。
+wrong_index[3, 4]
+
+input sentence:我妈妈病了，我爸爸过世了，妹妹跟她的男朋友防守了。
+pred sentence:我妈妈病了，我爸爸过世了，妹妹跟她的男朋友防守了。[]
+right sentence:我妈妈病了，我爸爸过世了，妹妹跟她的男朋友分手了。
+wrong_index[21, 22]
+
+input sentence:张爱文和林美美不能一起去那理。
+pred sentence:张蔼文和林美美不能一起去那里。[['张爱文', '张蔼文', 0, 3, 'itself'], ['那理', '那里', 12, 14, 'word']]
+right sentence:张爱文和林美美不能一起去那里。
+wrong_index[13]
+
+input sentence:我下了课以后，就根她坐公共汽车一起回家。
+pred sentence:我下了课以后，就跟她坐公共汽车一起回家。[['根', '跟', 8, 9, 'char']]
+right sentence:我下了课以后，就跟她坐公共汽车一起回家。
+wrong_index[8]
+
+input sentence:我下了课以后，就根她坐公共汽车一起回家。
+pred sentence:我下了课以后，就跟她坐公共汽车一起回家。[['根', '跟', 8, 9, 'char']]
+right sentence:我下了课以后，就跟她坐公共汽车一起回家。
+wrong_index[8]
+
+input sentence:昨天他写很多公克，所以今天他很累。
+pred sentence:昨天他写很多公克，所以今天他很累。[]
+right sentence:昨天他写很多功课，所以今天他很累。
+wrong_index[6, 7]
+
+input sentence:看电影以前，张爱文想根林美美去吃饭。
+pred sentence:看电影以前，张蔼文祥根林美美去吃饭。[['张爱文想', '张蔼文祥', 6, 10, 'word']]
+right sentence:看电影以前，张爱文想跟林美美去吃饭。
+wrong_index[10]
+
+input sentence:今天我跟美美一起去看一前她要看的电影。
+pred sentence:今天我跟美美一起去看一前她要看的电影。[]
+right sentence:今天我跟美美一起去看以前她要看的电影。
+wrong_index[10]
+
+input sentence:在学校林美美的傍边的位子是张爱文。
+pred sentence:在学校林美美的傍边的位子是张蔼文。[['张爱文', '张蔼文', 13, 16, 'itself']]
+right sentence:在学校林美美的旁边的位子是张爱文。
+wrong_index[7]
+
+input sentence:上课的时候，张爱文问林美美下个以后要不要跟他一起去看电影。
+pred sentence:上课的时候，张蔼文问林美美下歌以后要不要跟他一起去看电影。[['张爱文', '张蔼文', 6, 9, 'itself'], ['美下个', '美下歌', 12, 15, 'itself']]
+right sentence:上课的时候，张爱文问林美美下课以后要不要跟他一起去看电影。
+wrong_index[14]
+
+input sentence:他是很用功的人，所以很总明。
+pred sentence:他是很用功的人，所以很从明。[['总明', '从明', 11, 13, 'word']]
+right sentence:他是很用功的人，所以很聪明。
+wrong_index[11]
+
+input sentence:今天在上课学到最难得课，我跟别的同学也觉得本来是这样，我的同学不太懂，正好我昨天刚才念这个问题，所以把他不懂的问题再教给他。
+pred sentence:今天在上课学到最难得课，我跟别的同学也觉得本来是这样，我的同学不太懂，正好我昨天刚才念这个问题，所以把他不太懂的问题再教给他。[['懂', '太懂', 53, 54, 'miss']]
+right sentence:今天在上课学到最难的课，我跟别的同学也觉得本来是这样，我的同学不太懂，正好我昨天刚才念这个问题，所以把他不懂的问题再教给他。
+wrong_index[9]
+
+input sentence:下公车的时候，时间快到了，我们只好买吃的东西在马上去电影院。
+pred sentence:下公车的时候，时间快到了，我们只好买吃的东西在马上去电影院。[]
+right sentence:下公车的时候，时间快到了，我们只好买吃的东西再马上去电影院。
+wrong_index[22]
+
+input sentence:要是我们上课的时候说话，我的老师说对我们：「建在不必说话！」
+pred sentence:要是我们上课的时候说话，我的老师说对我们：「建在不必说话！」[]
+right sentence:要是我们上课的时候说话，我的老师说对我们：「现在不必说话！」
+wrong_index[22]
+
+input sentence:下了课我昨天在学校的门口事等我女朋友的，她叫美美。
+pred sentence:下了课我昨天在学校的门口是等我女朋友的，她叫美美。[['事', '是', 12, 13, 'char']]
+right sentence:下了课我昨天在学校的门口是等我女朋友的，她叫美美。
+wrong_index[12]
+
+input sentence:电影叫「ＷＡＬＬ－Ｅ」，我觉得是很客爱的电影。
+pred sentence:电影叫「ＷＡＬＬ－Ｅ」，我觉得是很可爱的电影。[['客爱', '可爱', 17, 19, 'word']]
+right sentence:电影叫「ＷＡＬＬ－Ｅ」，我觉得是很可爱的电影。
+wrong_index[17]
+
+input sentence:第一个象片儿：这个男人刚起床。
+pred sentence:第一个象片儿：这个男人刚起床。[]
+right sentence:第一个相片儿：这个男人刚起床。
+wrong_index[3]
+
+input sentence:也雪今天他上课，还是他上班，我不知道。
+pred sentence:叶雪今天他上课，还是他上班，我不知道。[['也', '叶', 0, 1, 'char']]
+right sentence:也许今天他上课，还是他上班，我不知道。
+wrong_index[1]
+
+input sentence:他的床很小，是蓝的也是录的。
+pred sentence:他的床铺很小，是蓝的也是录的。[['床', '床铺', 2, 3, 'miss']]
+right sentence:他的床很小，是蓝的也是绿的。
+wrong_index[11]
+
+input sentence:第二个象片儿：四个学生都在教室。
+pred sentence:第二个象片儿：四个学生都在教室。[]
+right sentence:第二个相片儿：四个学生都在教室。
+wrong_index[3]
+
+input sentence:第三个象片儿：两个人都坐公共汽车还是昨坐火车。
+pred sentence:第三个象片儿：两个人都坐公共汽车还是坐坐火车。[['昨', '坐', 18, 19, 'char']]
+right sentence:第三个相片儿：两个人都坐公共汽车还是昨坐火车。
+wrong_index[3]
+
+input sentence:象片儿里面有三张椅子。
+pred sentence:相片儿里面有三张椅子。[['象', '相', 0, 1, 'char']]
+right sentence:相片儿里面有三张椅子。
+wrong_index[0]
+
+input sentence:第四个象片儿：两个人都看点影。
+pred sentence:第四个象片儿：两个人都看点影。[]
+right sentence:第四个相片儿：两个人都看电影。
+wrong_index[3, 12]
+
+input sentence:我觉得这些人也在第二个象片儿，也在第三个象片儿。这个男人也在第一个象片儿。这两人是朋友。
+pred sentence:我觉得这些人也在第二个象片儿，也在第三个象片儿。这个男人也在第一个象片儿。这两人是朋友。[]
+right sentence:我觉得这些人也在第二个相片儿，也在第三个相片儿。这个男人也在第一个相片儿。这两人是朋友。
+wrong_index[11, 20, 33]
+
+input sentence:我纲来学校的时候，林美美请我帮她做她的功课。
+pred sentence:我刚来学校的时候，林美美请我帮她做她的功课。[['我纲来', '我刚来', 0, 3, 'itself']]
+right sentence:我刚来学校的时候，林美美请我帮她做她的功课。
+wrong_index[1]
+
+input sentence:下午四点，我跟林小姐去车站，让后坐车到西门去看电影。
+pred sentence:下午四点，我跟林小姐去车站，让后坐车到西门去看电影。[]
+right sentence:下午四点，我跟林小姐去车站，然后坐车到西门去看电影。
+wrong_index[14]
+
+input sentence:她告诉爱文：如果他在晚上喝酒他的生体一定不太好。
+pred sentence:他告诉艾文：如果他在晚上喝酒他的身体一定不太好。[['她', '他', 0, 1, 'char'], ['爱文', '艾文', 3, 5, 'word'], ['生体', '身体', 16, 18, 'word']]
+right sentence:她告诉爱文：如果他在晚上喝酒他的身体一定不太好。
+wrong_index[16]
+
+input sentence:你的爸爸真得是坏人！他应该不让你喝酒！
+pred sentence:你的爸爸真得是坏人！他应该不让你喝酒！[]
+right sentence:你的爸爸真的是坏人！他应该不让你喝酒！
+wrong_index[5]
+
+input sentence:她提以他们五点晚上去电影院看一个新电影．
+pred sentence:他是以他们五点晚上去电影院看一个新电影．[['她', '他', 0, 1, 'char'], ['提以', '是以', 1, 3, 'word']]
+right sentence:她提议他们五点晚上去电影院看一个新电影．
+wrong_index[2]
+
+input sentence:因为大的家里学校很远，所以他要早一点起来。
+pred sentence:因为大的家里学校很远，所以他要早一点起来。[]
+right sentence:因为他的家离学校很远，所以他要早一点起来。
+wrong_index[2, 5]
+
+input sentence:他从是坐公车去学校。
+pred sentence:他从是坐公车去学校。[]
+right sentence:他总是坐公车去学校。
+wrong_index[1]
+
+input sentence:他们看很有处的电影，因为大看着看着笑起来了。
+pred sentence:他们看很有处的电影，因为大看着看着笑起来了。[]
+right sentence:他们看很有趣的电影，因为他看着看着笑起来了。
+wrong_index[5, 12]
+
+input sentence:我最喜欢的课目是数学。
+pred sentence:我最喜欢的课目是数学。[]
+right sentence:我最喜欢的科目是数学。
+wrong_index[5]
+
+input sentence:到了学校一后，他跟他的同学一起上数学科。
+pred sentence:到了学校以后，他跟他的同学一起上数学科。[['一后', '以后', 4, 6, 'confusion']]
+right sentence:到了学校以后，他跟他的同学一起上数学课。
+wrong_index[4, 18]
+
+input sentence:他们要看得是美国电影。他们觉得很好看，所以他们看完了以后决定一定要买这个电影的ＤＶＤ了。
+pred sentence:他们要看的是美国电影。他们觉得很好看，所以他们看完了以后决定一定要买这个电影的ＤＶＤ了。[['得', '的', 4, 5, 'char']]
+right sentence:他们要看的是美国电影。他们觉得很好看，所以他们看完了以后决定一定要买这个电影的ＤＶＤ了。
+wrong_index[4]
+
+input sentence:他们一起很兴奋得聊聊天，都不关心老师说的话。
+pred sentence:他们一起很兴奋地聊聊天，都不关心老师说的话。[['得', '地', 7, 8, 'char']]
+right sentence:他们一起很兴奋地聊聊天，都不关心老师说的话。
+wrong_index[7]
+
+input sentence:所以爱文跟美美找一找控的时间，今天才来很大的电影院。
+pred sentence:所以艾文跟美美找一找空的时间，今天才来很大的电影院。[['爱文', '艾文', 2, 4, 'word'], ['找控', '找空', 9, 11, 'word']]
+right sentence:所以爱文跟美美找一找空的时间，今天才来很大的电影院。
+wrong_index[10]
+
+input sentence:电影真的不错，可是美美睡了半个小时，所以内容懂不清楚。
+pred sentence:电影真的不错，可是美美地睡了半个小时，所以内容不清楚。[['睡', '地睡', 11, 12, 'miss'], ['懂', '', 22, 23, 'redundancy']]
+right sentence:电影真的不错，可是美美睡了半个小时，所以内容都不清楚。
+wrong_index[22]
+
+input sentence:老师就给他两张电影票，要他请一个朋友谊起去看。
+pred sentence:老师就给他两张电影票，要他请一个朋友一起去看。[['谊', '一', 18, 19, 'word']]
+right sentence:老师就给他两张电影票，要他请一个朋友一起去看。
+wrong_index[18]
+
+input sentence:因为她也想看这部电影，所以她马上就回答我：「好啊，我也想看这部电影。」我们下了课就打公车去西门町。
+pred sentence:因为她也想看这部电影，所以她马上就回答我：「好好啊，我也想看这部电影。」我们下了课就打公车去西门町。[['啊', '好啊', 23, 24, 'miss']]
+right sentence:因为她也想看这部电影，所以她马上就回答我：「好啊，我也想看这部电影。」我们下了课就搭公车去西门町。
+wrong_index[41]
+
+input sentence:买了票就近去看电影，看完了我们都觉得这部电影很好看也很好笑，我们很喜欢。
+pred sentence:买了票就进去看电影，看完了我们都觉得这部电影很好看也很好笑，我们很喜欢。[['近', '进', 4, 5, 'char']]
+right sentence:买了票就进去看电影，看完了我们都觉得这部电影很好看也很好笑，我们很喜欢。
+wrong_index[4]
+
+input sentence:因为我们看电影看到很晚，女生一个人回家不太好，所以我去送林美妹回家我才回家。
+pred sentence:因为我们看电影看到很晚，女生一个人回家不太好，所以我去送林美妹妹回家我才回家。[['妹', '妹妹', 30, 31, 'miss']]
+right sentence:因为我们看电影看到很晚，女生一个人回家不太好，所以我去送林美美回家我才回家。
+wrong_index[30]
+
+input sentence:下了课以后，他跟文美常常见面。应为文美是他的好朋友。
+pred sentence:下了课以后，他跟文美常常见面。应为文美是他的好朋友。[]
+right sentence:下了课以后，他跟文美常常见面。因为文美是他的好朋友。
+wrong_index[15]
+
+input sentence:他们都很喜欢看唷意思的电影。
+pred sentence:他们都很喜欢看意思的电影。[['唷', '', 7, 8, 'redundancy']]
+right sentence:他们都很喜欢看有意思的电影。
+wrong_index[7]
+
+input sentence:我从日本会把一个礼物买从给你。
+pred sentence:我从日本会把一个礼物买枞给你。[['从', '枞', 11, 12, 'char']]
+right sentence:我从日本会把一个礼物买送给你。
+wrong_index[11]
+
+input sentence:本来我打算去你的公司蔘加，可是后来我的家有问题，所以我不能去了。
+pred sentence:本来我打算去你的公司加，可是后来我的家有问题，所以我不能去了。[['蔘', '', 10, 11, 'redundancy']]
+right sentence:本来我打算去你的公司参加，可是后来我的家有问题，所以我不能去了。
+wrong_index[10]
+
+input sentence:所以恐怕我不能参加你的怕对，对不起啊！
+pred sentence:所以恐怕我不能参加你的拍对，对不起你啊！[['怕', '拍', 11, 12, 'char'], ['啊', '你啊', 17, 18, 'miss']]
+right sentence:所以恐怕我不能参加你的派对，对不起啊！
+wrong_index[11]
+
+input sentence:可是下个礼拜如果你有空我想再开一个好把？
+pred sentence:可是下个礼拜如果你有空我想再开一个好吧？[['把', '吧', 18, 19, 'char']]
+right sentence:可是下个礼拜如果你有空我想再开一个好吧？
+wrong_index[18]
+
+input sentence:我妈妈伤病了所以我得去看他。
+pred sentence:我妈马上病了所以我得去看他。[['妈', '马', 2, 3, 'char'], ['伤', '上', 3, 4, 'char']]
+right sentence:我妈妈生病了所以我得去看他。
+wrong_index[3]
+
+input sentence:恭喜恭喜！你找到工作，我门也很高兴。
+pred sentence:恭喜恭喜！你找到工作，我们也很高兴。[['我门', '我们', 11, 13, 'confusion']]
+right sentence:恭喜恭喜！你找到工作，我们也很高兴。
+wrong_index[12]
+
+input sentence:我知道了，以前你没工作的时候兴起不好。
+pred sentence:我知道了，以前你没工作的时候兴起不好。[]
+right sentence:我知道了，以前你没工作的时候心情不好。
+wrong_index[14, 15]
+
+input sentence:我听说你要开一个庆祝庆祝地会，可是那天我有一件很重要的事情一定不能参加。
+pred sentence:我听说你要开一个庆祝庆祝地块，可是那天我有一件很重要的事情一定不能参加。[['地会', '地块', 12, 14, 'word']]
+right sentence:我听说你要开一个庆祝庆祝的会，可是那天我有一件很重要的事情一定不能参加。
+wrong_index[12]
+
+input sentence:下个星期我想你跟我一起去一家非常有名的饭店，如果我们在饭店外面吃，我们可以看到一个漂漂亮亮地风景。
+pred sentence:下个星期我想你跟我一起去一家非常有名的饭店，如果我们在饭店外面吃，我们可以看到一个漂漂亮亮的风景。[['地', '的', 45, 46, 'char']]
+right sentence:下个星期我想你跟我一起去一家非常有名的饭店，如果我们在饭店外面吃，我们可以看到一个漂漂亮亮的风景。
+wrong_index[45]
+
+input sentence:我考完试以后、再庆祝一次把！
+pred sentence:我考完试以后、再庆祝一次吧！[['把', '吧', 12, 13, 'char']]
+right sentence:我考完试以后、再庆祝一次吧！
+wrong_index[12]
+
+input sentence:要是你有空，我们找的时间聊吧！
+pred sentence:要是你有空，我们找的时间聊聊吧！[['聊', '聊聊', 12, 13, 'miss']]
+right sentence:要是你有空，我们找个时间聊吧！
+wrong_index[9]
+
+input sentence:因为庆祝会那天是我妈妈的生日。我要去乡下间妈妈。
+pred sentence:因为庆祝会那天是我妈妈的生日。我要去乡下见妈妈。[['间', '见', 20, 21, 'char']]
+right sentence:因为庆祝会那天是我妈妈的生日。我要去乡下见妈妈。
+wrong_index[20]
+
+input sentence:我就要参家你的会，可是那个天我跟我的妈妈和爸爸要去美因看见我的弟弟。
+pred sentence:我就要参加你的会，可是那个天我跟我的妈妈和爸爸要去美音看见我的弟弟。[['参家', '参加', 3, 5, 'word'], ['美因', '美音', 25, 27, 'word']]
+right sentence:我就要参加你的会，可是那个天我跟我的妈妈和爸爸要去美国看见我的弟弟。
+wrong_index[4, 26]
+
+input sentence:我门打篹很久要去看他，所以我不可能参家你的会。
+pred sentence:我们打很久要去看他，所以我不可能参加你的会。[['我门', '我们', 0, 2, 'confusion'], ['篹', '', 3, 4, 'redundancy'], ['参家', '参加', 17, 19, 'word']]
+right sentence:我们打算很久要去看他，所以我不可能参加你的会。
+wrong_index[1, 3, 18]
+
+input sentence:你请我去你的无会以前，我原来要去跟你们静祝静竹，一定很好玩。
+pred sentence:你请我去你的舞会以前，我原来要去跟你们静祝静心竹，一定很好玩。[['无会', '舞会', 6, 8, 'word'], ['竹', '心竹', 22, 23, 'miss']]
+right sentence:你请我去你的舞会以前，我原来要去跟你们庆祝庆祝，一定很好玩。
+wrong_index[6, 19, 21, 22]
+
+input sentence:因为我不能，所以我准备小礼物，解我的朋友送给你。希望你喜欢。
+pred sentence:因为我不能，所以我准备小礼物，写我的朋友送给你。希望你喜欢。[['解', '写', 15, 16, 'char']]
+right sentence:因为我不能，所以我准备小礼物，请我的朋友送给你。希望你喜欢。
+wrong_index[15]
+
+input sentence:你的日字都好吗？我很高兴你找到了工作啊！
+pred sentence:你的日子读好吗？我很高兴你找到了工作啊！[['日字', '日子', 2, 4, 'word'], ['都', '读', 4, 5, 'char']]
+right sentence:你的日子都好吗？我很高兴你找到了工作啊！
+wrong_index[3]
+
+input sentence:我但然去了看医生，他说没什么关系，我只需要休息一下。
+pred sentence:我坦然去了看医生，他说没什么关系，我只需要休息一下。[['但然', '坦然', 1, 3, 'word']]
+right sentence:我当然去了看医生，他说没什么关系，我只需要休息一下。
+wrong_index[1]
+
+input sentence:妳的朋友，障爱文。
+pred sentence:你的朋友，獐子爱问。[['妳', '你', 0, 1, 'char'], ['障爱文', '獐子爱问', 5, 8, 'word']]
+right sentence:妳的朋友，张爱文。
+wrong_index[5]
+
+input sentence:我本来想要跟你一起去，可是最近我想得起来我应该做一件很重要事，所以对不起我已定不能跟你一起去。
+pred sentence:我本来想要跟你一起去，可是最近我想得起来我应该做一件很重要事，所以对不起我一定不能跟你一起去。[['已', '一', 37, 38, 'char']]
+right sentence:我本来想要跟你一起去，可是最近我想得起来我应该做一件很重要事，所以对不起我一定不能跟你一起去。
+wrong_index[37]
+
+input sentence:我知道有的我们的我们的朋友可以跟你一起去，我可以帮你问他们澳是他们有空跟你一起去你要工作的地方。
+pred sentence:我知道有的我们的我们的朋友可以跟你一起去，我可以帮你问他们傲是他们有空跟你一起去你要工作的地方。[['澳是', '傲是', 29, 31, 'word']]
+right sentence:我知道有的我们的我们的朋友可以跟你一起去，我可以帮你问他们要是他们有空跟你一起去你要工作的地方。
+wrong_index[29]
+
+input sentence:我很愿意参加可是庆祝会的时候我们的公司有一个重要的是。
+pred sentence:我很愿意参加可是庆祝会的时候我们的公司有一个重要的是。[]
+right sentence:我很愿意参加可是庆祝会的时候我们的公司有一个重要的事。
+wrong_index[25]
+
+input sentence:长爱文对她很好，因为她们都是好朋友。
+pred sentence:张爱文对她很好，因为他们都是好朋友。[['长爱文', '张爱文', 0, 3, 'itself'], ['她', '他', 10, 11, 'char']]
+right sentence:张爱文对她很好，因为她们都是好朋友。
+wrong_index[0]
+
+input sentence:长爱文也高兴得很：「恭喜，恭喜！我也想去，可是我准备考试，最近有点茫，我打算者写一些工课，所以我明天不知道能不能参加。
+pred sentence:长艾文也高兴得很：「恭喜，恭喜！我也想去，可是我准备考试，最近有点茫然，我打算着写一些工课，所以我明天不知道能不能参加。[['长爱文', '长艾文', 0, 3, 'itself'], ['茫', '茫然', 33, 34, 'miss'], ['者', '着', 38, 39, 'char']]
+right sentence:张爱文也高兴得很：「恭喜，恭喜！我也想去，可是我准备考试，最近有点忙，我打算着写一些功课，所以我明天不知道能不能参加。
+wrong_index[0, 33, 38, 42]
+
+input sentence:我觉得你可以请一些我们同学来玩，好不好？我快要有一些理物送给你。
+pred sentence:我觉得你可以请一些我们同学来玩，好不好？我快要有一些礼物送给你。[['理物', '礼物', 26, 28, 'word']]
+right sentence:我觉得你可以请一些我们同学来玩，好不好？我快要有一些礼物送给你。
+wrong_index[26]
+
+input sentence:我昨天下了课以后，就马上回家、洗脸，延后打算自己做饭。
+pred sentence:我昨天下了课以后，就马上回家、洗脸，延后打算自己做饭。[]
+right sentence:我昨天下了课以后，就马上回家、洗脸，然后打算自己做饭。
+wrong_index[18]
+
+input sentence:我很着急合问她得吃药吗？她说不必吃药，可是应该多吃一点水果、多喝一点。
+pred sentence:我很着急答问她得吃药吗？她说不必吃药，可是应该多吃一点水果、多少喝一点。[['合问', '答问', 4, 6, 'word'], ['喝', '少喝', 31, 32, 'miss']]
+right sentence:我很着急和问她得吃药吗？她说不必吃药，可是应该多吃一点水果、多喝一点。
+wrong_index[4]
+
+input sentence:我真的恨高兴你已经找到了一份工作了。
+pred sentence:我真的很高兴你已经找到了一份工作了。[['恨', '很', 3, 4, 'word']]
+right sentence:我真的很高兴你已经找到了一份工作了。
+wrong_index[3]
+
+input sentence:他屋子的颜色比较奇怪，跟一个医院差不多一让。
+pred sentence:他屋子的颜色比较奇怪，跟一个医院差不多一让。[]
+right sentence:他屋子的颜色比较奇怪，跟一个医院差不多一样。
+wrong_index[20]
+
+input sentence:张大林是一个很好的学生，他又用功又聪明。他常常帮别的学生的芒。
+pred sentence:张大林是一个很好的学生，他又用功又聪明。他常常帮别的学生的光芒。[['芒', '光芒', 29, 30, 'miss']]
+right sentence:张大林是一个很好的学生，他又用功又聪明。他常常帮别的学生的忙。
+wrong_index[29]
+
+input sentence:今天没有那么多功课，所以他打算叫小妹妹跟他一起去电影院。
+pred sentence:今天没有那么多功课，所以他打算叫小妹妹跟他一起去电影院。[]
+right sentence:今天没有那么多功课，所以他打算叫小美美跟他一起去电影院。
+wrong_index[17, 18]
+
+input sentence:回家的时候他们坐公车，张大林站着沾着，然后就问她。
+pred sentence:回家的时候他们坐公车，张大林站着站着，然后就问她。[['沾', '站', 16, 17, 'word']]
+right sentence:回家的时候他们坐公车，张大林站着站着，然后就问她。
+wrong_index[16]
+
+input sentence:下课以后他跟怒朋友上公车到别的地方去。公车理没有坐的地方所以他们得站着去。
+pred sentence:下课以后他跟朋友上公车到别的地方去。公车里没有坐的地方所以他们得站着去。[['怒', '', 6, 7, 'redundancy'], ['理', '里', 21, 22, 'char']]
+right sentence:下课以后他跟女朋友上公车到别的地方去。公车里没有坐的地方所以他们得站着去。
+wrong_index[6, 21]
+
+input sentence:小明的女朋友觉得这个电影很有趣，他觉得这个电影里的人都很可爱。可是下明觉得有一点长，那么长他睡着了。
+pred sentence:小明的女朋友觉得这个电影很有趣，他觉得这个电影里的人都很可爱。可是夏明觉得有一点长，那么长他睡着了。[['下明觉', '夏明觉', 33, 36, 'itself']]
+right sentence:小明的女朋友觉得这个电影很有趣，他觉得这个电影里的人都很可爱。可是小明觉得有一点长，那么长他睡着了。
+wrong_index[33]
+
+input sentence:上课的时候，老师文学生很难懂地问题。
+pred sentence:上课的时候，老师文学生很难懂的问题。[['地', '的', 14, 15, 'char']]
+right sentence:上课的时候，老师问学生很难懂的问题。
+wrong_index[8, 14]
+
+input sentence:因为爱美是文德的最爱的朋友，所以他清她吃饭以后去看一部电影。
+pred sentence:因为爱美是文德的最爱的朋友，所以他清他吃饭以后去看一部电影。[['她', '他', 18, 19, 'char']]
+right sentence:因为爱美是文德的最爱的朋友，所以他请她吃饭以后去看一部电影。
+wrong_index[17]
+
+input sentence:他喜欢穿蓝色的睡衣、戴着眼睛。
+pred sentence:他喜欢穿蓝色的睡衣、戴着眼镜。[['睛', '镜', 13, 14, 'word']]
+right sentence:他喜欢穿蓝色的睡衣、戴着眼镜。
+wrong_index[13]
+
+input sentence:小小说她很想跟他一起看电影，可是她有很多功课她还没作所以她的父母今天可能不被她出去。
+pred sentence:小小说她很想跟他一起看电影，可是她有很多功课她还没做所以她的父母今天可能不被她出去。[['没作', '没做', 24, 26, 'word']]
+right sentence:小小说她很想跟他一起看电影，可是她有很多功课她还没做所以她的父母今天可能不被她出去。
+wrong_index[25]
+
+input sentence:下课以后我跟朋友一起座公车，我们看电影。
+pred sentence:下课以后我跟朋友一起坐公车，我们看电影。[['座', '坐', 10, 11, 'char']]
+right sentence:下课以后我跟朋友一起坐公车，我们看电影。
+wrong_index[10]
+
+input sentence:他每天每天起床六点半因为他的家离大学很远，可是他很用空所以他觉得每天很早起床让她太累。
+pred sentence:他每天每天起床六点半因为他的家里大学很远，可是他很用穷所以他觉得每天很早起床让她太累。[['家离', '家里', 14, 16, 'word'], ['用空', '用穷', 25, 27, 'word']]
+right sentence:他每天每天起床六点半因为他的家离大学很远，可是他很用功所以他觉得每天很早起床让她太累。
+wrong_index[26]
+
+input sentence:他有一个女朋友叫美美。他们今天打篹一起去看电影。
+pred sentence:他有一个女朋友叫美美。他们今天打一起去看电影。[['篹', '', 16, 17, 'redundancy']]
+right sentence:他有一个女朋友叫美美。他们今天打算一起去看电影。
+wrong_index[16]
+
+input sentence:每每要看外国电影，所以文德买票给她。
+pred sentence:每每要看外国电影，所以文德买票给她。[]
+right sentence:每美美要看外国电影，所以文德买票给她。
+wrong_index[1, 1]
+
+input sentence:我今天早上六点办起来了。
+pred sentence:我今天早上六点办起来了。[]
+right sentence:我今天早上六点半起来了。
+wrong_index[7]
+
+input sentence:小美跟我一样大，可是沾起来的时候我比她高。
+pred sentence:小妹跟我一样大，可是站起来的时候我比她高。[['小美', '小妹', 0, 2, 'word'], ['沾', '站', 10, 11, 'word']]
+right sentence:小美跟我一样大，可是站起来的时候我比她高。
+wrong_index[10]
+
+input sentence:下了课我们常常以起坐公车。今天我们也以块去了。
+pred sentence:下了课我们常常以起坐公车。今天我们也一块去了。[['以块', '一块', 18, 20, 'word']]
+right sentence:下了课我们常常一起坐公车。今天我们也一块去了。
+wrong_index[7, 18]
+
+input sentence:现在早上六点半，这个男孩子再起床呢。
+pred sentence:现在早上六点半，这个男孩子再起床呢。[]
+right sentence:现在早上六点半，这个男孩子在起床呢。
+wrong_index[13]
+
+input sentence:上课的时候有一个学生不懂再黑板写的东西，他的同学把这些东西教他。
+pred sentence:上课的时候有一个学生不懂他在黑板写的东西，他的同学把这些东西叫他。[['懂', '懂他', 11, 12, 'miss'], ['再', '在', 12, 13, 'char'], ['教他', '叫他', 29, 31, 'word']]
+right sentence:上课的时候有一个学生不懂在黑板写的东西，他的同学把这些东西教他。
+wrong_index[12]
+
+input sentence:他的好朋友叫文得，他们常常下可以后一起去看电影。
+pred sentence:他的好朋友叫免得，他们常常下可以后一起去看电影。[['文得', '免得', 6, 8, 'word']]
+right sentence:他的好朋友叫文得，他们常常下课以后一起去看电影。
+wrong_index[14]
+
+input sentence:医生跟他说：你一定最少每个星期运动两次，要不然你的身体不输服，你的头会容易疼。
+pred sentence:医生跟他说：你一定最少每个星期运动两次，要不然你的身体不舒服，你的头会容易疼痛。[['不输服', '不舒服', 27, 30, 'itself'], ['疼', '疼痛', 37, 38, 'miss']]
+right sentence:医生跟他说：你一定最少每个星期运动两次，要不然你的身体不舒服，你的头会容易疼。
+wrong_index[28]
+
+input sentence:今天他很哩，不过有几个很重要的考试，他非及格不可。
+pred sentence:今天他很忙哩，不过有几个很重要的考试，他非及格不可。[['哩', '忙哩', 4, 5, 'miss']]
+right sentence:今天他很累，不过有几个很重要的考试，他非及格不可。
+wrong_index[4]
+
+input sentence:其是碰到困难的时候同学总是请他帮他们写功课，下课以后常常把学校的事一起讨论。
+pred sentence:其实碰到困难的时候同学总是请他帮他们写功课，下课以后常常把学校的事一起讨论。[['其是', '其实', 0, 2, 'word']]
+right sentence:其实碰到困难的时候同学总是请他帮他们写功课，下课以后常常把学校的事一起讨论。
+wrong_index[1]
+
+input sentence:他的老师也觉的他还是聪明，鼓励他高中毕业以后在很有名的大学念书。
+pred sentence:他的老师也觉得他还是聪明，鼓励他高中毕业以后在很有名的大学念书。[['的', '得', 6, 7, 'char']]
+right sentence:他的老师也觉得他还是聪明，鼓励他高中毕业以后在很有名的大学念书。
+wrong_index[6]
+
+input sentence:小王今天跟夏美有约会。他很警张，所以他今天六点半就起床了。
+pred sentence:小班今天跟夏美有约会。他很警长，所以他今天六点半就起床了。[['小王', '小班', 0, 2, 'word'], ['警张', '警长', 13, 15, 'word']]
+right sentence:小王今天跟夏美有约会。他很紧张，所以他今天六点半就起床了。
+wrong_index[13]
+
+input sentence:他已经跟老师说了他从昨天会开始用功，其实老师不在教室里的话他一直跟同学劳天，坐不住，也不认真。
+pred sentence:他已经跟老师说了他从昨天会开始用功，其实老师不在教室里的话他一直跟同学老天，坐不住，也不认真。[['劳天', '老天', 35, 37, 'word']]
+right sentence:他已经跟老师说了他从昨天会开始用功，其实老师不在教室里的话他一直跟同学聊天，坐不住，也不认真。
+wrong_index[35]
+
+input sentence:他们玩得很高兴，小王回来的时候就觉得很来，所以他洗澡了就去学教。
+pred sentence:他们玩得很高兴，小王回来的时候就觉得很来，所以他洗澡了就去学校。[['学教', '学校', 29, 31, 'word']]
+right sentence:他们玩得很高兴，小王回来的时候就觉得很累，所以他洗澡了就去睡觉。
+wrong_index[19, 29, 30]
+
+input sentence:他的班有一位王大明喜欢的人，可是她还不知道：这是王大明的米米！
+pred sentence:他的班有一位王大明喜欢的人，可是他还不知道：这时王大明的米米！[['她', '他', 16, 17, 'char'], ['这是', '这时', 22, 24, 'word']]
+right sentence:他的班有一位王大明喜欢的人，可是她还不知道：这是王大明的秘密！
+wrong_index[28, 29]
+
+input sentence:看着电影，大名要说给他知道她很喜欢她，所以他现在不要去上课，就要去电影院。
+pred sentence:看这电影，大名要说给他知道她很喜欢她，所以他现在不要去上课，就要去电影院。[['着', '这', 1, 2, 'char']]
+right sentence:看着电影，大明要说给他知道她很喜欢她，所以他现在不要去上课，就要去电影院。
+wrong_index[6]
+
+input sentence:下课了以后学生多要做公车回家，在公车上小白坐不下了所以他得站着回家，对他来说很累可是没办法。
+pred sentence:下课了以后学生多要做公车回家，在公车上小白坐不下了所以他得站着回家，对他来说很累可是没办法。[]
+right sentence:下课了以后学生都要坐公车回家，在公车上小白坐不下了所以他得站着回家，对他来说很累可是没办法。
+wrong_index[7, 9]
+
+input sentence:他站在公车上站着沾着，忽然一个奴生叫他在她的椅子坐一下。
+pred sentence:她站在公车上站着站着，忽然一个奴声叫他在她的椅子坐一下。[['他', '她', 0, 1, 'char'], ['沾', '站', 8, 9, 'word'], ['奴生', '奴声', 15, 17, 'word']]
+right sentence:他站在公车上站着站着，忽然一个女生叫他在她的椅子坐一下。
+wrong_index[8, 15]
+
+input sentence:看了很好看的电影他回家了，可是他被妈妈他了。
+pred sentence:看了很好看的电影他回家了，可是他被妈妈他了。[]
+right sentence:看了很好看的电影他回家了，可是他被妈妈骂了。
+wrong_index[19]
+
+input sentence:可是他觉得没关系因为现在他有奴朋友。
+pred sentence:可是他觉得没关系因为现在他有朋友。[['奴', '', 14, 15, 'redundancy']]
+right sentence:可是他觉得没关系因为现在他有女朋友。
+wrong_index[14]
+
+input sentence:马英九的中学给学生很他的困难，但马英九觉得没关系。
+pred sentence:马英九的中学给学生很他的困难，但马英九觉得没关系。[]
+right sentence:马英九的中学给学生很多的困难，但马英九觉得没关系。
+wrong_index[10]
+
+input sentence:他们正在还在电影院一边看电影一边聊天，高兴的不得了。
+pred sentence:他们正在还在电影院一边看电影一边聊天，高兴的不得了。[]
+right sentence:他们正在还在电影院一边看电影一边聊天，高兴得不得了。
+wrong_index[21]
+
+input sentence:他跟同学在讨论，前面在黑板上有数学的共识。
+pred sentence:他跟同学在讨论，前面在黑板上有数学的共识。[]
+right sentence:他跟同学在讨论，前面在黑板上有数学的公式。
+wrong_index[18, 19]
+
+input sentence:因为我有近视，所以上课的时候就座在教室的前面，要不然老师写的字都会看不清楚。
+pred sentence:因为我有近视，所以上课的时候就坐在教室的前面，要不然老师写的字都会看不清楚。[['座', '坐', 15, 16, 'char']]
+right sentence:因为我有近视，所以上课的时候就坐在教室的前面，要不然老师写的字都会看不清楚。
+wrong_index[15]
+
+input sentence:我的家里学校很近，所以我常走路去学校学习，走路大概十分钟就到了。
+pred sentence:我的家里学校很近，所以我常走路去学校学习，走路大概十分钟就到了。[]
+right sentence:我的家离学校很近，所以我常走路去学校学习，走路大概十分钟就到了。
+wrong_index[3]
+
+input sentence:有时候我念书，有时候我听音龠。
+pred sentence:有时候我念书，有时候我听音龠。[]
+right sentence:有时候我念书，有时候我听音乐。
+wrong_index[13]
+
+input sentence:下午二点二十分，我们上课，下午学很多字合唱父系语法，所以我们常觉得有一点累。
+pred sentence:下午二点二十分，我们上课，下午学很多字合唱父系语法，所以我们常觉得有一点累。[]
+right sentence:下午二点二十分，我们上课，下午学很多字和常复习语法，所以我们常觉得有一点累。
+wrong_index[19, 20, 21, 22]
+
+input sentence:老师常说：上课里面，别税觉。所以我们常觉得有一点累。
+pred sentence:老师常说：上课里面，别睡觉。所以我们常觉得有一点累。[['别税觉', '别睡觉', 10, 13, 'itself']]
+right sentence:老师常说：上课里面，别睡觉。所以我们常觉得有一点累。
+wrong_index[11]
+
+input sentence:因为我们都觉得贰，所以吃瓜堡觉得很好吃。
+pred sentence:因为我们都觉得耳，所以吃瓜宝觉得很好吃。[['贰', '耳', 7, 8, 'word'], ['吃瓜堡', '吃瓜宝', 11, 14, 'itself']]
+right sentence:因为我们都觉得饿，所以吃瓜堡觉得很好吃。
+wrong_index[7]
+
+input sentence:小王问她：「对不气，你叫什么名字？」
+pred sentence:小王问她：「对不气，你叫什么名字？」[]
+right sentence:小王问她：「对不起，你叫什么名字？」
+wrong_index[8]
+
+input sentence:海！我要告诉你一个故事。
+pred sentence:咳！我要告诉你一个故事。[['海', '咳', 0, 1, 'char']]
+right sentence:嗨！我要告诉你一个故事。
+wrong_index[0]
+
+input sentence:今天王上我要跟你很重要的事情谈一谈。
+pred sentence:妗天王上我要跟你很重要的事情谈一谈。[['今', '妗', 0, 1, 'char']]
+right sentence:今天晚上我要跟你很重要的事情谈一谈。
+wrong_index[2]
+
+input sentence:下个星期五是我的生日，所以我要开一个无会。
+pred sentence:下个星期于是我的生日，所以我要开一个误会。[['五是', '于是', 4, 6, 'word'], ['无会', '误会', 18, 20, 'word']]
+right sentence:下个星期五是我的生日，所以我要开一个舞会。
+wrong_index[18]
+
+input sentence:如果你有空，我想这个礼拜五情你去吃饭。
+pred sentence:如果你有空，我想这个礼拜五情你去吃饭。[]
+right sentence:如果你有空，我想这个礼拜五请你去吃饭。
+wrong_index[13]
+
+input sentence:我不局道你要吃什么菜，可是我觉得中国菜很好。
+pred sentence:我不足道你要吃什么菜，可是我觉得中国菜很好。[['不局', '不足', 1, 3, 'word']]
+right sentence:我不知道你要吃什么菜，可是我觉得中国菜很好。
+wrong_index[2]
+
+input sentence:我不局道你要吃什么菜，可是我觉得中国菜很好。
+pred sentence:我不足道你要吃什么菜，可是我觉得中国菜很好。[['不局', '不足', 1, 3, 'word']]
+right sentence:我不知道你要吃什么菜，可是我觉得中国菜很好。
+wrong_index[2]
+
+input sentence:王天华，你好马？
+pred sentence:王天华，你好马？[]
+right sentence:王天华，你好吗？
+wrong_index[6]
+
+input sentence:我觉得日本饭馆儿在师大路不错也方便，因为离学校很近，所以我觉得他家都能参加。
+pred sentence:我觉得日本饭馆儿在师大路不错也方便，因为离学校很近，所以我觉得他家都能参加。[]
+right sentence:我觉得日本饭馆儿在师大路不错也方便，因为离学校很近，所以我觉得大家都能参加。
+wrong_index[31]
+
+input sentence:你觉得岑么样？你能参加马？要是你能参加请你打电话给我。
+pred sentence:你觉得岑乐群？你能参加马？要是你能参加请你打电话给我。[['岑么样', '岑乐群', 3, 6, 'word']]
+right sentence:你觉得怎么样？你能参加吗？要是你能参加请你打电话给我。
+wrong_index[3, 11]
+
+input sentence:我们约在台北１０１前面，好不好？六点可以马？请你星期六以前给我打电话。
+pred sentence:我们约在台北１０１前面，好不好？六点可以马？请你星期六以前给我打电话。[]
+right sentence:我们约在台北１０１前面，好不好？六点可以吗？请你星期六以前给我打电话。
+wrong_index[20]
+
+input sentence:上个星期你请客，所以明天我想情你去一家法国餐厅吃法国菜。
+pred sentence:上个星期你请客，所以明天我想请你去一家法国餐厅吃法国菜。[['我想情', '我想请', 12, 15, 'itself']]
+right sentence:上个星期你请客，所以明天我想请你去一家法国餐厅吃法国菜。
+wrong_index[14]
+
+input sentence:星期六我有空所以我觉得八点半我跟你可以见面，所以我们会见面在忠孝敦化火者站３出口。
+pred sentence:星期六我有空所以我觉得八点半我跟你可以见面，所以我们会见面在忠孝敦化或者站３出口。[['火者', '或者', 34, 36, 'word']]
+right sentence:星期六我有空所以我觉得八点半我跟你可以见面，所以我们会见面在忠孝敦化火车站３出口。
+wrong_index[35]
+
+input sentence:我跟你去吃台湾午饭，欢迎你跟我来！
+pred sentence:我跟你去吃台湾午饭，欢迎你跟我来！[]
+right sentence:我跟你去吃台湾晚饭，欢迎你跟我来！
+wrong_index[7]
+
+input sentence:她是来事大后看到这个小姐是他的老师。
+pred sentence:他是来师大后看到这个小姐是他的老师。[['她', '他', 0, 1, 'char'], ['事大后', '师大后', 3, 6, 'itself']]
+right sentence:她是来师大后看到这个小姐是他的老师。
+wrong_index[3]
+
+input sentence:难怪他的英文这么好！他们聊体一点就上课。
+pred sentence:难怪他的英文这么好！他们聊提一点就上课。[['聊体', '聊提', 12, 14, 'word']]
+right sentence:难怪他的英文这么好！他们聊天一点就上课。
+wrong_index[13]
+
+input sentence:他们开始学中文，一定最前的子＂你好＂。
+pred sentence:他们开始学中文，一定最前的子＂你好＂。[]
+right sentence:他们开始学中文，一定最前的字＂你好＂。
+wrong_index[13]
+
+input sentence:幸亏没有一个台湾人不会很热心地帮助本本的老外找到师大国语教学中心，要不然师大国语教学中心就没有学生，再说不能赚钱。
+pred sentence:幸亏没有一个台湾人不会很热心地帮助本本的老外找到师大国语教学中心，要不然师大国语教学中心就没有学生，再说不能赚钱。[]
+right sentence:幸亏没有一个台湾人不会很热心地帮助笨笨的老外找到师大国语教学中心，要不然师大国语教学中心就没有学生，再说不能赚钱。
+wrong_index[17, 18]
+
+input sentence:我从我的家去捷运站，座捷运到了捷运古亭站，我迷路了因为我选不对的出口出去。
+pred sentence:我从我的家取捷运站，坐捷运到了捷运古亭站，我迷路了因为我选不对的出口出去。[['家去', '家取', 4, 6, 'word'], ['座捷', '坐捷', 10, 12, 'word']]
+right sentence:我从我的家去捷运站，坐捷运到了捷运古亭站，我迷路了因为我选不对的出口出去。
+wrong_index[10]
+
+input sentence:他住在忠孝新生捷运站的附近，他读书在师大所以他得坐捷运到台电大楼下车，走着走着就迷路了，他完全不知道他在哪哩。
+pred sentence:他住在忠孝新生捷运站的附近，他读书在师大所以他得坐捷运到台电大楼下车，走着走着就迷路了，他完全不知道他在哪里。[['哪哩', '哪里', 52, 54, 'word']]
+right sentence:他住在忠孝新生捷运站的附近，他读书在师大所以他得坐捷运到台电大楼下车，走着走着就迷路了，他完全不知道他在哪里。
+wrong_index[53]
+
+input sentence:这位小姐说：你应该一直走到十只路口，再右砖一直走经过一家银行就到了。
+pred sentence:这位小姐说：你应该一直走到十指路口，再右转一直走经过一家银行就到了。[['只', '指', 14, 15, 'char'], ['砖', '转', 20, 21, 'word']]
+right sentence:这位小姐说：你应该一直走到十字路口，再右转一直走经过一家银行就到了。
+wrong_index[14, 20]
+
+input sentence:应为今天是第一天，老师先请学生自己给介绍。
+pred sentence:应为今天是第一天，老师先请学生自己给介绍。[]
+right sentence:因为今天是第一天，老师先请学生自己给介绍。
+wrong_index[0]
+
+input sentence:他问用英文「台湾大学在哪哩？」她很客气，还有会说英文。
+pred sentence:她问用英文「台湾大学在哪里？」她很客气，还有会说英文。[['他', '她', 0, 1, 'char'], ['哪哩', '哪里', 11, 13, 'word']]
+right sentence:他问用英文「台湾大学在哪里？」她很客气，还有会说英文。
+wrong_index[12]
+
+input sentence:一个小姐叫他怎么去，她跟他说「这里离大学很远，你最好要坐公车。」
+pred sentence:一个小姐叫他怎么去，她跟他说「这里离大学很远，你最好要坐公车。」[]
+right sentence:一个小姐教他怎么去，她跟他说「这里离大学很远，你最好要坐公车。」
+wrong_index[4]
+
+input sentence:只有一个是让他不愿意是台北人用那么摩模托车，所以看起来空气有一点让。
+pred sentence:只有一个是让他不愿意是台北人用那么摩摩托车，所以看起来空气有一点让。[['摩模', '摩摩', 17, 19, 'word']]
+right sentence:只有一个是让他不愿意是台北人用那么摩模托车，所以看起来空气有一点脏。
+wrong_index[32]
+
+input sentence:那是，有一个小姐走进来，他就把一张地图拿过这位小姐问路。
+pred sentence:那是，有一个小姐走进来，他就把一张地图拿时这位小姐问路。[['拿过', '拿时', 19, 21, 'word']]
+right sentence:那时，有一个小姐走进来，他就把一张地图拿过这位小姐问路。
+wrong_index[1]
+
+input sentence:这位小姐很客气就告诉他从这理到学校怎么去，很简单，只要从这理往一直走，经过两第路口，走路大概十五分钟就到了。
+pred sentence:这位小姐很客气就告诉他从这里到学校怎么去，很简单，只要从这里望一直走，经过两地路口，走路大概十五分钟就到了。[['理', '里', 13, 14, 'char'], ['这理往', '这里望', 28, 31, 'word'], ['第', '地', 38, 39, 'char']]
+right sentence:这位小姐很客气就告诉他从这里到学校怎么去，很简单，只要从这里往一直走，经过两第路口，走路大概十五分钟就到了。
+wrong_index[13, 29]
+
+input sentence:老师介绍自己，然后要救他家轮流介绍。
+pred sentence:老师介绍自己，然后要救他家轮流介绍。[]
+right sentence:老师介绍自己，然后要叫大家轮流介绍。
+wrong_index[10, 11]
+
+input sentence:老师告诉林达铭说一次，然后老是把这个字写上黑板。
+pred sentence:老师告诉林达明说一次，然后老是把这个字写上黑板。[['林达铭', '林达明', 4, 7, 'itself']]
+right sentence:老师告诉林达明说一次，然后老师把这个字写上黑板。
+wrong_index[6, 14]
+
+input sentence:大明来台北两天一后所以他不会走到他的学校。
+pred sentence:天明来台北两天以后所以他不会走到他的学校。[['大', '天', 0, 1, 'char'], ['一后', '以后', 7, 9, 'confusion']]
+right sentence:大明来台北两天以后所以他不会走到他的学校。
+wrong_index[7]
+
+input sentence:今天是他一次有棵可是他不局道怎么去。
+pred sentence:今天是他一次有课可是他不足道怎么去。[['有棵', '有课', 6, 8, 'word'], ['不局', '不足', 11, 13, 'word']]
+right sentence:今天是他一次有课可是他不知道怎么去。
+wrong_index[7, 12]
+
+input sentence:因为他没有钱所以他有一个大的书跟台北像片。
+pred sentence:因为他没有钱所以他有一个大的书跟台北相片。[['像', '相', 18, 19, 'char']]
+right sentence:因为他没有钱所以他有一个大的书跟台北相片。
+wrong_index[18]
+
+input sentence:大明告诉她他要去学校可是他不局道在那里。
+pred sentence:天明告诉她他要去学校可是他不足道在那里。[['大', '天', 0, 1, 'char'], ['不局', '不足', 13, 15, 'word']]
+right sentence:大明告诉她他要去学校可是他不知道在那里。
+wrong_index[14]
+
+input sentence:今天大明第一次到十大去，他是新生在师大。
+pred sentence:今天大明第一次到十大去，他是新生在师大。[]
+right sentence:今天大明第一次到师大去，他是新生在师大。
+wrong_index[8]
+
+input sentence:因为他十点二十分上课，所以他九点从他的家到时大去。
+pred sentence:因为他十点二十分上课，所以他九点从他的家到时代曲。[['时大去', '时代曲', 21, 24, 'word']]
+right sentence:因为他十点二十分上课，所以他九点从他的家到师大去。
+wrong_index[21]
+
+input sentence:十分钟以后他的老师进来，大明看大的老师就知道他的老师是女生在马路，老师也认到大明社男生问他捷运站怎么走。
+pred sentence:十分钟以后他的老师进来，大明看大的老师就知道他的老师是女生在马路，老师也认到大明社男生问他捷运站怎么走。[]
+right sentence:十分钟以后他的老师进来，大明看他的老师就知道他的老师是女生在马路，老师也认到大明是男生问他捷运站怎么走。
+wrong_index[15, 40]
+
+input sentence:在台湾有一个外国人，他要去市大学校但是他不知道市大学校在哪儿，因为他不会说中文还有念中国字也看不懂。
+pred sentence:在台湾有一个外国人，他要去市大学校但是他不知道是大学校在哪儿，因为他不会说中文还有念中国字也看不懂。[['道市', '道是', 22, 24, 'word']]
+right sentence:在台湾有一个外国人，他要去师大学校但是他不知道师大学校在哪儿，因为他不会说中文还有念中国字也看不懂。
+wrong_index[13, 23]
+
+input sentence:所以他请一个小姐帮告诉他从这里到市大学校怎么走？然后再那个小姐告诉他市大学校从这里往前面一直走经过十字路口就到市大学校了。
+pred sentence:所以他请一个小姐帮告诉他从这里到时大学校怎么走？然后再那个小姐告诉他是大学校从这里往前面一直走经过十字路口就到市大学校了。[['到市', '到时', 15, 17, 'word'], ['他市', '他是', 33, 35, 'word']]
+right sentence:所以他请一个小姐帮告诉他从这里到师大学校怎么走？然后再那个小姐告诉他师大学校从这里往前面一直走经过十字路口就到师大学校了。
+wrong_index[16, 34, 55]
+
+input sentence:外国学生说「对啊，我是市大学生可是我还没开始上中文课，谢谢你！」
+pred sentence:外国学生说「对啊啊，我是市大学生可是我还没开始上中文课，谢谢你！」[['啊', '啊啊', 7, 8, 'miss']]
+right sentence:外国学生说「对啊，我是师大学生可是我还没开始上中文课，谢谢你！」
+wrong_index[11]
+
+input sentence:然后那个外国学生马上去市大学校学中文。
+pred sentence:然后那个外国学生马上去使大学教学中文。[['去市', '去使', 10, 12, 'word'], ['校学', '教学', 14, 16, 'word']]
+right sentence:然后那个外国学生马上去师大学校学中文。
+wrong_index[11]
+
+input sentence:他进去教室以后座在椅子。
+pred sentence:他进去教室以后座在椅子。[]
+right sentence:他进去教室以后坐在椅子。
+wrong_index[7]
+
+input sentence:可是我刚刚来的留学生，所以我不智道学校在那儿。
+pred sentence:可是我刚刚来的留学生，所以我不知道学校在哪儿。[['不智道', '不知道', 14, 17, 'itself'], ['那', '哪', 20, 21, 'char']]
+right sentence:可是我刚刚来的留学生，所以我不知道学校在那儿。
+wrong_index[15]
+
+input sentence:来了台湾的时候他一个中国句子都不会说、一个图片都看不懂、还有一个朋友都没有，怎门办？
+pred sentence:来了台湾的时候他一各种国句子都不会说、一个图片都看不懂、还有一个朋友都没有，怎们办？[['个中', '各种', 9, 11, 'confusion'], ['怎门办', '怎们办', 38, 41, 'itself']]
+right sentence:来了台湾的时候他一个中国句子都不会说、一个图片都看不懂、还有一个朋友都没有，怎么办？
+wrong_index[39]
+
+input sentence:我听说日本的电脑很好，还有很研。
+pred sentence:我听说日本的电脑很好，还有很严。[['很研', '很严', 13, 15, 'word']]
+right sentence:我听说日本的电脑很好，还有很颜。
+wrong_index[14]
+
+input sentence:上个星期，我的电视机怀了，我要买新的。
+pred sentence:上个星期，我的电视机坏了，我要买新的。[['怀', '坏', 10, 11, 'char']]
+right sentence:上个星期，我的电视机坏了，我要买新的。
+wrong_index[10]
+
+input sentence:从星期一到星期五有要是下个周末你有时间，你就可以不可以帮我买这个点视机？
+pred sentence:从星期一到星期五有要是下个周末你有时间，你就可以不可以帮我买这个电视机？[['点视机', '电视机', 32, 35, 'word']]
+right sentence:从星期一到星期五有要是下个周末你有时间，你就可以不可以帮我买这个电视机？
+wrong_index[32]
+
+input sentence:我特别喜欢黑麦面包，今天上午作的黑麦面包非常好。
+pred sentence:我特别喜欢黑麦面包，今天上午作的黑麦面包非常好。[]
+right sentence:我特别喜欢黑麦面包，今天上午做的黑麦面包非常好。
+wrong_index[14]
+
+input sentence:我特别喜欢黑麦面包，今天上午作的黑麦面包非常好。
+pred sentence:我特别喜欢黑麦面包，今天上午作的黑麦面包非常好。[]
+right sentence:我特别喜欢黑麦面包，今天上午做的黑麦面包非常好。
+wrong_index[14]
+
+input sentence:我觉得很多人喜欢买黑色的书包应为不容易攒，我觉得擦啡色也漂亮。
+pred sentence:我觉得很多人喜欢买黑色的书包应为不容易积攒，我觉得擦啡色也漂亮。[['攒', '积攒', 19, 20, 'miss']]
+right sentence:我觉得很多人喜欢买黑色的书包应为不容易脏，我觉得咖啡色也漂亮。
+wrong_index[19, 24]
+
+input sentence:泥灰美国已后，请你帮我买一个好看黑色的表。
+pred sentence:你灰美国以后，请你帮我买一个好看黑色的表。[['泥', '你', 0, 1, 'char'], ['已后', '以后', 4, 6, 'word']]
+right sentence:你回美国以后，请你帮我买一个好看黑色的表。
+wrong_index[0, 1, 4]
+
+input sentence:我想告诉妳一个东西：妳会时后，我可以帮妳买东西。请妳会家时后打给我。
+pred sentence:我想告诉妳一个东西：妳会师后，我可以帮妳买东西。请妳会加时后打给我。[['时后', '师后', 12, 14, 'word'], ['家时', '加时', 27, 29, 'word']]
+right sentence:我想告诉妳一个东西：妳回时候，我可以帮妳买东西。请妳回家时候打给我。
+wrong_index[11, 13, 26, 29]
+
+input sentence:应为最近天气渐渐冷了，所以我要穿外套。
+pred sentence:应为最近天气渐渐冷了，所以我要穿外套。[]
+right sentence:因为最近天气渐渐冷了，所以我要穿外套。
+wrong_index[0]
+
+input sentence:因为日本的雨鞋很可爱也很漂凉。
+pred sentence:因为日本的雨鞋很可爱也很漂亮。[['漂凉', '漂亮', 12, 14, 'word']]
+right sentence:因为日本的雨鞋很可爱也很漂亮。
+wrong_index[13]
+
+input sentence:我在台湾常常去百货公司找雨鞋，可是我没看到那么票凉。
+pred sentence:我在台湾常常去百货公司找雨鞋，可是我没看到那么票量。[['票凉', '票量', 23, 25, 'word']]
+right sentence:我在台湾常常去百货公司找雨鞋，可是我没看到那么漂亮。
+wrong_index[23, 24]
+
+input sentence:这种面包的外面是白色的，是差不多高两公高的，也有糖在里面。冬天，面包点都卖。
+pred sentence:这种面包的外面是白色的，是差不多高两公告的，也有躺在里面。冬天，面包点都卖。[['两公高', '两公告', 17, 20, 'itself'], ['糖', '躺', 24, 25, 'word']]
+right sentence:这种面包的外面是白色的，是差不多高两公高的，也有糖在里面。冬天，面包店都卖。
+wrong_index[34]
+
+input sentence:我听说日本又漂亮的衣服。我不怎们喜欢台湾的衣服，所以要是你麻烦帮我忙，我真很高兴。
+pred sentence:我听说日本又漂亮的衣服。我不怎们喜欢台湾的衣服，所以要是你麻烦帮我忙，我真很高兴。[]
+right sentence:我听说日本有漂亮的衣服。我不怎么喜欢台湾的衣服，所以要是你麻烦帮我忙，我真很高兴。
+wrong_index[5, 15]
+
+input sentence:请你要是你在日本看，清卖给我。
+pred sentence:请你要是你在日本看，亲卖给我。[['清卖', '亲卖', 10, 12, 'word']]
+right sentence:请你要是你在日本看，请买给我。
+wrong_index[10, 11]
+
+input sentence:现在我们有很多杨色，要是你要到我们公所来，所以你都可以看看。
+pred sentence:现在我们有很多汤色，要是你要到我们公所来，所以你都可以看看。[['杨色', '汤色', 7, 9, 'word']]
+right sentence:现在我们有很多颜色，要是你要到我们公司来，所以你都可以看看。
+wrong_index[7, 18]
+
+input sentence:你去一前，我可以给你钱。
+pred sentence:你去一千，我可以给你钱。[['前', '千', 3, 4, 'char']]
+right sentence:你去以前，我可以给你钱。
+wrong_index[2]
+
+input sentence:我要买一件衣服更一个照相机。
+pred sentence:我要买一件衣服更一个照相机。[]
+right sentence:我要买一件衣服跟一个照相机。
+wrong_index[7]
+
+input sentence:因为你的国家远得不得了，再说你一个礼拜用很多衣服，所以我看到的红虹大大的包包我觉得你一定要买。
+pred sentence:因为你的国家远得不得了，再说你一个礼拜用很多衣服，所以我看到的红红大大的包包我觉得你一定要买。[['红虹', '红红', 31, 33, 'word']]
+right sentence:因为你的国家远得不得了，再说你一个礼拜用很多衣服，所以我看到的红红大大的包包我觉得你一定要买。
+wrong_index[32]
+
+input sentence:还有在那个包包里面里可以放很多礼物待你的国家，所以你可以那些礼物给你的家人让他们高心。
+pred sentence:还有在那个包包里面里可以放很多礼物待你的国家，所以你可以那些礼物给你的家人让他们高薪。[['高心', '高薪', 40, 42, 'word']]
+right sentence:还有在那个包包里面里可以放很多礼物到你的国家，所以你可以那些礼物给你的家人让他们高兴。
+wrong_index[17, 41]
+
+input sentence:要是你找不到你家店请你打电话给我。
+pred sentence:要是你找不到你家店请你打电话给我。[]
+right sentence:要是你找不到那家店请你打电话给我。
+wrong_index[6]
+
+input sentence:我要买一个太样兵，因为这个是台湾的传通饼干。
+pred sentence:我要买一个太阳兵，因为这个是台湾的传统饼干。[['太样', '太阳', 5, 7, 'word'], ['传通', '传统', 17, 19, 'word']]
+right sentence:我要买一个太阳饼，因为这个是台湾的传统饼干。
+wrong_index[6, 7, 18]
+
+input sentence:可是我不拘导什么买。请你帮我！
+pred sentence:可是我不拘导什么买。请你帮我！[]
+right sentence:可是我不知道什么买。请你帮我！
+wrong_index[4, 5]
+
+input sentence:我不咀导要是买聘果西瓜李子。
+pred sentence:我不宜导要是买品过西瓜李子。[['咀导', '宜导', 2, 4, 'word'], ['买聘果', '买品过', 6, 9, 'word']]
+right sentence:我不知道要是买苹果西瓜李子。
+wrong_index[2, 3, 7]
+
+input sentence:我的碰妞要吃这个东西。
+pred sentence:我的彭妞要吃这个东西。[['碰妞要', '彭妞要', 2, 5, 'itself']]
+right sentence:我的朋友要吃这个东西。
+wrong_index[2, 3]
+
+input sentence:厅说，你要回国星期一。我来你的宿校，可是我找不到你，所以我留一条信。
+pred sentence:听说，你要回国星期一。我来你的宿晓，可是我找不到你，所以我留一条信。[['厅', '听', 0, 1, 'char'], ['宿校', '宿晓', 15, 17, 'word']]
+right sentence:听说，你要回国星期一。我来你的宿舍，可是我找不到你，所以我留一条信。
+wrong_index[0, 16]
+
+input sentence:脸色跟样子是随便都可以，麻烦你喔！
+pred sentence:脸色跟样子是随便都可以，麻烦你们喔！[['喔', '们喔', 15, 16, 'miss']]
+right sentence:颜色跟样子是随便都可以，麻烦你喔！
+wrong_index[0]
+
+input sentence:还有这本书很好看，也不太重业红色的。
+pred sentence:还有这本书很好看，也不太重叶红色的。[['业', '叶', 13, 14, 'char']]
+right sentence:还有这本书很好看，也不太重也红色的。
+wrong_index[13]
+
+input sentence:现在我在宿舍，你不在这哩。
+pred sentence:现在我在宿舍，你不在这里。[['这哩', '这里', 10, 12, 'word']]
+right sentence:现在我在宿舍，你不在这里。
+wrong_index[11]
+
+input sentence:要是我走的那么满，一定不能坐。怎么办？
+pred sentence:要是我走的那么满，一定不能坐。怎么办？[]
+right sentence:要是我走的那么慢，一定不能坐。怎么办？
+wrong_index[7]
+
+input sentence:林小安说：「好没问题，我可以帮你。请进我们一起回成市，好不好？」
+pred sentence:林小安说：「好没问题，我可以帮你。请进我们一起回城时，好不好？」[['回成市', '回城时', 23, 26, 'word']]
+right sentence:林小安说：「好没问题，我可以帮你。请进我们一起回城市，好不好？」
+wrong_index[24]
+
+input sentence:他跟林小安说谢谢、还有在见。
+pred sentence:他跟林小安说谢谢、还有在见。[]
+right sentence:他跟林小安说谢谢、还有再见。
+wrong_index[11]
+
+input sentence:下个周末，我一个人到山上去发山。
+pred sentence:下个周末，我一个人到山上去发单。[['发山', '发单', 13, 15, 'word']]
+right sentence:下个周末，我一个人到山上去爬山。
+wrong_index[13]
+
+input sentence:我最喜欢秋天山上的风镜。
+pred sentence:我最喜欢秋天山上的风镜。[]
+right sentence:我最喜欢秋天山上的风景。
+wrong_index[10]
+
+input sentence:发山很有意思。
+pred sentence:法山很有意思。[['发山', '法山', 0, 2, 'word']]
+right sentence:爬山很有意思。
+wrong_index[0]
+
+input sentence:我发山发的很好。
+pred sentence:我发单发的很好。[['发山发', '发单发', 1, 4, 'itself']]
+right sentence:我爬山爬的很好。
+wrong_index[1, 3]
+
+input sentence:我发山发了六个小时。
+pred sentence:我发单发了六个小时。[['发山发', '发单发', 1, 4, 'itself']]
+right sentence:我爬山爬了六个小时。
+wrong_index[1, 3]
+
+input sentence:他杏林，叫小安。
+pred sentence:踏星林，娇小安。[['他', '踏', 0, 1, 'char'], ['杏', '星', 1, 2, 'char'], ['叫小安', '娇小安', 4, 7, 'itself']]
+right sentence:他姓林，叫小安。
+wrong_index[1]
+
+input sentence:他也很喜欢发山。
+pred sentence:他也很喜欢发单。[['发山', '发单', 5, 7, 'word']]
+right sentence:他也很喜欢爬山。
+wrong_index[5]
+
+input sentence:我们决定下个月一起去发山。
+pred sentence:我们决定下个月一起去发单。[['发山', '发单', 10, 12, 'word']]
+right sentence:我们决定下个月一起去爬山。
+wrong_index[10]
+
+input sentence:他觉得上山很容易，没有痕累，所以他没有什么都准备。
+pred sentence:他觉得上山很容易，没有很累，所以他没有什么都准备。[['痕累', '很累', 11, 13, 'word']]
+right sentence:他觉得上山很容易，没有很累，所以他没有什么都准备。
+wrong_index[11]
+
+input sentence:他走了很久以后他觉得一点累，所以他现休息一下，再决定回家。
+pred sentence:他走了很久以后他觉得一点累，所以他先休息一下，再决定回家。[['他现', '他先', 16, 18, 'word']]
+right sentence:他走了很久以后他觉得一点累，所以他先休息一下，再决定回家。
+wrong_index[17]
+
+input sentence:他穿蓝色的牛仔裤根背一个黑色的背包。
+pred sentence:他穿蓝色的牛仔裤根背一个黑色的背包。[]
+right sentence:他穿蓝色的牛仔裤跟背一个黑色的背包。
+wrong_index[8]
+
+input sentence:李台生根林小安一起开过去火车站。
+pred sentence:李太生根林晓安一起开过去火车站。[['李台', '李太', 0, 2, 'word'], ['林小安', '林晓安', 4, 7, 'itself']]
+right sentence:李台生跟林小安一起开过去火车站。
+wrong_index[3]
+
+input sentence:他方假的时候去爬山。
+pred sentence:他放假的时候去爬山。[['他方假', '他放假', 0, 3, 'itself']]
+right sentence:他放假的时候去爬山。
+wrong_index[1]
+
+input sentence:我今天早上在乡下看一些很漂亮的风京。
+pred sentence:我今天早上在乡下看一些很漂亮的风景。[['风京', '风景', 15, 17, 'word']]
+right sentence:我今天早上在乡下看一些很漂亮的风景。
+wrong_index[16]
+
+input sentence:有一天林小安去爬山，因为听说风京很漂亮。
+pred sentence:有一天对小安去爬山，因为听说风景很漂亮。[['林小安去', '对小安去', 3, 7, 'word'], ['风京', '风景', 14, 16, 'word']]
+right sentence:有一天林小安去爬山，因为听说风景很漂亮。
+wrong_index[15]
+
+input sentence:我得座火车回家去，可是火车站远得不得了，我怕我走不到。
+pred sentence:我得座火车回家去，可是火车站远得不得了，我怕我走不到。[]
+right sentence:我得坐火车回家去，可是火车站远得不得了，我怕我走不到。
+wrong_index[2]
+
+input sentence:开车的人听了他的华马上说：「我可以用我的车陪你去，好不好？」
+pred sentence:开车的人听了他的华马上说：「我可以用我的车陪你去，好不好？」[]
+right sentence:开车的人听了他的话马上说：「我可以用我的车陪你去，好不好？」
+wrong_index[8]
+
+input sentence:他等一下，户然他看到一辆汽车。
+pred sentence:他等一下，忽然他看到一辆汽车。[['户然', '忽然', 5, 7, 'word']]
+right sentence:他等一下，忽然他看到一辆汽车。
+wrong_index[5]
+
+input sentence:理面的汽车有一个人，他说他可以开送给他会家。
+pred sentence:里面的汽车有一个人，他说他可以开送给他回家。[['理面', '里面', 0, 2, 'word'], ['他会家', '他回家', 18, 21, 'itself']]
+right sentence:里面的汽车有一个人，他说他可以开送给他回家。
+wrong_index[0, 19]
+
+input sentence:李台生要回去，但是我到了旁边的路没有车可以做回去。
+pred sentence:李太生要回去，但是我到了旁边的路没有车可以坐回去。[['李台', '李太', 0, 2, 'word'], ['做', '坐', 21, 22, 'char']]
+right sentence:李台生要回去，但是我到了旁边的路没有车可以坐回去。
+wrong_index[21]
+
+input sentence:今天，李台生很早出们了。
+pred sentence:今天，李太生很早出门了。[['李台生', '李太生', 3, 6, 'itself'], ['出们', '出门', 8, 10, 'word']]
+right sentence:今天，李台生很早出门了。
+wrong_index[9]
+
+input sentence:他愿赖天气太热，所以在路旁边停了。
+pred sentence:他愿来天气太热，所以在路旁边停了。[['愿赖', '愿来', 1, 3, 'word']]
+right sentence:他原来天气太热，所以在路旁边停了。
+wrong_index[1, 2]
+
+input sentence:看车来了，他吧手问开车的人停车了。
+pred sentence:看车来了，他把手问开车的人停车了。[['吧', '把', 6, 7, 'char']]
+right sentence:看车来了，他把手问开车的人停车了。
+wrong_index[6]
+
+input sentence:开车的先生吧窗户开开。
+pred sentence:开车的先生吧窗户开开。[]
+right sentence:开车的先生把窗户开开。
+wrong_index[5]
+
+input sentence:走路的时候他试试看厅路上的汽车，就一位先生厅还告诉对我弟弟，他也到英国去，所以我弟弟可以跟他一起走。
+pred sentence:走路的时候他试试看听路上的汽车，就一位先生听还告诉对我弟弟，他也到英国去，所以我弟弟可以跟他一起走。[['厅', '听', 9, 10, 'char'], ['先生厅', '先生听', 19, 22, 'itself']]
+right sentence:走路的时候他试试看听路上的汽车，就一位先生停还告诉对我弟弟，他也到英国去，所以我弟弟可以跟他一起走。
+wrong_index[9, 21]
+
+input sentence:他看到了一辆红汽车，就决定叫那个人定车。
+pred sentence:他看到了一辆红汽车，就决定叫那个人定居。[['车', '居', 18, 19, 'char']]
+right sentence:他看到了一辆红汽车，就决定叫那个人停车。
+wrong_index[17]
+
+input sentence:六点半，他到火车站，所以他很高现。
+pred sentence:六点半，他到火车站，所以他很高限。[['高现', '高限', 14, 16, 'word']]
+right sentence:六点半，他到火车站，所以他很高兴。
+wrong_index[15]
+
+input sentence:他排照风景，然后外面一点儿黑了，他想下山去以后回家。
+pred sentence:他拍照风景，然后外面一点儿黑了，他想下山去以后回家。[['排照', '拍照', 1, 3, 'word']]
+right sentence:他拍照风景，然后外面一点儿黑了，他想下山去以后回家。
+wrong_index[1]
+
+input sentence:他放上他的婉，一辆汽车停了。
+pred sentence:他放上他的委婉，一辆汽车停了。[['婉', '委婉', 5, 6, 'miss']]
+right sentence:他放上他的腕，一辆汽车停了。
+wrong_index[5]
+
+input sentence:汽车停车，然后他过去汽车要问男生原意送他到台北火车站去。
+pred sentence:汽车停车，然后他过去汽车要问男生愿意送他到台北火车站去。[['原', '愿', 16, 17, 'char']]
+right sentence:汽车停车，然后他过去汽车要问男生愿意送他到台北火车站去。
+wrong_index[16]
+
+input sentence:因为小安没人琣他，他有一点不高兴。
+pred sentence:因为小安没人琣他，他有一点不高兴。[]
+right sentence:因为小安没人陪他，他有一点不高兴。
+wrong_index[6]
+
+input sentence:往前就一台车开过来，把林小安歹去车帐。
+pred sentence:往前就一台车开过来，把村小安带去车上帐。[['林小安歹', '村小安带', 11, 15, 'word'], ['帐', '上帐', 17, 18, 'miss']]
+right sentence:往前就一台车开过来，把林小安带去车站。
+wrong_index[14, 17]
+
+input sentence:上个月我自即去乡下的地方走路。
+pred sentence:上个月我自己去乡下的地方走路。[['自即', '自己', 4, 6, 'word']]
+right sentence:上个月我自己去乡下的地方走路。
+wrong_index[5]
+
+input sentence:在那个地方我打算走差不多三个小时走路，我开是走路的时候我觉得很强。
+pred sentence:在那个地方我打算走差不多三个小时走路，我开始走路的时候我觉得很僵。[['是', '始', 21, 22, 'char'], ['很强', '很僵', 30, 32, 'word']]
+right sentence:在那个地方我打算走差不多三个小时走路，我开始走路的时候我觉得很强。
+wrong_index[21]
+
+input sentence:在休息的时候我又吃一点点心又和一点饮料。
+pred sentence:在休息的时候我又吃一点点心又和一点饮料。[]
+right sentence:在休息的时候我又吃一点点心又喝一点饮料。
+wrong_index[14]
+
+input sentence:他问为什么我在这离自己站着然送我回火车站。
+pred sentence:他问为什么我在这里自己站着然送我回火车站。[['这离', '这里', 7, 9, 'word']]
+right sentence:他问为什么我在这里自己站着然送我回火车站。
+wrong_index[8]
+
+input sentence:因为天气很好，所以他打算去录行。
+pred sentence:因为天气很好，所以他打算去路行。[['录行', '路行', 13, 15, 'word']]
+right sentence:因为天气很好，所以他打算去旅行。
+wrong_index[13]
+
+input sentence:他们谈着谈者就到了四点半。
+pred sentence:他们谈着谈着就到了四点半。[['谈者', '谈着', 4, 6, 'word']]
+right sentence:他们谈着谈着就到了四点半。
+wrong_index[5]
+
+input sentence:因为山上的空气比那理很好。
+pred sentence:因为山上的空气比那里很好。[['那理', '那里', 8, 10, 'word']]
+right sentence:因为山上的空气比那里很好。
+wrong_index[9]
+
+input sentence:下午的时候除了看很多漂亮的术，还有很多特别的花。
+pred sentence:下午的时候除了看很多漂亮的树，还有很多特别的花。[['术', '树', 13, 14, 'char']]
+right sentence:下午的时候除了看很多漂亮的树，还有很多特别的花。
+wrong_index[13]
+
+input sentence:我迷路了。所以你可以戴我去火车站，好吗？
+pred sentence:我迷路了。所以你可以戴我去火车站，好吗？[]
+right sentence:我迷路了。所以你可以载我去火车站，好吗？
+wrong_index[10]
+
+input sentence:作天，我爬山，空气好还有看法很漂亮。
+pred sentence:昨天，我爬山，空气好还有看法很漂亮。[['作天', '昨天', 0, 2, 'word']]
+right sentence:昨天，我爬山，空气好还有看法很漂亮。
+wrong_index[0]
+
+input sentence:在中午，天气很日，日子过得很快，我一点着急。
+pred sentence:在中午，天气很日，日子过得很快，我一点着急。[]
+right sentence:在中午，天气很热，日子过得很快，我一点着急。
+wrong_index[7]
+
+input sentence:吃饭了以后，我拍了很多照篇。
+pred sentence:吃饭了以后，我拍了很多照片。[['照篇', '照片', 11, 13, 'word']]
+right sentence:吃饭了以后，我拍了很多照片。
+wrong_index[12]
+
+input sentence:我很久时间等了帮忙我的人，所以高兴的不得了。
+pred sentence:我很久时间等了帮忙我的人，所以高兴得不得了。[['的', '得', 17, 18, 'char']]
+right sentence:我很久时间等了帮忙我的人，所以高兴得不得了。
+wrong_index[17]
+
+input sentence:从古亭站往师大一直走，走到７－１１给我打电话我借你们！
+pred sentence:从古亭站往师大一直走，走到７－１１给我打电话我借你们！[]
+right sentence:从古亭站往师大一直走，走到７－１１给我打电话我接你们！
+wrong_index[23]
+
+input sentence:你们可以坐市大公车来到我们的家对面。
+pred sentence:你们可以坐视大公车来到我们的家对面。[['坐市', '坐视', 4, 6, 'word']]
+right sentence:你们可以坐师大公车来到我们的家对面。
+wrong_index[5]
+
+input sentence:弟弟请来的朋友写一张卡片给他，他请朋友来下面完儿。
+pred sentence:弟弟请来的朋友写一张卡片给他，他请朋友来下面玩儿。[['完儿', '玩儿', 22, 24, 'word']]
+right sentence:弟弟请来的朋友写一张卡片给他，他请朋友来下面玩儿。
+wrong_index[22]
+
+input sentence:我要做一个很大的生日会，所以下星期六握着我的朋友我家来。
+pred sentence:我要做一个很大的生日会，所以下星期六握着我的朋友我家来。[]
+right sentence:我要做一个很大的生日会，所以下星期六我找我的朋友我家来。
+wrong_index[18, 19]
+
+input sentence:你能从台配种战火车到淡水坐火车。
+pred sentence:你能从台配种战火车到淡水坐火车。[]
+right sentence:你能从台北总站火车到淡水坐火车。
+wrong_index[4, 5, 6]
+
+input sentence:九号是我的弟弟生日，所以我想要请你们一起来我的家完、吃饭、也吃党奥。
+pred sentence:九号是我的弟弟生日，所以我想要请你们一起来我的家玩、吃饭、也吃党奥。[['完', '玩', 24, 25, 'char']]
+right sentence:九号是我的弟弟生日，所以我想要请你们一起来我的家玩、吃饭、也吃蛋糕。
+wrong_index[24, 31, 32]
+
+input sentence:我的弟弟也很高薪看到你们，因为你们好久不见没看到。
+pred sentence:我的弟弟也很高薪看到你们，因为你们好久不见没看到。[]
+right sentence:我的弟弟也很高兴看到你们，因为你们好久不见没看到。
+wrong_index[7]
+
+input sentence:营为他们在书店三个钟头，所以我弟弟此他朋友来我们的家吃饭。
+pred sentence:应为他们在书店三个钟头，所以我弟弟差他朋友来我们的家吃饭。[['营为', '应为', 0, 2, 'word'], ['此', '差', 17, 18, 'char']]
+right sentence:因为他们在书店三个钟头，所以我弟弟请他朋友来我们的家吃饭。
+wrong_index[0, 17]
+
+input sentence:她门从学校只要座五六分钟的公车到我家，因为她们觉得走路很累。
+pred sentence:她门从学校只要坐五六分钟的公车到我家，因为她们觉得走路很累。[['座', '坐', 7, 8, 'char']]
+right sentence:她们从学校只要坐五六分钟的公车到我家，因为她们觉得走路很累。
+wrong_index[1, 7]
+
+input sentence:２００８年１２月２号是我弟弟的些日。
+pred sentence:２００８年１２月２号是写弟弟的些日。[['些', '写', 11, 12, 'char']]
+right sentence:２００８年１２月２号是我弟弟的生日。
+wrong_index[15]
+
+input sentence:我们打算开一个些日会。
+pred sentence:我们打算开一个写日挥。[['些', '写', 7, 8, 'char'], ['日会', '日挥', 8, 10, 'word']]
+right sentence:我们打算开一个生日会。
+wrong_index[7]
+
+input sentence:我家在台北站北口的右遍，百货公司的对面。
+pred sentence:我家在台北站北口的右边，百货公司的对面。[['右遍', '右边', 9, 11, 'word']]
+right sentence:我家在台北站北口的右边，百货公司的对面。
+wrong_index[10]
+
+input sentence:我们的家中午１３：００开时。
+pred sentence:我们的家中午１３：００开时。[]
+right sentence:我们的家中午１３：００开始。
+wrong_index[12]
+
+input sentence:我的家离古亭站不远，我六点就跟你们那理见面，好不好？
+pred sentence:我的家里古亭站不远，我六点就跟你们那里见面，好不好？[['家离', '家里', 2, 4, 'word'], ['那理', '那里', 17, 19, 'word']]
+right sentence:我的家离古亭站不远，我六点就跟你们那里见面，好不好？
+wrong_index[18]
+
+input sentence:你们一定要做八八的公车到我们家来！从台北车站到我们家要做一个小时！
+pred sentence:你们一定要做八八的公车到我们家来！从台北车站到我们家要做一个小时！[]
+right sentence:你们一定要坐八八的公车到我们家来！从台北车站到我们家要坐一个小时！
+wrong_index[5, 27]
+
+input sentence:后天是小明的生日，我要开一个无会。
+pred sentence:后天是小明的生日，我要开一个误会。[['无会', '误会', 14, 16, 'word']]
+right sentence:后天是小明的生日，我要开一个舞会。
+wrong_index[14]
+
+input sentence:我么住在新店图书馆的旁边。
+pred sentence:我么住在新店图书馆的旁边。[]
+right sentence:我们住在新店图书馆的旁边。
+wrong_index[1]
+
+input sentence:附近有一家超级市场，对们有一个书店。
+pred sentence:附近有一家超级市场，对门有一个书店。[['对们', '对门', 10, 12, 'word']]
+right sentence:附近有一家超级市场，对门有一个书店。
+wrong_index[11]
+
+input sentence:后来我学玩了，我搬家到美国西部去。
+pred sentence:后来我学玩了，我搬家到美国西部去。[]
+right sentence:后来我学完了，我搬家到美国西部去。
+wrong_index[4]
+
+input sentence:我最喜欢哪个地方！
+pred sentence:我最喜欢那个地方！[['哪', '那', 4, 5, 'char']]
+right sentence:我最喜欢那个地方！
+wrong_index[4]
+
+input sentence:可是春天跟秋天的风景票漂亮亮的，春天可以看看开花。
+pred sentence:可是春天跟秋天的风景票漂漂亮亮的，春天可以看看开花。[['漂', '漂漂', 11, 12, 'miss']]
+right sentence:可是春天跟秋天的风景漂漂亮亮的，春天可以看看开花。
+wrong_index[10]
+
+input sentence:在说，我觉得这里也可以有很好玩，也可以学很多很好的东西。
+pred sentence:再说，我觉得这里也可以有很好玩，也可以学很多很好的东西。[['在', '再', 0, 1, 'char']]
+right sentence:再说，我觉得这里也可以有很好玩，也可以学很多很好的东西。
+wrong_index[0]
+
+input sentence:在安卡拉我最喜暗的季节是秋天。
+pred sentence:在安卡拉我最稀暗的季节是秋天。[['喜暗', '稀暗', 6, 8, 'word']]
+right sentence:在安卡拉我最喜欢的季节是秋天。
+wrong_index[7]
+
+input sentence:秋天的时候常常下大雨，括大风。
+pred sentence:秋天的时候常常下大雨，括大风。[]
+right sentence:秋天的时候常常下大雨，刮大风。
+wrong_index[11]
+
+input sentence:冬天的是后天气热得不得了。
+pred sentence:冬天的是后天气热得不得了。[]
+right sentence:冬天的时候天气热得不得了。
+wrong_index[3, 4]
+
+input sentence:春天的时候开花，什么地方都录了。
+pred sentence:春天的时候开花，什么地方都录了。[]
+right sentence:春天的时候开花，什么地方都绿了。
+wrong_index[13]
+
+input sentence:冷的时候人不太去外面，他们在家喝批具。
+pred sentence:冷的时候人不太去外面，他们在家里喝皮具。[['喝', '里喝', 15, 16, 'miss'], ['批具', '皮具', 16, 18, 'word']]
+right sentence:冷的时候人不太去外面，他们在家喝啤酒。
+wrong_index[16, 17]
+
+input sentence:英国的批具很好喝，我很喜欢！
+pred sentence:英国的皮具很好喝，我很喜欢！[['批具', '皮具', 3, 5, 'word']]
+right sentence:英国的啤酒很好喝，我很喜欢！
+wrong_index[3, 4]
+
+input sentence:我觉得泰国海边是世界上最骠了地方。
+pred sentence:我觉得泰国海边是世界上最了地方。[['骠', '', 12, 13, 'redundancy']]
+right sentence:我觉得泰国海边是世界上最漂亮地方。
+wrong_index[12, 13]
+
+input sentence:在瞅天，天气不热也不冷。
+pred sentence:在天，天气不热也不冷。[['瞅', '', 1, 2, 'redundancy']]
+right sentence:在秋天，天气不热也不冷。
+wrong_index[1]
+
+input sentence:我在奥地利出世，我在难德长大。
+pred sentence:我在奥地利出世，我在难得长大。[['难德', '难得', 10, 12, 'word']]
+right sentence:我在奥地利出世，我在南德长大。
+wrong_index[10]
+
+input sentence:因为德国的天气不是这么热的，也不太施。
+pred sentence:因为德国的天气不是这么热的，也不太识。[['不太施', '不太识', 15, 18, 'itself']]
+right sentence:因为德国的天气不是这么热的，也不太湿。
+wrong_index[17]
+
+input sentence:春天跟秋天都很舒服，可是冬天件或太冷。
+pred sentence:春天跟秋天都很舒服，可是冬天间或太冷。[['件', '间', 14, 15, 'char']]
+right sentence:春天跟秋天都很舒服，可是冬天间或太冷。
+wrong_index[14]
+
+input sentence:我很喜欢那个地方，因为是我常大的地方。
+pred sentence:我很喜欢那个地方，因为是我长大的地方。[['我常大', '我长大', 12, 15, 'itself']]
+right sentence:我很喜欢那个地方，因为是我长大的地方。
+wrong_index[13]
+
+input sentence:我也很喜欢我的国家，因为我觉得德国的文化真别只。
+pred sentence:我也很喜欢我的国家，因为我觉得德国的文化真别致。[['只', '致', 22, 23, 'char']]
+right sentence:我也很喜欢我的国家，因为我觉得德国的文化真别致。
+wrong_index[22]
+
+input sentence:哪里的天气很好，不太热也不太冷。
+pred sentence:那里的天气很好，不太热也不太冷。[['哪', '那', 0, 1, 'char']]
+right sentence:那里的天气很好，不太热也不太冷。
+wrong_index[0]
+
+input sentence:春天跟愁天很舒服。冬天很冷，夏天很热，所以我不很喜两个季节。
+pred sentence:春天跟秋天很舒服。冬天很冷，夏天很热，所以我不很喜两个季节。[['跟愁', '跟秋', 2, 4, 'word']]
+right sentence:春天跟秋天很舒服。冬天很冷，夏天很热，所以我不很喜两个季节。
+wrong_index[3]
+
+input sentence:天起那里不怎么好。
+pred sentence:天气那里不怎么好。[['天起', '天气', 0, 2, 'word']]
+right sentence:天气那里不怎么好。
+wrong_index[1]
+
+input sentence:春天有一点儿冷，可是很美，因为有很都不一样的花。
+pred sentence:春天有一点儿冷，可是很美，因为有很都不一样的花。[]
+right sentence:春天有一点儿冷，可是很美，因为有很多不一样的花。
+wrong_index[17]
+
+input sentence:夏天也不错，不太热可以塞太阳。
+pred sentence:夏天也不错，不太热可以塞太阳。[]
+right sentence:夏天也不错，不太热可以晒太阳。
+wrong_index[11]
+
+input sentence:秋天最漂亮，一点儿冷可是术都红色跟黄色。
+pred sentence:秋天最漂亮，一点儿冷可是术都红色跟黄色。[]
+right sentence:秋天最漂亮，一点儿冷可是树都红色跟黄色。
+wrong_index[12]
+
+input sentence:因为我家的风景跟美。
+pred sentence:因为我家的风景跟美。[]
+right sentence:因为我家的风景很美。
+wrong_index[7]
+
+input sentence:如果你方面的话，我会三十分前接你。
+pred sentence:如果你方面的话，我会三十分前接你。[]
+right sentence:如果你方便的话，我会三十分前接你。
+wrong_index[4]
+
+input sentence:情爱的朋友。
+pred sentence:情爱的朋友。[]
+right sentence:亲爱的朋友。
+wrong_index[0]
+
+input sentence:这是很特别，应为我自己作饭。
+pred sentence:这是很特别，应为我自己做饭。[['作', '做', 11, 12, 'char']]
+right sentence:这是很特别，因为我自己作饭。
+wrong_index[6]
+
+input sentence:你单让知道我的家在那里。
+pred sentence:你单让知道我的家在哪里。[['那', '哪', 9, 10, 'char']]
+right sentence:你当然知道我的家在那里。
+wrong_index[1, 2]
+
+input sentence:那家餐厅是吃到饱的餐厅，所以我感在哪里吃饭。
+pred sentence:那家餐厅是吃到饱的餐厅，所以我敢在哪里吃饭。[['我感', '我敢', 14, 16, 'word']]
+right sentence:那家餐厅是吃到饱的餐厅，所以我改在哪里吃饭。
+wrong_index[15]
+
+input sentence:如果你有孔，请你打电话给我，告诉我什么时候你有空。
+pred sentence:如果你有孔雀，请你打电话给我，告诉我什么时候你有空。[['孔', '孔雀', 4, 5, 'miss']]
+right sentence:如果你有空，请你打电话给我，告诉我什么时候你有空。
+wrong_index[4]
+
+input sentence:吃葚么？我要吃宫保鸡丁。
+pred sentence:继葚么？我要吃宫保鸡丁。[['吃葚', '继葚', 0, 2, 'word']]
+right sentence:吃什么？我要吃宫保鸡丁。
+wrong_index[1]
+
+input sentence:听所学校隔壁那家法国餐厅不错也不太贵，你吃过吗？
+pred sentence:听所学校隔壁那家法国餐厅不错也不太贵，你吃过吗？[]
+right sentence:听说学校隔壁那家法国餐厅不错也不太贵，你吃过吗？
+wrong_index[1]
+
+input sentence:我很西欢吃中国饭。
+pred sentence:我很喜欢吃中国饭。[['西欢', '喜欢', 2, 4, 'word']]
+right sentence:我很喜欢吃中国饭。
+wrong_index[2]
+
+input sentence:因为中国反是很好，所以吃得很多我常常错共车去台大吃了饭。
+pred sentence:因为中国反是很好，所以吃得很多我常常借公车去台大吃了饭。[['错共车', '借公车', 18, 21, 'word']]
+right sentence:因为中国饭是很好，所以吃得很多我常常坐公车去台大吃了饭。
+wrong_index[4, 18, 19]
+
+input sentence:我跟我泰泰都惜欢。
+pred sentence:我跟我太泰都喜欢。[['泰泰', '太泰', 3, 5, 'word'], ['惜欢', '喜欢', 6, 8, 'word']]
+right sentence:我跟我太太都喜欢。
+wrong_index[3, 4, 6]
+
+input sentence:我要词反。
+pred sentence:我要辞反。[['词反', '辞反', 2, 4, 'word']]
+right sentence:我要吃饭。
+wrong_index[2, 3]
+
+input sentence:你的身体号码？
+pred sentence:你的身体号码？[]
+right sentence:你的身体好吗？
+wrong_index[4, 5]
+
+input sentence:听说你的其末考已经考完了，你有没有时间跟我一起去吃饭？
+pred sentence:听说你的期末考已经考完了，你有没有时间跟我一起去吃饭？[['其末考', '期末考', 4, 7, 'word']]
+right sentence:听说你的期末考已经考完了，你有没有时间跟我一起去吃饭？
+wrong_index[4]
+
+input sentence:我明天四点有空，你呢？想不想吃台湾采？
+pred sentence:我明天四点有空，你呢？想不想吃台湾采？[]
+right sentence:我明天四点有空，你呢？想不想吃台湾菜？
+wrong_index[17]
+
+input sentence:政治大学的对面有一家很有名的餐厅，他们的采盘盘都好吃，我们去那边吧！
+pred sentence:政治大学的对面有一家很有名的餐厅，他们的菜盘盘都好吃，我们去那边吧！[['采盘', '菜盘', 20, 22, 'word']]
+right sentence:政治大学的对面有一家很有名的餐厅，他们的菜盘盘都好吃，我们去那边吧！
+wrong_index[20]
+
+input sentence:你设么失火有空？我要请你我家吃韩国的包子。
+pred sentence:你设么失火有空？我要请你我家吃韩国的包子。[]
+right sentence:你什么时候有空？我要请你我家吃韩国的包子。
+wrong_index[1, 3, 4]
+
+input sentence:要失有空时后我们都吃饭吗？
+pred sentence:要是有空时后我们都吃饭吗？[['要失', '要是', 0, 2, 'word']]
+right sentence:要是有空时候我们都吃饭吗？
+wrong_index[1, 5]
+
+input sentence:下个星期是我的生日共喜。
+pred sentence:下个星期是我的生日恭喜。[['共喜', '恭喜', 9, 11, 'word']]
+right sentence:下个星期是我的生日恭喜。
+wrong_index[9]
+
+input sentence:我要吃日本蔡。
+pred sentence:我要吃日本菜。[['蔡', '菜', 5, 6, 'word']]
+right sentence:我要吃日本菜。
+wrong_index[5]
+
+input sentence:明天是我的生日，所以我们要去餐订吃饭。
+pred sentence:明天是我的生日，所以我们要去餐定吃饭。[['餐订', '餐定', 14, 16, 'word']]
+right sentence:明天是我的生日，所以我们要去餐厅吃饭。
+wrong_index[15]
+
+input sentence:最近上课好吗？公课会不会很难？
+pred sentence:最近上课好吗？功课会不会很难？[['公课', '功课', 7, 9, 'word']]
+right sentence:最近上课好吗？功课会不会很难？
+wrong_index[7]
+
+input sentence:下礼拜五下午十二点十分在学校大们口见面！
+pred sentence:下礼拜五下午十二点十分在学校大门口见面！[['大们', '大门', 14, 16, 'word']]
+right sentence:下礼拜五下午十二点十分在学校大门口见面！
+wrong_index[15]
+
+input sentence:我下个礼拜五要回国了想请你吃个晚餐、聊聊天，不知道你这个礼拜天有没有控呢？
+pred sentence:我下个礼拜五要回国了想请你吃个晚餐、聊聊天，不知道你这个礼拜天有没有空呢？[['控', '空', 34, 35, 'char']]
+right sentence:我下个礼拜五要回国了想请你吃个晚餐、聊聊天，不知道你这个礼拜天有没有空呢？
+wrong_index[34]
+
+input sentence:考试一后，我们再学校门口见面，然后我们可以一起去吃饭。
+pred sentence:考试以后，我们在学校门口见面，然后我们可以一起去吃饭。[['一后', '以后', 2, 4, 'confusion'], ['再', '在', 7, 8, 'char']]
+right sentence:考试以后，我们在学校门口见面，然后我们可以一起去吃饭。
+wrong_index[2, 7]
+
+input sentence:前天你刘信给我说你门大学考试玩了。
+pred sentence:前天你留信给我说你门大学考试玩了。[['刘信', '留信', 3, 5, 'word']]
+right sentence:前天你留信给我说你们大学考试完了。
+wrong_index[3, 9, 14]
+
+input sentence:六根礼拜日晚上他在台北上中文课。
+pred sentence:陆根礼拜日晚上他在台北上中文课。[['六', '陆', 0, 1, 'char']]
+right sentence:六跟礼拜日晚上他在台北上中文课。
+wrong_index[1]
+
+input sentence:他虽然还没学过一点中文，可是很永敢的一个人去台湾。
+pred sentence:他虽然还没学过一点中文，可是很勇敢的一个人去台湾。[['很永敢', '很勇敢', 14, 17, 'itself']]
+right sentence:他虽然还没学过一点中文，可是很勇敢的一个人去台湾。
+wrong_index[15]
+
+input sentence:辛亏他来台湾前，已经准备了一个台湾的地图。
+pred sentence:心亏他来台湾前，已经准备了一个台湾的地图。[['辛亏', '心亏', 0, 2, 'word']]
+right sentence:幸亏他来台湾前，已经准备了一个台湾的地图。
+wrong_index[0]
+
+input sentence:然后他试试看用英文问一个台湾的小姐，很辛亏她听得懂英文。
+pred sentence:然后她试试看用英文问一个台湾的小姐，狠心亏她听得懂英文。[['他', '她', 2, 3, 'char'], ['很辛亏', '狠心亏', 18, 21, 'word']]
+right sentence:然后他试试看用英文问一个台湾的小姐，很幸亏她听得懂英文。
+wrong_index[19]
+
+input sentence:要一个新生他叫大明。
+pred sentence:要一个新生他叫大明。[]
+right sentence:有一个新生他叫大明。
+wrong_index[0]
+
+input sentence:他从北投捷运站坐捷运到估停站。
+pred sentence:他从北投捷运站坐捷运到家停站。[['估', '家', 11, 12, 'char']]
+right sentence:他从北投捷运站坐捷运到古亭站。
+wrong_index[11, 12]
+
+input sentence:到了一后他就走路，可是他要一个问题他不知道到学校怎么去。
+pred sentence:到了以后他就走路，可是他要一个问题他不知道到学校怎么去。[['一后', '以后', 2, 4, 'confusion']]
+right sentence:到了以后他就走路，可是他有一个问题他不知道到学校怎么去。
+wrong_index[2, 12]
+
+input sentence:到了他的教室她就坐在最前面的异子灯塔的老师近来。
+pred sentence:到了他的教室他就座在最前面的椅子灯塔的老师近来。[['她', '他', 6, 7, 'char'], ['就坐', '就座', 7, 9, 'confusion'], ['异子', '椅子', 14, 16, 'word']]
+right sentence:到了他的教室她就坐在最前面的椅子等他的老师进来。
+wrong_index[14, 16, 17, 21]
+
+input sentence:等五分钟他的老是就近来，大明跟他的老师很高兴，因为它的老师是在路上大明问的小姐。
+pred sentence:等五分钟他的老师就近来，大明跟他的老师很高兴，因为它的老师是在路上大明问的小姐。[['老是', '老师', 6, 8, 'word']]
+right sentence:等五分钟他的老师就进来，大明跟他的老师很高兴，因为他的老师是在路上大明问的小姐。
+wrong_index[7, 9, 25]
+
+input sentence:他真的很胡涂，因为他还不会说中文。
+pred sentence:他真的很糊涂，因为他还不会说中文。[['胡涂', '糊涂', 4, 6, 'confusion']]
+right sentence:他真的很糊涂，因为他还不会说中文。
+wrong_index[4]
+
+input sentence:所以每天上课艾伦都高高兴兴得学中文。
+pred sentence:所以每天上课艾伦都高高兴兴得学中文。[]
+right sentence:所以每天上课艾伦都高高兴兴地学中文。
+wrong_index[13]
+
+input sentence:那位帮我找到学校的小姐原来是我的中文老师！真巧呕！
+pred sentence:哪位帮我找到学校的小姐原来是我的中文老师！真巧！[['那', '哪', 0, 1, 'char'], ['呕', '', 23, 24, 'redundancy']]
+right sentence:那位帮我找到学校的小姐原来是我的中文老师！真巧喔！
+wrong_index[23]
+
+input sentence:感谢等五分以后，碰到一位很棒的奴生跟我可聊。
+pred sentence:感谢等五分以后，碰到一位很棒的奴性跟我可聊。[['奴生', '奴性', 15, 17, 'word']]
+right sentence:感谢等五分以后，碰到一位很棒的女生跟我可聊。
+wrong_index[15]
+
+input sentence:这城市很少对不对？
+pred sentence:这城市很少对不对？[]
+right sentence:这城市很小对不对？
+wrong_index[4]
+
+input sentence:第一天不错我很轻松，我新的中文老师是我好朋有，还有我紧张的感觉结束了。
+pred sentence:第一天不错我很轻松，我新的中文老师是我好朋友，还有我紧张的感觉结束了。[['朋有', '朋友', 20, 22, 'word']]
+right sentence:第一天不错我很轻松，我新的中文老师是我好朋友，还有我紧张的感觉结束了。
+wrong_index[21]
+
+input sentence:可是我看地图的时候在哪里有好吃的餐厅、在那里有很有名的公园都看不懂。
+pred sentence:可是我看地图的时候在哪里有好吃的餐厅、在那里有很有名的公园都看不懂。[]
+right sentence:可是我看地图的时候在哪里有好吃的餐厅、在哪里有很有名的公园都看不懂。
+wrong_index[20]
+
+input sentence:原来她是上次我迷路的时候帮我的女生。真巧。我跟他说上次很谢谢妳。
+pred sentence:原来她是上次我迷路的时候帮我的女生。真巧。我跟他说上次很谢谢妳。[]
+right sentence:原来她是上次我迷路的时候帮我的女生。真巧。我跟她说上次很谢谢妳。
+wrong_index[23]
+
+input sentence:刚来台湾的时候，我什么都不知到，因为我没学过中文所以我不会看、说中文字。
+pred sentence:刚来台湾的时候，我什么都不知到，因为我没学过中文所以我不会看、说中文字。[]
+right sentence:刚来台湾的时候，我什么都不知到道因为我没学过中文所以我不会看、说中文字。
+wrong_index[15]
+
+input sentence:老师说「你现在在莫斯汉堡，你要往后一直走就到了」。
+pred sentence:老师说「你现在在摩斯汉堡，你要往后一直走就到了」。[['莫斯', '摩斯', 8, 10, 'word']]
+right sentence:老师说「你现在在摩斯汉堡，你要往后一直走就到了」。
+wrong_index[8]
+
+input sentence:今天对大伟来说，不可望这么好的老师。
+pred sentence:今天对大伟来说，不可望这么好的老师。[]
+right sentence:今天对大伟来说，不可忘这么好的老师。
+wrong_index[10]
+
+input sentence:他要去中文壳可是不怎到哪里。
+pred sentence:他要去中文课可是不怎到哪里。[['壳', '课', 5, 6, 'word']]
+right sentence:他要去中文课可是不怎到哪里。
+wrong_index[5]
+
+input sentence:他问一个小姐棒他。
+pred sentence:他问一个小姐接棒他。[['棒', '接棒', 6, 7, 'miss']]
+right sentence:他问一个小姐帮他。
+wrong_index[6]
+
+input sentence:塔说那便是亏快的路。
+pred sentence:塔水那便是亏缺的路。[['说', '水', 1, 2, 'char'], ['亏快', '亏缺', 5, 7, 'word']]
+right sentence:他说那边是最快的路。
+wrong_index[0, 3, 5]
+
+input sentence:她到来他的客看老是，他说走路很快所以他很累。
+pred sentence:他到来他的课看老是，他说走路很快所以他很累。[['她', '他', 0, 1, 'char'], ['客看', '课看', 5, 7, 'word']]
+right sentence:她到来他的课看老师，他说走路很快所以他很累。
+wrong_index[5, 8]
+
+input sentence:老是说没关喜不瑳胎多。
+pred sentence:老实说殳关喜不错胎儿多。[['老是', '老实', 0, 2, 'word'], ['没', '殳', 3, 4, 'char'], ['瑳', '错', 7, 8, 'word'], ['胎', '胎儿', 8, 9, 'miss']]
+right sentence:老师说没关系不说太多。
+wrong_index[1, 5, 7, 8]
+
+input sentence:他说您好，可是老是说错，塔说学生影该说你好。
+pred sentence:他说您好，可是老师说错，合说学生应该说你好。[['老是', '老师', 7, 9, 'word'], ['塔说', '合说', 12, 14, 'word'], ['影该', '应该', 16, 18, 'word']]
+right sentence:他说您好，可是老是说错，他说学生应该说你好。
+wrong_index[12, 16]
+
+input sentence:他座捷运到学校的附近站，但是下了车以后他迷路了。
+pred sentence:他坐捷运到学校的附近站，但是下了车以后他迷路了。[['座捷', '坐捷', 1, 3, 'word']]
+right sentence:他坐捷运到学校的附近站，但是下了车以后他迷路了。
+wrong_index[1]
+
+input sentence:那时候他看到一个女生，他马上问她到学校怎嚜走。
+pred sentence:那时候他看到一个女生，他马上问她到学校怎嚜走。[]
+right sentence:那时候他看到一个女生，他马上问她到学校怎么走。
+wrong_index[20]
+
+input sentence:她是他的中文老师，他们都吃凉了。
+pred sentence:他是他的中文老师，他们都吃惊了。[['她', '他', 0, 1, 'char'], ['凉', '惊', 13, 14, 'word']]
+right sentence:她是他的中文老师，他们都吃惊了。
+wrong_index[13]
+
+input sentence:有一个美国学生，叫做大卫。冈来台湾三天而已。
+pred sentence:有一个美国学生，叫做大卫。刚来台湾三天而已。[['冈来', '刚来', 13, 15, 'word']]
+right sentence:有一个美国学生，叫做大卫。刚来台湾三天而已。
+wrong_index[13]
+
+input sentence:今天他很早就起来，因为他不知道学校在那里？
+pred sentence:今天他很早就起来，因为他不知道学校在哪里？[['那', '哪', 18, 19, 'char']]
+right sentence:今天他很早就起来，因为他不知道学校在哪里？
+wrong_index[18]
+
+input sentence:拿着地图，背着包勇敢得问学校的地址。
+pred sentence:拿着地图，背着包勇敢地问学校的地址。[['得', '地', 10, 11, 'char']]
+right sentence:拿着地图，背着包勇敢地问学校的地址。
+wrong_index[10]
+
+input sentence:到了学校以后，进去搬上大卫马上坐着，因为有疑点背包也放在桌上。
+pred sentence:到了学校以后，进去搬上大卫马上坐着，因为有疑点背包也放在桌上。[]
+right sentence:到了学校以后，进去班上大卫马上坐着，因为有一点背包也放在桌上。
+wrong_index[9, 21]
+
+input sentence:我觉得中国子太难，不过很有意思。
+pred sentence:我觉得中国字太难，不过很有意思。[['中国子', '中国字', 3, 6, 'confusion']]
+right sentence:我觉得中国字太难，不过很有意思。
+wrong_index[5]
+
+input sentence:可以在一次看那个小姐，德伟佷高兴了。
+pred sentence:可以在一次看那个小姐，德威佷高兴了。[['德伟', '德威', 11, 13, 'word']]
+right sentence:可以再一次看那个小姐，德伟佷高兴了。
+wrong_index[2]
+
+input sentence:我刚刚来台北的时后，那里都不知道。
+pred sentence:我刚刚来台北的时候，那里都不知道。[['时后', '时候', 7, 9, 'word']]
+right sentence:我刚刚来台北的时候，哪里都不知道。
+wrong_index[8, 10]
+
+input sentence:上课开始时，今天帮我忙的女生就到教室近来了。
+pred sentence:上课开始时，今天帮我忙的女生就到教室进来了。[['近', '进', 18, 19, 'char']]
+right sentence:上课开始时，今天帮我忙的女生就到教室进来了。
+wrong_index[18]
+
+input sentence:我跟我的风友学中文。
+pred sentence:我跟我的风有学中文。[['风友学', '风有学', 4, 7, 'itself']]
+right sentence:我跟我的朋友学中文。
+wrong_index[4]
+
+input sentence:我作天学中文到晚上十点。
+pred sentence:我做大学中文到晚上十点。[['我作', '我做', 0, 2, 'word'], ['天学', '大学', 2, 4, 'word']]
+right sentence:我昨天学中文到晚上十点。
+wrong_index[1]
+
+input sentence:因为他走天才到台北来，所以他不知道怎嚜去学校。
+pred sentence:因为他走天才到台北来，所以他不知道怎嚜去学校。[]
+right sentence:因为他昨天才到台北来，所以他不知道怎么去学校。
+wrong_index[3, 18]
+
+input sentence:虽然他有地图可是没什么帮助还找不到学校。要问别人他们不会说英文很湖涂啦！
+pred sentence:虽然他有地图可是没什么帮助还找不到学校。要问别人他们不会说英文很糊涂！[['湖涂', '糊涂', 32, 34, 'word'], ['啦', '', 34, 35, 'redundancy']]
+right sentence:虽然他有地图可是没什么帮助还找不到学校。要问别人他们不会说英文很糊涂啦！
+wrong_index[32]
+
+input sentence:她告诉他学校的路道，怎嚜去比较快到学校去。
+pred sentence:他告诉他学校的路道，怎嚜去比较快到学校去。[['她', '他', 0, 1, 'char']]
+right sentence:她告诉他学校的路道，怎么去比较快到学校去。
+wrong_index[11]
+
+input sentence:后来老是进去，她一碰到老师就笑起来了。
+pred sentence:后来老师进去，他一碰到老师就笑起来了。[['老是', '老师', 2, 4, 'word'], ['她', '他', 7, 8, 'char']]
+right sentence:后来老师进去，她一碰到老师就笑起来了。
+wrong_index[3]
+
+input sentence:早知道他是老是，说不定可以跟他一起来学校，他很高兴老是对他非常好。
+pred sentence:早知道他是老师，说不定可以跟他一起来学校，他很高兴老是对他非常好。[['是', '师', 6, 7, 'char']]
+right sentence:早知道他是老师，说不定可以跟他一起来学校，他很高兴老师对他非常好。
+wrong_index[6, 26]
+
+input sentence:台湾生活让他打开眼镜知道很多别的国家的社会事情，很真得。
+pred sentence:台湾生活让他打开眼镜知道很多别的国家的社会事情，很真得。[]
+right sentence:台湾生活让他打开眼镜知道很多别的国家的社会事情，很值得。
+wrong_index[25]
+
+input sentence:现在我从火车站要去学校学中文，可是我不知道，学校在哪理。
+pred sentence:现在我从火车站要去学校学中文，可是我不知道，学校在哪里。[['哪理', '哪里', 25, 27, 'word']]
+right sentence:现在我从火车站要去学校学中文，可是我不知道，学校在哪里。
+wrong_index[26]
+
+input sentence:我觉得他票亮得很。
+pred sentence:我觉得他漂亮得很。[['他票', '他漂', 3, 5, 'word']]
+right sentence:我觉得他漂亮得很。
+wrong_index[4]
+
+input sentence:上课一后，我真的很高兴因为我的老师是一前的那个小姐。
+pred sentence:上课以后，我真的很高兴因为我的老师是一前的那个小姐。[['一后', '以后', 2, 4, 'confusion']]
+right sentence:上课以后，我真的很高兴因为我的老师是以前的那个小姐。
+wrong_index[2, 18]
+
+input sentence:他又高又受，有红颜色的头发，蓝颜色的眼睛。
+pred sentence:她又高又瘦，有红颜色的头发，蓝颜色的眼睛。[['他', '她', 0, 1, 'char'], ['受', '瘦', 4, 5, 'char']]
+right sentence:他又高又瘦，有红颜色的头发，蓝颜色的眼睛。
+wrong_index[4]
+
+input sentence:他也不知道这么搭捷运，结果，大卫化了半个小时走来走去。
+pred sentence:他也不知道这么搭捷运，结果，大卫化了半个小时走来走去。[]
+right sentence:他也不知道这么搭捷运，结果，大卫花了半个小时走来走去。
+wrong_index[16]
+
+input sentence:他跟那位小姐道谢，就杆快去上课。
+pred sentence:他跟那位小姐道谢，就赶快去上课。[['杆', '赶', 10, 11, 'char']]
+right sentence:他跟那位小姐道谢，就赶快去上课。
+wrong_index[10]
+
+input sentence:今天他学习的很愉快。
+pred sentence:今天他学习的很愉快。[]
+right sentence:今天他学习得很愉快。
+wrong_index[5]
+
+input sentence:进大楼里面的时候，我再见面她，我很高心。
+pred sentence:进大楼里面的时候，我再见面他，我很高薪。[['她', '他', 13, 14, 'char'], ['高心', '高薪', 17, 19, 'word']]
+right sentence:进大楼里面的时候，我再见面她，我很高兴。
+wrong_index[18]
+
+input sentence:你是我的学生阿？
+pred sentence:你是我的学生啊？[['阿', '啊', 6, 7, 'char']]
+right sentence:你是我的学生啊？
+wrong_index[6]
+
+input sentence:我已经自己能到公馆捷运站了，可是看地图也都看不懂怎吗去学校
+pred sentence:我已经自己能到公馆捷运站了，可是看地图也都看不懂怎么去学校[['吗', '么', 25, 26, 'char']]
+right sentence:我已经自己能到公馆捷运站了，可是看地图也都看不懂怎么去学校
+wrong_index[25]
+
+input sentence:她教我怎吗去学校了。
+pred sentence:他教我怎么去学校了。[['她', '他', 0, 1, 'char'], ['吗', '么', 4, 5, 'char']]
+right sentence:她教我怎么去学校了。
+wrong_index[4]
+
+input sentence:你一直走到了第二个十子路口右专就到了。
+pred sentence:你一直走到了第二个十字路口右专就到了。[['十子', '十字', 9, 11, 'word']]
+right sentence:你一直走到了第二个十字路口右转就到了。
+wrong_index[10, 14]
+
+input sentence:他主意那个人说的话就到了。
+pred sentence:他主意那个人说的话就到了。[]
+right sentence:他注意那个人说的话就到了。
+wrong_index[1]
+
+input sentence:因为那个时候是第一次上课，所以他看起来跟老师不开方。
+pred sentence:因为那个时候是第一次上课，所以他看起来跟老师不开房。[['方', '房', 24, 25, 'char']]
+right sentence:因为那个时候是第一次上课，所以他看起来跟老师不开放。
+wrong_index[24]
+
+input sentence:我打算去餐厅买牛肉，可是我不知道去哪里买，我听说在爱买有买。
+pred sentence:我打算去餐厅买牛肉，可是我不知道去哪里买，我听说在爱买有买。[]
+right sentence:我打算去餐厅买牛肉，可是我不知道去哪里买，我听说在爱买有卖。
+wrong_index[28]
+
+input sentence:在络上我碰到我的好朋友，他知道我打算买牛肉，他送我一包牛肉。
+pred sentence:在路上我碰到我的好朋友，他知道我打算买牛肉，他送我一包牛肉。[['在络', '在路', 0, 2, 'word']]
+right sentence:在路上我碰到我的好朋友，他知道我打算买牛肉，他送我一包牛肉。
+wrong_index[1]
+
+input sentence:我妈妈很息缓喝台湾的茶和衣服。
+pred sentence:我妈妈很行缓和台湾的茶叶和衣服。[['很息缓', '很行缓', 3, 6, 'itself'], ['喝', '和', 6, 7, 'word'], ['茶', '茶叶', 10, 11, 'miss']]
+right sentence:我妈妈很喜欢喝台湾的茶和衣服。
+wrong_index[4, 5]
+
+input sentence:我妹妹想要个交相机和一对新楔子。
+pred sentence:我妹妹想要个角相机和一对新楔子。[['个交', '个角', 5, 7, 'word']]
+right sentence:我妹妹想要个照相机和一对新鞋子。
+wrong_index[6, 13]
+
+input sentence:美国现在很冷，请办我买件雪衣。
+pred sentence:美国现在很冷，请伴我买件血衣。[['请办', '请伴', 7, 9, 'word'], ['雪衣', '血衣', 12, 14, 'word']]
+right sentence:美国现在很冷，请帮我买件雪衣。
+wrong_index[8]
+
+input sentence:这里的公车是，应该５个小时一班阿！
+pred sentence:这里的公车是，应该５个小时一班阿！[]
+right sentence:这里的公车是，应该５个小时一班啊！
+wrong_index[15]
+
+input sentence:结果，他决定要是下一次去爬上，跟朋友一起去比较好。
+pred sentence:结果，他决定要是下一次去攀爬上，跟朋友一起去比较好。[['爬', '攀爬', 12, 13, 'miss']]
+right sentence:结果，他决定要是下一次去爬山，跟朋友一起去比较好。
+wrong_index[13]
+
+input sentence:在山上有很多木都是录色的，空气也很好。
+pred sentence:在山上有很多木都是绿色的，空气也很好。[['录色', '绿色', 9, 11, 'word']]
+right sentence:在山上有很多木都是绿色的，空气也很好。
+wrong_index[9]
+
+input sentence:我打电话各我妈妈爸爸也打不通。
+pred sentence:我打电话各我妈妈爸爸也打不通。[]
+right sentence:我打电话给我妈妈爸爸也打不通。
+wrong_index[4]
+
+input sentence:有一个开红色车的男人，他看见我在路边交马上停车。
+pred sentence:有一个开红色车的男人，他看见我在路边交马上停车。[]
+right sentence:有一个开红色车的男人，他看见我在路边叫马上停车。
+wrong_index[18]
+
+input sentence:我跟她说我已经米了三个小时路新教到一条路。
+pred sentence:我跟她说我已经断了三个小时路新教到一条路。[['米', '断', 7, 8, 'char']]
+right sentence:我跟她说我已经迷了三个小时路新找到一条路。
+wrong_index[7, 15]
+
+input sentence:我们坐了三十分钟车交到了。
+pred sentence:我们坐了三十分钟车交到了。[]
+right sentence:我们坐了三十分钟车就到了。
+wrong_index[9]
+
+input sentence:电话号吗：０９８７－３３３－００４。
+pred sentence:电话好吗：０９８７－３３３－００４。[['号', '好', 2, 3, 'char']]
+right sentence:电话号码：０９８７－３３３－００４。
+wrong_index[3]
+
+input sentence:昨天再图书馆外面我掉了一本。
+pred sentence:昨天在图书馆外面我掉了一本。[['再', '在', 2, 3, 'char']]
+right sentence:昨天在图书馆外面我掉了一本。
+wrong_index[2]
+
+input sentence:它看起来很葬，但是里面有很多照片让我纪念我的同学们。
+pred sentence:它看起来很脏，但是里面有很多照片让我纪念我的同学们。[['很葬', '很脏', 4, 6, 'word']]
+right sentence:它看起来很脏，但是里面有很多照片让我纪念我的同学们。
+wrong_index[5]
+
+input sentence:如果您找，请你跟李大明联络或换给办公室的服务。
+pred sentence:如果您找，请你跟李大明联络或还给办公室的服务。[['或换', '或还', 13, 15, 'word']]
+right sentence:如果您找，请你跟李大明联络或还给办公室的服务。
+wrong_index[14]
+
+input sentence:清流你的名子好让我谢谢您。
+pred sentence:清流你的名子好让我谢谢您。[]
+right sentence:请留你的名字好让我谢谢您。
+wrong_index[0, 1, 5]
+
+input sentence:这本书是中文的课本，颜色是蓝色的，书的后面写着我的名子，李大明。
+pred sentence:这本书是中文的课本，颜色是蓝色的，书的后面写着我的名子，李大明。[]
+right sentence:这本书是中文的课本，颜色是蓝色的，书的后面写着我的名字，李大明。
+wrong_index[26]
+
+input sentence:前天我在学校公园看书，不小心把输给弄丢了。
+pred sentence:前天我在学校公园看书，不小心把输给弄丢了。[]
+right sentence:前天我在学校公园看书，不小心把书给弄丢了。
+wrong_index[15]
+
+input sentence:我在师范大学念书，播爱大楼５０２教室。
+pred sentence:我在师范大学念书，博爱大楼５０２教室。[['播爱', '博爱', 9, 11, 'word']]
+right sentence:我在师范大学念书，博爱大楼５０２教室。
+wrong_index[9]
+
+input sentence:今天早上在这个大搂里弄丢了我的书。
+pred sentence:今天早上在这个大楼里弄丢了我的书。[['搂', '楼', 8, 9, 'word']]
+right sentence:今天早上在这个大楼里弄丢了我的书。
+wrong_index[8]
+
+input sentence:我把一本书在图书馆三楼的逃论室里弄丢了。
+pred sentence:我把一本书在图书馆三楼的讨论是里弄丢失了。[['逃论室', '讨论是', 12, 15, 'word'], ['丢', '丢失', 17, 18, 'miss']]
+right sentence:我把一本书在图书馆三楼的讨论室里弄丢了。
+wrong_index[12]
+
+input sentence:那本是美国的坻里。
+pred sentence:那本是美国的里。[['坻', '', 6, 7, 'redundancy']]
+right sentence:那本是美国的地理。
+wrong_index[6, 7]
+
+input sentence:如果你拿到了请你奇给我一封简讯，还是打电话给我。
+pred sentence:如果你拿到了请你寄给我一封简讯，还是打电话给我。[['奇', '寄', 8, 9, 'char']]
+right sentence:如果你拿到了请你寄给我一封简讯，还是打电话给我。
+wrong_index[8]
+
+input sentence:上个月我座飞机到加拿大去了。
+pred sentence:上个月我坐飞机到加拿大去了。[['我座', '我坐', 3, 5, 'word']]
+right sentence:上个月我坐飞机到加拿大去了。
+wrong_index[4]
+
+input sentence:我再机场碰到了我五年前的高中同学。
+pred sentence:我再机场碰到了我五年前的高中同学。[]
+right sentence:我在机场碰到了我五年前的高中同学。
+wrong_index[1]
+
+input sentence:她长大了便很帅！
+pred sentence:他长大了便很帅！[['她', '他', 0, 1, 'char']]
+right sentence:她长大了变很帅！
+wrong_index[4]
+
+input sentence:在加拿大的夏天太阳很晚才下，所以我们去了公园一起建走。
+pred sentence:在加拿大的夏天太阳很晚才下，所以我们去了公园一起建起。[['建走', '建起', 24, 26, 'word']]
+right sentence:在加拿大的夏天太阳很晚才下，所以我们去了公园一起健走。
+wrong_index[24]
+
+input sentence:我们以起吃饭和慢慢变成好朋友。
+pred sentence:我们一起吃饭或慢慢变成好朋友。[['以起', '一起', 2, 4, 'word'], ['和', '或', 6, 7, 'char']]
+right sentence:我们一起吃饭和慢慢变成好朋友。
+wrong_index[2]
+
+input sentence:下一天他陪我去看风京，帮我排照。
+pred sentence:下一天他们陪我去看风景，帮我拍照。[['陪', '们陪', 4, 5, 'miss'], ['风京', '风景', 8, 10, 'word'], ['排照', '拍照', 13, 15, 'word']]
+right sentence:下一天他陪我去看风景，帮我拍照。
+wrong_index[9, 13]
+
+input sentence:到日本他看见他的朋友腾她，他的朋友请她一起吃午饭。
+pred sentence:到日本他看见他的朋友誊她，他的朋友请她一起吃午饭。[['腾', '誊', 10, 11, 'char']]
+right sentence:到日本他看见他的朋友等她，他的朋友请她一起吃午饭。
+wrong_index[10]
+
+input sentence:下天早上她的朋友请她去路行，他们照很多像片。
+pred sentence:夏天早上她的朋友请她去路行，他们照很多相片。[['下天', '夏天', 0, 2, 'word'], ['像', '相', 19, 20, 'char']]
+right sentence:下天早上她的朋友请她去旅行，他们照很多相片。
+wrong_index[11, 19]
+
+input sentence:大明要跟她的男朋友一块完。
+pred sentence:天明要跟她的男朋友一块玩。[['大', '天', 0, 1, 'char'], ['完', '玩', 11, 12, 'char']]
+right sentence:大明要跟她的男朋友一块玩。
+wrong_index[11]
+
+input sentence:他们在餐厅吃好好的菜，然后她男朋友代去上海有名的地方。
+pred sentence:他们在餐厅吃好好的菜，然后她男朋友带去上海有名的地方。[['代去', '带去', 17, 19, 'word']]
+right sentence:他们在餐厅吃好好的菜，然后她男朋友带去上海有名的地方。
+wrong_index[17]
+
+input sentence:我跟我女朋友在一起已经很就了。
+pred sentence:我跟我女朋友在一起已经很久了。[['就', '久', 12, 13, 'char']]
+right sentence:我跟我女朋友在一起已经很久了。
+wrong_index[12]
+
+input sentence:因为我想死她了，所以梅天晚上我睡觉之前，我想起来她上次来看我。
+pred sentence:因为我想死她了，所以每天晚上我睡觉之前，我想起来她上次来看我。[['梅天', '每天', 10, 12, 'word']]
+right sentence:因为我想死她了，所以每天晚上我睡觉之前，我想起来她上次来看我。
+wrong_index[10]
+
+input sentence:二十四小时之后他终于到中正机场。
+pred sentence:二十四小时之后他终于到中正机场。[]
+right sentence:二十四小时之后她终于到中正机场。
+wrong_index[7]
+
+input sentence:我很期待他下一次会来看我。
+pred sentence:我很期待他下一次会来看我。[]
+right sentence:我很期待她下一次会来看我。
+wrong_index[4]
+
+input sentence:她是重美国留学回来的。
+pred sentence:他是重美国留学回来的。[['她', '他', 0, 1, 'char']]
+right sentence:她是从美国留学回来的。
+wrong_index[2]
+
+input sentence:她回到家她九打电话给他的好久不见的好朋友。
+pred sentence:他回到家他九打电话给他的好久不见的好朋友。[['她', '他', 0, 1, 'char'], ['她', '他', 4, 5, 'char']]
+right sentence:她回到家她就打电话给他的好久不见的好朋友。
+wrong_index[5]
+
+input sentence:他们约在已前他们去过的那家餐厅。
+pred sentence:他们约在以前他们去过的那家餐厅。[['已', '以', 4, 5, 'char']]
+right sentence:他们约在以前他们去过的那家餐厅。
+wrong_index[4]
+
+input sentence:今天我的妈妈要回国，但是早上睡觉所以迟到了飞机，现在美邦法。
+pred sentence:今天我的妈妈要回国，但是早上睡觉所以迟到了飞机，现在美邦法。[]
+right sentence:今天我的妈妈要回国，但是早上睡觉所以迟到了飞机，现在没办法。
+wrong_index[26, 27]
+
+input sentence:我今天找老师，但是老是不在。
+pred sentence:我今天找老师，但是老师不在。[['老是', '老师', 9, 11, 'word']]
+right sentence:我今天找老师，但是老师不在。
+wrong_index[10]
+
+input sentence:不好以时，我要给老师知道，明天我不会上课。
+pred sentence:不好一时，我要给老师知道，明天我不会上课。[['以时', '一时', 2, 4, 'word']]
+right sentence:不好意思，我要给老师知道，明天我不会上课。
+wrong_index[2, 3]
+
+input sentence:我的头有疑点藤。
+pred sentence:我的头有疑点藤蔓。[['藤', '藤蔓', 6, 7, 'miss']]
+right sentence:我的头有一点疼。
+wrong_index[4, 6]
+
+input sentence:希望后天我会上可了。
+pred sentence:希望后天我会上课了。[['可', '课', 7, 8, 'char']]
+right sentence:希望后天我会上课了。
+wrong_index[7]
+
+input sentence:今天早上我要找您可是您不在，所以我学给您在一张子。
+pred sentence:今天早上我要找您可是您不在，所以我学给您在一张子。[]
+right sentence:今天早上我要找您可是您不在，所以我写给您在一张纸。
+wrong_index[17, 23]
+
+input sentence:我还不知道如果这件事是每一个里拜四跟明天一样，可是我知道的时候马上告诉您。
+pred sentence:我还不知道如果这件事是每一个里拜四跟明天一样，可是我知道的时候马上告诉您。[]
+right sentence:我还不知道如果这件事是每一个礼拜四跟明天一样，可是我知道的时候马上告诉您。
+wrong_index[14]
+
+input sentence:您好李佬时，今天我找您。
+pred sentence:您好李佬村，今天我找您。[['李佬时', '李佬村', 2, 5, 'itself']]
+right sentence:您好李老师，今天我找您。
+wrong_index[3, 4]
+
+input sentence:我有明天的工课，这个晚上请您给我打电话。
+pred sentence:我有明天的工课，这个晚上请您给我打电话。[]
+right sentence:我有明天的功课，这个晚上请您给我打电话。
+wrong_index[5]
+
+input sentence:请老师给我一天休息时间，我会上课如果身提好了。
+pred sentence:请老师给我一天休息时间，我会上课如果身体好了。[['身提', '身体', 18, 20, 'word']]
+right sentence:请老师给我一天休息时间，我会上课如果身体好了。
+wrong_index[19]
+
+input sentence:差不多四点半我来过，可使你不在这。
+pred sentence:差不多四点半我来过，可使你不在这。[]
+right sentence:差不多四点半我来过，可是你不在这。
+wrong_index[11]
+
+input sentence:明天我给你打电话，请你告诉我我们的公克，谢谢。
+pred sentence:明天我给你打电话，请你告诉我我们的公克，谢谢。[]
+right sentence:明天我给你打电话，请你告诉我我们的功课，谢谢。
+wrong_index[17, 18]
+
+input sentence:明天我给你打电话，请你告诉我我们的公克，谢谢。
+pred sentence:明天我给你打电话，请你告诉我我们的公克，谢谢。[]
+right sentence:明天我给你打电话，请你告诉我我们的功课，谢谢。
+wrong_index[17, 18]
+
+input sentence:明天我给你打电话，请你告诉我我们的公克，谢谢。
+pred sentence:明天我给你打电话，请你告诉我我们的公克，谢谢。[]
+right sentence:明天我给你打电话，请你告诉我我们的功课，谢谢。
+wrong_index[17, 18]
+
+input sentence:因为后天我有靠事，所以我要看书。
+pred sentence:因为后天我有考事，所以我要看书。[['靠', '考', 6, 7, 'char']]
+right sentence:因为后天我有考试，所以我要看书。
+wrong_index[6, 7]
+
+input sentence:我门下个里俳才去看电影可以吗？
+pred sentence:我们下个里才去看电影可以吗？[['我门', '我们', 0, 2, 'confusion'], ['俳', '', 5, 6, 'redundancy']]
+right sentence:我们下个礼拜才去看电影可以吗？
+wrong_index[1, 4, 5]
+
+input sentence:明天我要跟我得妈妈去公司买些重要得东西，所以不能跟你一块儿去。
+pred sentence:明天我要跟我的妈妈去公司买些重要的东西，所以不能跟你一块儿去。[['得', '的', 6, 7, 'char'], ['得', '的', 16, 17, 'char']]
+right sentence:明天我要跟我得妈妈去公司买些重要的东西，所以不能跟你一块儿去。
+wrong_index[16]
+
+input sentence:我会到晚上十点才回家，所以没时间看电影，请你寮解我，谢谢。
+pred sentence:我会到晚上十点才回家，所以没时间看电影，请你解我，谢谢。[['寮', '', 22, 23, 'redundancy']]
+right sentence:我会到晚上十点才回家，所以没时间看电影，请你了解我，谢谢。
+wrong_index[22]
+
+input sentence:如果你要的话，情你八点到我家。
+pred sentence:如果你要的话，情你八点到我家。[]
+right sentence:如果你要的话，请你八点到我家。
+wrong_index[7]
+
+input sentence:印尼有一个地方叫巴黎，那边的风景最好看的。
+pred sentence:印尼有一个地方叫巴黎，那边的风景最好看的。[]
+right sentence:印尼有一个地方叫峇里，那边的风景最好看的。
+wrong_index[8, 9]
+
+input sentence:加州有很多市场卖很新鲜水果，而截卖很好的，二手的东西真便宜。
+pred sentence:加州有很多市场卖很新鲜水果，而解卖很好的，二手的东西真便宜。[['截卖', '解卖', 15, 17, 'word']]
+right sentence:加州有很多市场卖很新鲜水果，而且卖很好的，二手的东西真便宜。
+wrong_index[15]
+
+input sentence:你带你的昭显机呢，得不忘了。
+pred sentence:你带你的昭显机呢，得不要忘了。[['忘', '要忘', 11, 12, 'miss']]
+right sentence:你带你的照相机呢，得不忘了。
+wrong_index[4, 5]
+
+input sentence:如扩你有什么问题给我打电话。
+pred sentence:入扩你有什么问题给我打电话。[['如扩', '入扩', 0, 2, 'word']]
+right sentence:如果你有什么问题给我打电话。
+wrong_index[1]
+
+input sentence:每个站都不一样，每个很票亮。
+pred sentence:每个站都不一样，每个很漂亮。[['很票', '很漂', 10, 12, 'word']]
+right sentence:每个站都不一样，每个很漂亮。
+wrong_index[11]
+
+input sentence:你可以住在我的家，你可以认识我的家又看我的够猫。
+pred sentence:你可以住在我的家，你可以认识我的家又看我的狗。[['够', '狗', 21, 22, 'char'], ['猫', '', 22, 23, 'redundancy']]
+right sentence:你可以住在我的家，你可以认识我的家又看我的狗猫。
+wrong_index[21]
+
+input sentence:你可以吃我们最有名的采，一定很好玩。
+pred sentence:你可以吃我们最有名的采，一定很好玩。[]
+right sentence:你可以吃我们最有名的菜，一定很好玩。
+wrong_index[10]
+
+input sentence:我选来波澜的时间很好，因为一般来说夏天的天气很好、产的水果和青菜很多，好吃也便宜。
+pred sentence:我选来波澜的时间很好，因为一般来说夏天的天气很好、产的水果和青菜很多，好吃也便宜。[]
+right sentence:我选来波兰的时间很好，因为一般来说夏天的天气很好、产的水果和青菜很多，好吃也便宜。
+wrong_index[4]
+
+input sentence:你记得的我们的母语是西办加话，可是服务生大部分都听的懂一点点英文。
+pred sentence:你记得的我们的母语是行办假话，可是服务生大部分都听得不懂一点点英文。[['西办', '行办', 10, 12, 'word'], ['加话', '假话', 12, 14, 'word'], ['的', '得', 25, 26, 'char'], ['懂', '不懂', 26, 27, 'miss']]
+right sentence:你记得的我们的母语是西班牙话，可是服务生大部分都听的懂一点点英文。
+wrong_index[11, 12]
+
+input sentence:在台湾有的东四看起来奇怪，可是现在我不要说。
+pred sentence:在台湾有的东四看起来奇怪，可是现在我不要说。[]
+right sentence:在台湾有的东西看起来奇怪，可是现在我不要说。
+wrong_index[6]
+
+input sentence:我来台弯才一个多月。
+pred sentence:我来台湾才一个多月。[['弯', '湾', 3, 4, 'word']]
+right sentence:我来台湾才一个多月。
+wrong_index[3]
+
+input sentence:我来台弯要学中文，因为中文很从邀。
+pred sentence:我来台湾要学中文，因为中文很枞邀。[['弯', '湾', 3, 4, 'word'], ['从', '枞', 14, 15, 'char']]
+right sentence:我来台湾要学中文，因为中文很重要。
+wrong_index[3, 14, 15]
+
+input sentence:我的工作里在印尼有很多人会说华文，所以我也要会说跟写中国子。
+pred sentence:我的工作里在印尼有很多人会说华文，所以我也要会说跟写中国字。[['中国子', '中国字', 26, 29, 'confusion']]
+right sentence:我的工作里在印尼有很多人会说华文，所以我也要会说跟写中国字。
+wrong_index[28]
+
+input sentence:不上课的时候，我常常跟朋友去玩玩，看一看在台北好看的地方，晚上我就看书跟学子。
+pred sentence:不上课的时候，我常常跟朋友去玩玩，看一看在台北好看的地方，晚上我就看书跟学子。[]
+right sentence:不上课的时候，我常常跟朋友去玩玩，看一看在台北好看的地方，晚上我就看书跟学字。
+wrong_index[37]
+
+input sentence:我很喜欢买东西、吃饭、念书、银董、听ＭＰ３。
+pred sentence:我很喜欢买东西、吃饭、念书、银洞、听ＭＰ３。[['银董', '银洞', 14, 16, 'word']]
+right sentence:我很喜欢买东西、吃饭、念书、运动、听ＭＰ３。
+wrong_index[14, 15]
+
+input sentence:我住在台北已经一年了，而接学中文在师大的中文中心的。
+pred sentence:我住在台北已经一年了，而解学中文在师大的中文中心的。[['接学', '解学', 12, 14, 'word']]
+right sentence:我住在台北已经一年了，而且学中文在师大的中文中心的。
+wrong_index[12]
+
+input sentence:有控的时候跟朋友常常去夜市买好吃的东西或是买好看的衣服。
+pred sentence:有空的时候跟朋友常常去夜市买好吃的东西或是买好看的衣服。[['有控', '有空', 0, 2, 'word']]
+right sentence:有空的时候跟朋友常常去夜市买好吃的东西或是买好看的衣服。
+wrong_index[1]
+
+input sentence:我喜欢跟我的朋友一起去看电影，真喜欢看书，跳舞，唱歌，去陆行，和听音乐。
+pred sentence:我喜欢跟我的朋友一起去看电影，真喜欢看书，跳舞，唱歌，去陆行，或听音乐。[['和', '或', 31, 32, 'char']]
+right sentence:我喜欢跟我的朋友一起去看电影，真喜欢看书，跳舞，唱歌，去旅行，和听音乐。
+wrong_index[28]
+
+input sentence:我来这边学中文，忍识台湾人的惜贯、文化。
+pred sentence:我来这边学中文，认识台湾人的错贯、文化。[['忍识', '认识', 8, 10, 'word'], ['惜贯', '错贯', 14, 16, 'word']]
+right sentence:我来这边学中文，认识台湾人的习惯、文化。
+wrong_index[8, 14, 15]
+
+input sentence:在台湾我第一次忍识那么从别的国家来的人，而且从来没有主再说中文的环境，所以过不了机天我就开始想家人了。
+pred sentence:在台湾我第一次认识那么从别的国家来的人，而且从来没有主宰说中文的环境，所以过不了几天我就开始想家人了。[['忍识', '认识', 7, 9, 'word'], ['主再', '主宰', 26, 28, 'word'], ['机天', '几天', 40, 42, 'word']]
+right sentence:在台湾我第一次认识那么从别的国家来的人，而且从来没有住在说中文的环境，所以过不了几天我就开始想家人了。
+wrong_index[7, 26, 27, 40]
+
+input sentence:我慢慢习惯台湾的生活，式式看台湾野餐，也找的到了天主教的教堂，所以可以去中文弥撒。
+pred sentence:我慢慢习惯台湾的生活，式看台湾野餐，也找得到了天主教的教堂，所以可以去中文弥撒。[['式', '', 12, 13, 'redundancy'], ['的', '得', 21, 22, 'char']]
+right sentence:我慢慢习惯台湾的生活，试试看台湾野餐，也找得到了天主教的教堂，所以可以去中文弥撒。
+wrong_index[11, 12, 21]
+
+input sentence:回拨兰的时候会向台湾朋友和台湾漂亮的风景像阿里山、海边、台湾的水果和漂亮的衣服。
+pred sentence:回波兰的时候会向台湾朋友和台湾漂亮的风景像阿里山、海边、台湾的水果和漂亮的衣服。[['拨', '波', 1, 2, 'char']]
+right sentence:回波兰的时候会向台湾朋友和台湾漂亮的风景像阿里山、海边、台湾的水果和漂亮的衣服。
+wrong_index[1]
+
+input sentence:我们也有一支狗。
+pred sentence:我们也有一支狗狗。[['狗', '狗狗', 6, 7, 'miss']]
+right sentence:我们也有一只狗。
+wrong_index[5]
+
+input sentence:我在波兰学了亚洲文化还有管哩。
+pred sentence:我在波兰小了亚洲文化还有管理。[['学了', '小了', 4, 6, 'word'], ['管哩', '管理', 12, 14, 'word']]
+right sentence:我在波兰学了亚洲文化还有管理。
+wrong_index[13]
+
+input sentence:我有将学金。
+pred sentence:我有将小金。[['学金', '小金', 3, 5, 'word']]
+right sentence:我有奖学金。
+wrong_index[2]
+
+input sentence:一年以后我要回家因为我再波兰要找工作。
+pred sentence:一年以后我要回家因为我在波兰要找工作。[['再', '在', 11, 12, 'char']]
+right sentence:一年以后我要回家因为我在波兰要找工作。
+wrong_index[11]
+
+input sentence:我每个周末去不一样的成市。
+pred sentence:我每个周末去不一样的城市。[['成市', '城市', 10, 12, 'word']]
+right sentence:我每个周末去不一样的城市。
+wrong_index[10]
+
+input sentence:星期的时候我下了可以后在图书馆唸书。
+pred sentence:星期的时候我下了可以后在图书馆唸书。[]
+right sentence:星期的时候我下了课以后在图书馆唸书。
+wrong_index[8]
+
+input sentence:我回越南得时候找工作好找。
+pred sentence:我回越南的时候找工作好找。[['得', '的', 4, 5, 'char']]
+right sentence:我回越南的时候找工作好找。
+wrong_index[4]
+
+input sentence:我喜欢做中国菜，吃中国菜，还有喜欢台湾得风景，每个地方都很美。
+pred sentence:我喜欢做中国菜，吃中国菜，还有喜欢台湾的风景，每个地方都很美。[['得', '的', 19, 20, 'char']]
+right sentence:我喜欢做中国菜，吃中国菜，还有喜欢台湾的风景，每个地方都很美。
+wrong_index[19]
+
+input sentence:下了课的时候我写功课，做运动，还是跟朋有去玩儿。
+pred sentence:下了课的时候我写功课，做运动，还是跟朋友去玩儿。[['朋有', '朋友', 18, 20, 'word']]
+right sentence:下了课的时候我写功课，做运动，还是跟朋友去玩儿。
+wrong_index[19]
+
+input sentence:我已经来台湾气个月了。
+pred sentence:我已经来台湾七个月了。[['气个', '七个', 6, 8, 'word']]
+right sentence:我已经来台湾七个月了。
+wrong_index[6]
+
+input sentence:我要帮助台湾人，多一点认是圣经。
+pred sentence:我要帮助台湾人，多一点儿是圣经。[['认是', '儿是', 11, 13, 'word']]
+right sentence:我要帮助台湾人，多一点认识圣经。
+wrong_index[12]
+
+input sentence:我是去年十一月二十三号来了，一经三个月多久了。
+pred sentence:我是去年十一月二十三号来了，一经三个月多久了。[]
+right sentence:我是去年十一月二十三号来了，已经三个月多久了。
+wrong_index[14]
+
+input sentence:我从德国莱，可是我的妈妈是台湾人。
+pred sentence:我从德国莱，可是我的妈妈是台湾人。[]
+right sentence:我从德国来，可是我的妈妈是台湾人。
+wrong_index[4]
+
+input sentence:我学得中国字很有意思。
+pred sentence:我晓得中国字很有意思。[['我学得', '我晓得', 0, 3, 'itself']]
+right sentence:我觉得中国字很有意思。
+wrong_index[1]
+
+input sentence:我来界上一下。
+pred sentence:我来接上一下。[['我来界', '我来接', 0, 3, 'itself']]
+right sentence:我来介绍一下。
+wrong_index[2, 3]
+
+input sentence:她会说日文，所以我们说会的时候，没有问题。
+pred sentence:他会说日文，所以我们约会的时候，没有问题。[['她', '他', 0, 1, 'char'], ['说会', '约会', 10, 12, 'word']]
+right sentence:她会说日文，所以我们说话的时候，没有问题。
+wrong_index[11]
+
+input sentence:我对台湾的文花很有兴趣，所以常常跟台湾的朋友一起出去。
+pred sentence:我对台湾的文化很有兴趣，所以常常跟台湾的朋友一起出去。[['文花', '文化', 5, 7, 'word']]
+right sentence:我对台湾的文化很有兴趣，所以常常跟台湾的朋友一起出去。
+wrong_index[6]
+
+input sentence:我学得不会说不懂中文不好，所以我来台湾学中文。
+pred sentence:我晓得不会说不懂中文不好，所以我来台湾学中文。[['我学得', '我晓得', 0, 3, 'itself']]
+right sentence:我觉得不会说不懂中文不好，所以我来台湾学中文。
+wrong_index[1]
+
+input sentence:因为我的同是用台语跟国语混在一起说，我听不懂。
+pred sentence:因为我的同是用台语跟国语混在一起说，我听不懂。[]
+right sentence:因为我的同事用台语跟国语混在一起说，我听不懂。
+wrong_index[5]
+
+input sentence:我感冒得连饭都吃部下，而且我走不了多久，头就晕了。
+pred sentence:我感冒得连饭都吃部下，而且我走不了多久，头就晕倒了。[['晕', '晕倒', 22, 23, 'miss']]
+right sentence:我感冒得连饭都吃不下，而且我走不了多久，头就晕了。
+wrong_index[8]
+
+input sentence:如果我有空的时候，我们在一块儿去看电影好不好？
+pred sentence:如果我有空的时候，我们在一块儿去看电影好不好？[]
+right sentence:如果我有空的时候，我们再一块儿去看电影好不好？
+wrong_index[11]
+
+input sentence:小王对不气，我明天不可以跟你去看电影。
+pred sentence:小王对不气，我明天不可以跟你去看电影。[]
+right sentence:小王对不起，我明天不可以跟你去看电影。
+wrong_index[4]
+
+input sentence:对不起，我们下星期再去看，好不好？请你了结我只好这样做。
+pred sentence:对不起，我们下星期再去看，好不好？请你了结我只好这样做。[]
+right sentence:对不起，我们下星期再去看，好不好？请你了解我只好这样做。
+wrong_index[20]
+
+input sentence:我考完试，我们在一起去看电影吧！
+pred sentence:我考完试，我们在一起去看电影吧！[]
+right sentence:我考完试，我们再一起去看电影吧！
+wrong_index[7]
+
+input sentence:考完试以后我就有空了，所以等考完是我再给你打电话，好吗？
+pred sentence:考完试以后我就有空了，所以等考完试我再给你打电话，好吗？[['是', '试', 16, 17, 'char']]
+right sentence:考完试以后我就有空了，所以等考完试我再给你打电话，好吗？
+wrong_index[16]
+
+input sentence:那昨天的功课，超１０个句子我只好明天交给你。
+pred sentence:那昨天的功课，超１０个句子我只好明天交给你。[]
+right sentence:那昨天的功课，抄１０个句子我只好明天交给你。
+wrong_index[7]
+
+input sentence:我八点差五分到班公司来找您，可是找不着您，所以我决定留一张字条。
+pred sentence:我八点差五分到班公司来找您，可是找不着您，所以我决定留一张字条。[]
+right sentence:我八点差五分到办公室来找您，可是找不着您，所以我决定留一张字条。
+wrong_index[7, 9]
+
+input sentence:我想问你明天清假，因为今天下课以后我发现我的车子被偷走了。
+pred sentence:我想问你明天请假，因为今天下课以后我发现我的车子被偷走了。[['清假', '请假', 6, 8, 'word']]
+right sentence:我想问你明天请假，因为今天下课以后我发现我的车子被偷走了。
+wrong_index[6]
+
+input sentence:我到办公至找您，可是您不在。
+pred sentence:我到办公职找您，可是您不在。[['至', '职', 4, 5, 'char']]
+right sentence:我到办公室找您，可是您不在。
+wrong_index[4]
+
+input sentence:明天我不能来上课，因为我要参加奖学金的烤试。
+pred sentence:明天我不能来上课，因为我要参加奖学金的考试。[['烤试', '考试', 19, 21, 'word']]
+right sentence:明天我不能来上课，因为我要参加奖学金的考试。
+wrong_index[19]
+
+input sentence:今天早上我在班公司找妳，可是妳还没来，所以我留一张纸告诉妳。
+pred sentence:今天早上我在班公司找妳，可是妳还没来，所以我留一张纸告诉妳。[]
+right sentence:今天早上我在办公室找妳，可是妳还没来，所以我留一张纸告诉妳。
+wrong_index[6, 8]
+
+input sentence:我明天不难去上课。
+pred sentence:我明天不难去上课。[]
+right sentence:我明天不能去上课。
+wrong_index[4]
+
+input sentence:因为最近我不舒服，我想去看医生，所以我明天不难去上课。
+pred sentence:因为最近我不舒服，我想去看医生，所以我明天不难去上课。[]
+right sentence:因为最近我不舒服，我想去看医生，所以我明天不能去上课。
+wrong_index[22]
+
+input sentence:对我来说要是我受伤也感冒也都没问题，我总是一定上课。可是如果我的血绿人出事的话，我不能上课。
+pred sentence:对我来说要是我受伤也感冒也都没问题，我总是一定上课。可是如果我的血旅人出事的话，我不能上课。[['血绿人', '血旅人', 32, 35, 'itself']]
+right sentence:对我来说要是我受伤也感冒也都没问题，我总是一定上课。可是如果我的血缘人出事的话，我不能上课。
+wrong_index[33]
+
+input sentence:我明天不难上课，因为明天我妈妈要来台湾。
+pred sentence:我明天不难上课，因为明天我妈妈要来台湾。[]
+right sentence:我明天不能上课，因为明天我妈妈要来台湾。
+wrong_index[4]
+
+input sentence:我今天来找你的时候你不再，我想告诉你，我明天不能来上课。
+pred sentence:我今天来找你的时候你不再，我想告诉你，我明天不能来上课。[]
+right sentence:我今天来找你的时候你不在，我想告诉你，我明天不能来上课。
+wrong_index[11]
+
+input sentence:我中午十二点中来找您，因为我票告诉您，我明天不能来上课。
+pred sentence:我中午十二点钟来找您，因为我票告诉您，我明天不能来上课。[['中来', '钟来', 6, 8, 'word']]
+right sentence:我中午十二点中来找您，因为我要告诉您，我明天不能来上课。
+wrong_index[14]
+
+input sentence:我一经吃了很多药了，可是病还不好。
+pred sentence:我一经吃了很多药了，可是病还不好。[]
+right sentence:我已经吃了很多药了，可是病还不好。
+wrong_index[1]
+
+input sentence:我觉得中文课跟公司一样中要，可是这是他们头一次跟欧洲做生意，所以我也要看一看，有什么学的。
+pred sentence:我觉得中文课跟公司一样重要，可是这是他们头一次跟欧洲做生意，所以我也要看一看，有什么学的。[['中要', '重要', 11, 13, 'word']]
+right sentence:我觉得中文课跟公司一样重要，可是这是他们头一次跟欧洲做生意，所以我也要看一看，有什么学的。
+wrong_index[11]
+
+input sentence:我要跟同学说，做工课，作业，第二天把它带来，所以请你放心。
+pred sentence:我要跟同学说，做工科，作业，第二天把它带来，所以请你放心。[['课', '科', 9, 10, 'char']]
+right sentence:我要跟同学说，做功课，作业，第二天把它带来，所以请你放心。
+wrong_index[8]
+
+input sentence:我明天不能来上课因为有是请，要去新竹。
+pred sentence:我明天不能来上课因为有是请，要去新竹。[]
+right sentence:我明天不能来上课因为有事情，要去新竹。
+wrong_index[11, 12]
+
+input sentence:我想请假一天，候天我一定会来上课的。
+pred sentence:我想请假一天，后天我一定会来上课的。[['候天', '后天', 7, 9, 'word']]
+right sentence:我想请假一天，后天我一定会来上课的。
+wrong_index[7]
+
+input sentence:如果今天有什么功课我回去。我会跟同学惜来看。
+pred sentence:如果今天有什么功课我回去。我会跟同学借来看。[['惜', '借', 18, 19, 'word']]
+right sentence:如果今天有什么功课我回去。我会跟同学借来看。
+wrong_index[18]
+
+input sentence:明天，我不能来上果，因为明天，我父母来台北。
+pred sentence:明天，我不能来上课，因为明天，我父母来台北。[['上果', '上课', 7, 9, 'word']]
+right sentence:明天，我不能来上课，因为明天，我父母来台北。
+wrong_index[8]
+
+input sentence:我家有五个人，爸爸、吗吗、一个哥哥、一个妹妹和我。
+pred sentence:我家有五个人，爸爸、妈、一个哥哥、一个妹妹和我。[['吗', '妈', 10, 11, 'char'], ['吗', '', 11, 12, 'redundancy']]
+right sentence:我家有五个人，爸爸、妈妈、一个哥哥、一个妹妹和我。
+wrong_index[10, 11]
+
+input sentence:他问一个人「请问，到台科大师什么公车？」。
+pred sentence:他问一个人「请问，到台科大是什么公车？」。[['师', '是', 13, 14, 'char']]
+right sentence:他问一个人「请问，到台科大是什么公车？」。
+wrong_index[13]
+
+input sentence:差不多十点大卫岗来大学。
+pred sentence:差不多十点大卫刚来大学。[['岗来', '刚来', 7, 9, 'word']]
+right sentence:差不多十点大卫刚来大学。
+wrong_index[7]
+
+input sentence:老实说「大维必须在教室前面站」，大卫觉得好秀。
+pred sentence:老实说「大维必须在教室前面站」，大卫觉得好休。[['好秀', '好休', 20, 22, 'word']]
+right sentence:老实说「大卫必须在教室前面站」，大卫觉得好羞。
+wrong_index[5, 21]
+
+input sentence:在那边他一边喝酒一边跳舞，他们挑了不知道时间，所以夜里三点半才回家。
+pred sentence:在那边他一边喝酒一边跳舞，他们挑了不知道时间，所以夜里三点半才回家。[]
+right sentence:在那边他一边喝酒一边跳舞，他们跳了不知道时间，所以夜里三点半才回家。
+wrong_index[15]
+
+input sentence:到公车站，他要座７１６号的公车，大明等了很久可是公车也还没来。
+pred sentence:到公车站，他要座７１６号的公车，大明等了很久可是公车也还没来。[]
+right sentence:到公车站，他要坐７１６号的公车，大明等了很久可是公车也还没来。
+wrong_index[7]
+
+input sentence:老师跟大明说：「已经几点了你才来学校？」，大明怎不好意事。
+pred sentence:老师跟大明说：「已经几点了你才来学校？」，大明怎不好意识。[['意事', '意识', 26, 28, 'word']]
+right sentence:老师跟大明说：「已经几点了你才来学校？」，大明真不好意思。
+wrong_index[23, 27]
+
+input sentence:他经常为了健康而走路去学校，到学校走路要三十分锺。
+pred sentence:他经常为了健康而走路去学校，到学校走路要三十分钟。[['锺', '钟', 23, 24, 'word']]
+right sentence:他经常为了健康而走路去学校，到学校走路要三十分钟。
+wrong_index[23]
+
+input sentence:昨天大名跟他的朋友一起去夜店跳舞，可是他忘记昨天是礼拜四。
+pred sentence:昨天大明跟他的朋友一起去夜店跳舞，可是他忘记昨天是礼拜四。[['名', '明', 3, 4, 'char']]
+right sentence:昨天大明跟他的朋友一起去夜店跳舞，可是他忘记昨天是礼拜四。
+wrong_index[3]
+
+input sentence:这时候他问别人：「现在机点？」
+pred sentence:这时候他问别人：「现在几点？」[['机点', '几点', 11, 13, 'word']]
+right sentence:这时候他问别人：「现在几点？」
+wrong_index[11]
+
+input sentence:大明不知道怎么办因为明天又以个很重要的大考。
+pred sentence:大明不知道怎么办因为明天又一个很重要的大考。[['以个', '一个', 13, 15, 'word']]
+right sentence:大明不知道怎么办因为明天有一个很重要的大考。
+wrong_index[12, 13]
+
+input sentence:他原来打算七点锺起床，可是她觉得很累起不来。
+pred sentence:她原来打算七点钟起床，可是她觉得很累起不来。[['他', '她', 0, 1, 'char'], ['锺', '钟', 7, 8, 'word']]
+right sentence:他原来打算七点钟起床，可是她觉得很累起不来。
+wrong_index[7]
+
+input sentence:他到了公车佔九看很多人等着公车。
+pred sentence:他到了公车佔就看很多人等着公车。[['佔九看', '佔就看', 5, 8, 'itself']]
+right sentence:他到了公车站就看很多人等着公车。
+wrong_index[5, 6]
+
+input sentence:大明不喜欢等一等，他觉得邓的时候让他很紧张也觉得很麻烦。
+pred sentence:大明不喜欢等一等，他觉得邓的时候让他很紧张也觉得很麻烦。[]
+right sentence:大明不喜欢等一等，他觉得等的时候让他很紧张也觉得很麻烦。
+wrong_index[12]
+
+input sentence:起点五十分公车来了，可是公车里很多人，好像进不去。
+pred sentence:七点五十分公车来了，可是公车里很多人，好像进不去。[['起', '七', 0, 1, 'char']]
+right sentence:七点五十分公车来了，可是公车里很多人，好像进不去。
+wrong_index[0]
+
+input sentence:他不知道他在那一站要下车。
+pred sentence:他不知道他在哪一站要下车。[['那', '哪', 6, 7, 'char']]
+right sentence:他不知道他在哪一站要下车。
+wrong_index[6]
+
+input sentence:大明进张得不得了。
+pred sentence:大明紧张得不得了。[['进张', '紧张', 2, 4, 'word']]
+right sentence:大明紧张得不得了。
+wrong_index[2]
+
+input sentence:打明的班已经上了二十分钟的课。
+pred sentence:大明的班已经上了二十分钟的课。[['打明', '大明', 0, 2, 'word']]
+right sentence:大明的班已经上了二十分钟的课。
+wrong_index[0]
+
+input sentence:老师很不高兴大明那么旧才来不让他进来。
+pred sentence:老师很不高兴大明那么久才来不让他进来。[['旧才', '久才', 10, 12, 'word']]
+right sentence:老师很不高兴大明那么久才来不让他进来。
+wrong_index[10]
+
+input sentence:别迟到！我今天给你很多工课。你明天应该给我。你懂吗？
+pred sentence:别迟到！我今天给你很多工课。你明天应该给我。你懂吗？[]
+right sentence:别迟到！我今天给你很多功课。你明天应该给我。你懂吗？
+wrong_index[11]
+
+input sentence:他赶紧换上依服冲到公车站等公车，可是等那么久公车都还没来让他更着急！
+pred sentence:他赶紧换上衣服冲到公车站等公车，可是等那么久公车都还没来让他更着急！[['依服', '衣服', 5, 7, 'word']]
+right sentence:他赶紧换上衣服冲到公车站等公车，可是等那么久公车都还没来让他更着急！
+wrong_index[5]
+
+input sentence:到教室之后老是看到大明迟到，就骂他了很大声。
+pred sentence:到教室之后老师看到大明迟到，就会骂他了很大声。[['老是', '老师', 5, 7, 'word'], ['骂', '会骂', 15, 16, 'miss']]
+right sentence:到教室之后老师看到大明迟到，就骂他了很大声。
+wrong_index[6]
+
+input sentence:因为他喝了很多酒，晚一点回家，所以今天早上睡过偷了。
+pred sentence:因为他们喝了很多酒，晚一点回家，所以今天早上睡过头了。[['喝', '们喝', 3, 4, 'miss'], ['偷', '头', 23, 24, 'word']]
+right sentence:因为他喝了很多酒，晚一点回家，所以今天早上睡过头了。
+wrong_index[23]
+
+input sentence:他的老师早几天佑对他门说，不要忘记，学生们要明天早来，我要为你们备一种考试。
+pred sentence:他的老师早几天又对他们说，不要忘记，学生们要明天早来，我要为你们备一种考试。[['佑', '又', 7, 8, 'word'], ['他门', '他们', 9, 11, 'confusion']]
+right sentence:他的老师早几天有对他们说，不要忘记，学生们要明天早来，我要为你们备一种考试。
+wrong_index[7, 10]
+
+input sentence:他对他的朋友说，你不要等我，如果你等我的话，你也就完点来教室。
+pred sentence:他对他的朋友说，你不要等我，如果你等我的话，你也就晚点来教室。[['完点', '晚点', 25, 27, 'word']]
+right sentence:他对他的朋友说，你不要等我，如果你等我的话，你也就晚点来教室。
+wrong_index[25]
+
+input sentence:美一个晚上他出去两点以前再佪家。
+pred sentence:美一个晚上他出去两点以前再回家。[['佪', '回', 13, 14, 'word']]
+right sentence:每一个晚上他出去两点以前再回家。
+wrong_index[0, 13]
+
+input sentence:大明紧张得不的了，因为怕被老师骂。
+pred sentence:大明紧张得不得了，因为怕被老师辱骂。[['的', '得', 6, 7, 'char'], ['骂', '辱骂', 15, 16, 'miss']]
+right sentence:大明紧张得不得了，因为怕被老师骂。
+wrong_index[6]
+
+input sentence:大明紧张得不的了，因为怕被老师骂。
+pred sentence:大明紧张得不得了，因为怕被老师辱骂。[['的', '得', 6, 7, 'char'], ['骂', '辱骂', 15, 16, 'miss']]
+right sentence:大明紧张得不得了，因为怕被老师骂。
+wrong_index[6]
+
+input sentence:到教室，我老师在教书，她对我很生气，我想怎的不好意思。
+pred sentence:到教室，我老师在教书，她对我很生气，我想怎的不好意思。[]
+right sentence:到教室，我老师在教书，她对我很生气，我想真的不好意思。
+wrong_index[20]
+
+input sentence:但是他很利害每次准所上课的时间，而且撑起也不错，所以他对自己有信心。
+pred sentence:但是他很利害每次住所上课的时间，而且撑起也不错，所以他对自己有信心。[['准所', '住所', 8, 10, 'word']]
+right sentence:但是他很厉害每次准时上课的时间，而且成绩也不错，所以他对自己有信心。
+wrong_index[4, 9, 18, 19]
+
+input sentence:过了一个小时两个小时他的朋友都回家了，但是阿伟还在哪里玩一玩。
+pred sentence:过了一个小时两个小时他的朋友都回家了，但是阿伟还在哪里玩一玩。[]
+right sentence:过了一个小时两个小时他的朋友都回家了，但是阿伟还在那里玩一玩。
+wrong_index[25]
+
+input sentence:阿伟在床上好好得睡，突然感觉到太阳很大！他救起来看时钟，怎么办时间已经八点二十分了！
+pred sentence:阿伟在床上好好地睡觉，突然感觉到太阳很大！他救起来看时钟，怎么办时间已经八点二十分了！[['得', '地', 7, 8, 'char'], ['睡', '睡觉', 8, 9, 'miss']]
+right sentence:阿伟在床上好好得睡，突然感觉到太阳很大！他就起来看时钟，怎么办时间已经八点二十分了！
+wrong_index[21]
+
+input sentence:「哇，好险」他乎很大的吸，就进去教室跟老师说。「老师，对不起！我赶快准备考试。」
+pred sentence:「哇哇，好险」他户很大的吸，就进去教室跟老师说。「老师，对不起！我赶快准备考试。」[['哇', '哇哇', 1, 2, 'miss'], ['他乎', '他户', 6, 8, 'word']]
+right sentence:「哇，好险」他呼很大的吸，就进去教室跟老师说。「老师，对不起！我赶快准备考试。」
+wrong_index[7]
+
+input sentence:怎么办？其实阿伟一整天水乐部曲学校了！
+pred sentence:怎么办？其实阿伟一整天说乐部去学校了！[['水乐部曲', '说乐部去', 11, 15, 'word']]
+right sentence:怎么办？其实阿伟一整天睡了不去学校了！
+wrong_index[11, 12, 13, 14]
+
+input sentence:应为很乐他忘记设定闹钟，早上７：３０才起来。
+pred sentence:应为很了他忘记设定闹钟，早上７：３０才起来。[['很乐', '很了', 2, 4, 'word']]
+right sentence:因为很累他忘记设定闹钟，早上７：３０才起来。
+wrong_index[0, 3]
+
+input sentence:天华走路很快，怕公车来了，不然他还要等２０分钟等下一半的公车。
+pred sentence:大华走路很快，怕公车来了，不然他还要等２０分钟等下一半的公车。[['天', '大', 0, 1, 'char']]
+right sentence:天华走路很快，怕公车来了，不然他还要等２０分钟等下一班的公车。
+wrong_index[26]
+
+input sentence:他心里真不安，应为这一次的考试很重要。
+pred sentence:他心里真不安，应为这一次的考试很重要。[]
+right sentence:他心里真不安，因为这一次的考试很重要。
+wrong_index[7]
+
+input sentence:后来等以等公车也来了。
+pred sentence:后来等一等公车也来了。[['以', '一', 3, 4, 'char']]
+right sentence:后来等一等公车也来了。
+wrong_index[3]
+
+input sentence:老师跟他说，只有妳一个人没有来考试，你就等下个学期吧！
+pred sentence:老师跟她说，只有妳一个人没有来考试，你就等下个学期吧！[['他', '她', 3, 4, 'char']]
+right sentence:老师跟他说，只有你一个人没有来考试，你就等下个学期吧！
+wrong_index[8]
+
+input sentence:老师劝他和各位同学们，晚上不可以很晚回家，更可况要考试的时候，要认真唸书。
+pred sentence:老师劝说他和各位同学们，晚上不可以很晚回家，更可况要考试的时候，要认真唸书。[['劝', '劝说', 2, 3, 'miss']]
+right sentence:老师劝他和各位同学们，晚上不可以很晚回家，更何况要考试的时候，要认真唸书。
+wrong_index[22]
+
+input sentence:他喝很多酒，回家的时候很累，头很通所以他起床不了。
+pred sentence:他喝了很多酒，回家的时候很累，头很痛所以他起床不了。[['喝', '喝了', 1, 2, 'miss'], ['很通', '很痛', 15, 17, 'word']]
+right sentence:他喝很多酒，回家的时候很累，头很痛所以他起床不了。
+wrong_index[16]
+
+input sentence:他说他等公车等了一半小时，所以他来学姣很晚。
+pred sentence:他说他等公车等了一半小时，所以他来雪姣很晚。[['学姣', '雪姣', 17, 19, 'word']]
+right sentence:他说他等公车等了一半小时，所以他来学校很晚。
+wrong_index[18]
+
+input sentence:如果你跟朋友要去晚，你要早一点回家。
+pred sentence:如果你跟朋友要去晚，你要早一点回家。[]
+right sentence:如果你跟朋友要去玩，你要早一点回家。
+wrong_index[8]
+
+input sentence:我赶快起床不洗澡，去公车站，但是有很多人而且赛车。
+pred sentence:我赶快起床不洗澡，去公车站，但是有很多人而且赛车。[]
+right sentence:我赶快起床不洗澡，去公车站，但是有很多人而且塞车。
+wrong_index[22]
+
+input sentence:我来大开门乱讲，老师更生气了，因为今天是考试。
+pred sentence:我来大开门乱讲，老师更生气了，因为今天是考试。[]
+right sentence:我来打开门乱讲，老师更生气了，因为今天是考试。
+wrong_index[2]
+
+input sentence:我听了就放心了，所以我跟他们全晚一起跳无。
+pred sentence:我听了就放心了，所以我跟他们全免一起跳无。[['全晚', '全免', 14, 16, 'word']]
+right sentence:我听了就放心了，所以我跟他们全晚一起跳舞。
+wrong_index[19]
+
+input sentence:我们跳无完的以后，就回家了。
+pred sentence:我们跳无完的以后，就回家了。[]
+right sentence:我们跳舞完的以后，就回家了。
+wrong_index[3]
+
+input sentence:怎么办！我的房子里大学很远！时间不够了！
+pred sentence:怎么办！我的房子里大学很远！时间不够了！[]
+right sentence:怎么办！我的房子离大学很远！时间不够了！
+wrong_index[8]
+
+input sentence:他刚快去公车停车站等下次的公车。
+pred sentence:他刚快去公车停车站等下次的公车。[]
+right sentence:他赶快去公车停车站等下次的公车。
+wrong_index[1]
+
+input sentence:上课时间十七点四十分，八点我才上车去我迟到了，怎么办？
+pred sentence:上课时间十七点四十分，八点我才上车去我迟到了，怎么办？[]
+right sentence:上课时间是七点四十分，八点我才上车去我迟到了，怎么办？
+wrong_index[4]
+
+input sentence:我恨情张到学校以后我快跑上课，到教室我看到老师和同学在上课。
+pred sentence:我爱恨情长到学校以后我快跑上课，到教室我看到老师和同学在上课。[['恨', '爱恨', 1, 2, 'miss'], ['情张', '情长', 2, 4, 'word']]
+right sentence:我很紧张到学校以后我快跑上课，到教室我看到老师和同学在上课。
+wrong_index[1, 2]
+
+input sentence:她恨票亮，到晚上我请他先吃饭，在去玩。
+pred sentence:他很漂亮，到晚上我请他先吃饭，在去玩。[['她', '他', 0, 1, 'char'], ['恨', '很', 1, 2, 'word'], ['票亮', '漂亮', 2, 4, 'word']]
+right sentence:她很漂亮，到晚上我请他先吃饭，再去玩。
+wrong_index[1, 2, 15]
+
+input sentence:昨天夜里，我跟俩个朋友去玩！
+pred sentence:昨天夜里，我跟两个朋友去玩！[['俩', '两', 7, 8, 'char']]
+right sentence:昨天夜里，我跟两个朋友去玩！
+wrong_index[7]
+
+input sentence:我也知道老师很生气，因为我常常赤道。
+pred sentence:我也知道老师很生气，因为我常常赤道。[]
+right sentence:我也知道老师很生气，因为我常常迟到。
+wrong_index[15, 16]
+
+input sentence:快快从家跑步到公车站等公车，因为他悾怕迟到了老师会生气。
+pred sentence:快快众家跑步到公车站等公车，因为他悾怕迟到了老师会生气。[['从家', '众家', 2, 4, 'word']]
+right sentence:快快从家跑步到公车站等公车，因为他恐怕迟到了老师会生气。
+wrong_index[17]
+
+input sentence:他北老师骂他，所以马上去打工车上班。
+pred sentence:他被老师责骂他，所以马上去打工车上班。[['他北', '他被', 0, 2, 'word'], ['骂', '责骂', 4, 5, 'miss']]
+right sentence:他怕老师骂他，所以马上去搭公车上班。
+wrong_index[1, 12, 13]
+
+input sentence:他要等十五分种，但是车都还没到，所以他开跑。
+pred sentence:他要等十五分种，但是车都还没到，所以他开跑。[]
+right sentence:他要等十五分钟，但是车都还没到，所以他开跑。
+wrong_index[6]
+
+input sentence:他到学校的时后，中文课已经开始。
+pred sentence:他到学校的时候，中文课已经开始。[['时后', '时候', 5, 7, 'word']]
+right sentence:他到学校的时候，中文课已经开始。
+wrong_index[6]
+
+input sentence:对不起老师，今天早上我的婆婆神病，所以我要带他去看医生。
+pred sentence:对不起老师，今天早上我的婆婆神兵，所以我要带他去看医生。[['神病', '神兵', 14, 16, 'word']]
+right sentence:对不起老师，今天早上我的婆婆生病，所以我要带他去看医生。
+wrong_index[14]
+
+input sentence:他等了二十分钟，公车才来，而且今天的路上的车子必较多，公车碰到塞车了。
+pred sentence:他等了二十分钟，公车才来，而且今天的路上的车子比较多，公车碰到塞车了。[['必较', '比较', 23, 25, 'word']]
+right sentence:他等了二十分钟，公车才来，而且今天的路上的车子比较多，公车碰到塞车了。
+wrong_index[23]
+
+input sentence:他座公车三十分钟才到学校了。
+pred sentence:他坐公车三十分钟才到学校了。[['他座', '他坐', 0, 2, 'word']]
+right sentence:他坐公车三十分钟才到学校了。
+wrong_index[1]
+
+input sentence:别再喝酒太多。别再睡过头把！
+pred sentence:别再喝酒太多。别再晚睡过头吧！[['睡', '晚睡', 9, 10, 'miss'], ['把', '吧', 12, 13, 'char']]
+right sentence:别再喝酒太多。别再睡过头吧！
+wrong_index[12]
+
+input sentence:我要座得巴士是７１６。
+pred sentence:我要座得巴士是７１６。[]
+right sentence:我要坐的巴士是７１６。
+wrong_index[2, 3]
+
+input sentence:可是这个巴士来得时很慢，结果我来不起上课。
+pred sentence:可是这个巴士来得时很慢，结果我来不起上课。[]
+right sentence:可是这个巴士来得时很慢，结果我来不及上课。
+wrong_index[17]
+
+input sentence:阿，完蛋了！快八点了。
+pred sentence:阿，完蛋了！快八点了。[]
+right sentence:啊，完蛋了！快八点了。
+wrong_index[0]
+
+input sentence:闹钟响了好几次也无法叫醒他，结果他七点二十五分才陪吵醒来。
+pred sentence:闹钟响了好几次也无法叫醒他，结果他七点二十五分才陪着他吵醒来。[['陪', '陪着', 24, 25, 'miss'], ['吵', '他吵', 25, 26, 'miss']]
+right sentence:闹钟响了好几次也无法叫醒他，结果他七点二十五分才被吵醒来。
+wrong_index[24]
+
+input sentence:他还需要撘公车去学校，以到车站的时候，他发现很多人在公车上排队。
+pred sentence:他还需要搭公车去学校，一到车站的时候，他发现很多人在公车上排队。[['撘', '搭', 4, 5, 'word'], ['以到', '一到', 11, 13, 'word']]
+right sentence:他还需要搭公车去学校，一到车站的时候，他发现很多人在公车站排队。
+wrong_index[4, 11, 28]
+
+input sentence:他后来选择了座计程车去学校。
+pred sentence:他后来选择了座计程车去学校。[]
+right sentence:他后来选择了坐计程车去学校。
+wrong_index[6]
+
+input sentence:一个人是大名跟他的奴生的朋友，她们很票亮。
+pred sentence:一个人是大名跟他的奴性的朋友，她们很漂亮。[['奴生', '奴性', 9, 11, 'word'], ['很票', '很漂', 17, 19, 'word']]
+right sentence:一个人是大明跟他的女生的朋友，她们很漂亮。
+wrong_index[5, 9, 18]
+
+input sentence:他的眼靓的色红色，因为他现在很累，他要睡觉。
+pred sentence:他的眼睛的色红色，因为他现在很累，他要睡觉。[['眼靓', '眼睛', 2, 4, 'word']]
+right sentence:他的眼睛的色红色，因为他现在很累，他要睡觉。
+wrong_index[3]
+
+input sentence:他快进座下，下课以后跟老师说「不好意思！昨晚很晚才睡觉。」
+pred sentence:他快进左下，下课以后跟老师说「不好意思！昨晚很晚才睡觉。」[['进座', '进左', 2, 4, 'word']]
+right sentence:他快进坐下，下课以后跟老师说「不好意思！昨晚很晚才睡觉。」
+wrong_index[3]
+
+input sentence:最近，我觉得很累，生活台我无聊。
+pred sentence:最近，我觉得很累，生活台我无聊。[]
+right sentence:最近，我觉得很累，生活太过无聊。
+wrong_index[11, 12]
+
+input sentence:在夜店很热闹，有很多辣妹在跳舞，还可以喝酒和啤酒，跳无，跟啦妹聊一聊。
+pred sentence:在夜店很热闹，有很多辣妹在跳舞，还可以喝酒和啤酒，跳舞，跟啦啦没聊一聊。[['无', '舞', 26, 27, 'char'], ['啦', '啦啦', 29, 30, 'miss'], ['妹聊', '没聊', 30, 32, 'word']]
+right sentence:在夜店很热闹，有很多辣妹在跳舞，还可以喝酒和啤酒，跳舞，跟辣妹聊一聊。
+wrong_index[26, 29]
+
+input sentence:在公车站很多人在等公车，因为是上班的事件。
+pred sentence:在公车站很多人在等公车，因为是上班的事件。[]
+right sentence:在公车站很多人在等公车，因为是上班的时间。
+wrong_index[18, 19]
+
+input sentence:我偷偷轻去，老师看到我，她就生气了。
+pred sentence:我偷偷情去，老师看到我，她就生气了。[['轻去', '情去', 3, 5, 'word']]
+right sentence:我偷偷进去，老师看到我，她就生气了。
+wrong_index[3]
+
+input sentence:或来我不敢很晚回家，要用功一点。
+pred sentence:祸来我不敢很晚回家，要用功一点。[['或来', '祸来', 0, 2, 'word']]
+right sentence:后来我不敢很晚回家，要用功一点。
+wrong_index[0]
+
+input sentence:他叫醒的时候，已经８点２０分左右。
+pred sentence:他叫醒的时候，已经８点２０分左右。[]
+right sentence:他觉醒的时候，已经８点２０分左右。
+wrong_index[1]
+
+input sentence:有一天８点晚上李大明哏他朋友去跳舞的地方。
+pred sentence:有一天８点晚上李大明跟他朋友去跳舞的地方。[['哏', '跟', 10, 11, 'word']]
+right sentence:有一天８点晚上李大明跟他朋友去跳舞的地方。
+wrong_index[10]
+
+input sentence:那个地方有很多人，他们觉得非常热闹，所以李大明跟他们喜欢哪个地方。
+pred sentence:哪个地方有很多人，他们觉得非常热闹，所以李大明跟他们喜欢哪个地方。[['那', '哪', 0, 1, 'char']]
+right sentence:那个地方有很多人，他们觉得非常热闹，所以李大明跟他们喜欢那个地方。
+wrong_index[28]
+
+input sentence:李大明喝很多酒也跳五跟他的朋友们。
+pred sentence:李大明喝了很多酒也跳五跟他的朋友们。[['喝', '喝了', 3, 4, 'miss']]
+right sentence:李大明喝很多酒也跳舞跟他的朋友们。
+wrong_index[9]
+
+input sentence:所以他很快洗澡然后走路到公车佔。
+pred sentence:所以他很快洗澡然后走路到公车佔。[]
+right sentence:所以他很快洗澡然后走路到公车站。
+wrong_index[14]
+
+input sentence:李大名坐公车的时候，又一边睡觉有又一边很快的看书，因为晚上没有看书。
+pred sentence:李大名坐公车的时候，又一边睡觉又又一边很快的看书，因为晚上没有看书。[['有', '又', 15, 16, 'char']]
+right sentence:李大明坐公车的时候，又一边睡觉有又一边很快的看书，因为晚上没有看书。
+wrong_index[2]
+
+input sentence:差不多３０份钟他们到了。
+pred sentence:差不多３分分钟他们到了。[['份', '分', 4, 5, 'char'], ['份钟', '分钟', 5, 7, 'word']]
+right sentence:差不多３０分钟他们到了。
+wrong_index[5]
+
+input sentence:他的老师：「你怎嚜了？」，李大明说：「我头痛。」。
+pred sentence:他的老师：「你怎嚜了？」，李大明说：「我头痛。」。[]
+right sentence:他的老师：「你怎么了？」，李大明说：「我头痛。」。
+wrong_index[8]
+
+input sentence:老师说：「好好美关系，明天你得来８点好不。」。
+pred sentence:老师说：「好好没关系，明天你得来８点毫不。」。[['美', '没', 7, 8, 'char'], ['点好', '点毫', 17, 19, 'word']]
+right sentence:老师说：「好好没关系，明天你得来８点好不。」。
+wrong_index[7]
+
+input sentence:他座呢个公车到学校，可是上课时间也已经十分过了。
+pred sentence:他做呢个公车到学校，可是上课时间也已经十分过了。[['他座', '他做', 0, 2, 'word']]
+right sentence:他坐那个公车到学校，可是上课时间也已经十分过了。
+wrong_index[1, 2]
+
+input sentence:我干快洗澡，洗了一个澡，把我的包包上身，我跑路去等公车。
+pred sentence:我赶快洗澡，洗了一个澡，把我的包包上身，我跑路去等公车。[['干快', '赶快', 1, 3, 'word']]
+right sentence:我赶快洗澡，洗了一个澡，把我的包包上身，我跑路去等公车。
+wrong_index[1]
+
+input sentence:在路上有很多人，非常热恼。
+pred sentence:在路上有很多人，非常热恼。[]
+right sentence:在路上有很多人，非常热闹。
+wrong_index[11]
+
+input sentence:我看我的手摽，时间已经九点半了，我躁诰了。
+pred sentence:我看我的手摽，时间已经九点半了，我早搞了。[['我躁', '我早', 16, 18, 'word'], ['诰', '搞', 18, 19, 'word']]
+right sentence:我看我的手表，时间已经九点半了，我糟糕了。
+wrong_index[5, 17, 18]
+
+input sentence:他看我来，就问我为什么只到。
+pred sentence:他看我来，就问我为什么直到。[['只到', '直到', 11, 13, 'word']]
+right sentence:他看我来，就问我为什么迟到。
+wrong_index[11]
+
+input sentence:虽然天气下雨，但是我来了，我即就踏着去。
+pred sentence:虽然天气下雨，但是我来了，我即就此踏着去。[['踏', '此踏', 16, 17, 'miss']]
+right sentence:虽然天气下雨，但是我来了，我骑脚踏车去。
+wrong_index[14, 15, 17]
+
+input sentence:苏嘉的时候我想回印尼，但是我没有时间。
+pred sentence:苏家的时候我想回印尼，但是我没有时间。[['苏嘉', '苏家', 0, 2, 'word']]
+right sentence:暑假的时候我想回印尼，但是我没有时间。
+wrong_index[0, 1]
+
+input sentence:我必须在实验室做实验，应为明年我要毕业了。
+pred sentence:我必须在实验室做实验，应为明年我要毕业了。[]
+right sentence:我必须在实验室做实验，因为明年我要毕业了。
+wrong_index[11]
+
+input sentence:我的老实说「你比希用功」。
+pred sentence:我的老实说「你比西用功」。[['比希', '比西', 7, 9, 'word']]
+right sentence:我的老师说「你必须用功」。
+wrong_index[3, 7, 8]
+
+input sentence:苏嘉在台湾也没关系，如果我做实验做得很物料，我可以去看看很漂亮的地方，骇去夜市买东西。
+pred sentence:苏家在台湾也没关系，如果我做实验做得很物料，我可以去看看很漂亮的地方，卸去夜市买东西。[['苏嘉在', '苏家在', 0, 3, 'itself'], ['骇去', '卸去', 35, 37, 'word']]
+right sentence:暑假在台湾也没关系，如果我做实验做得很无聊，我可以去看看很漂亮的地方，还去夜市买东西。
+wrong_index[0, 1, 19, 20, 35]
+
+input sentence:纸呢身体健康。
+pred sentence:治你身体健康。[['纸', '治', 0, 1, 'char'], ['呢', '你', 1, 2, 'char']]
+right sentence:祝你身体健康。
+wrong_index[0, 1]
+
+input sentence:作天我看到你太太，她告诉你有感冒。
+pred sentence:昨天我看到你太太，她告诉你有感冒。[['作天', '昨天', 0, 2, 'word']]
+right sentence:昨天我看到你太太，她告诉你有感冒。
+wrong_index[0]
+
+input sentence:我觉得你应该也吃药也休息机天就好了。
+pred sentence:我觉得你应该也吃药也休息几天就好了。[['机天', '几天', 12, 14, 'word']]
+right sentence:我觉得你应该也吃药也休息几天就好了。
+wrong_index[12]
+
+input sentence:因为其是明天我有考试，所以今天不可以去看你。
+pred sentence:因为其是明天我有考试，所以今天不可以去看你。[]
+right sentence:因为其实明天我有考试，所以今天不可以去看你。
+wrong_index[3]
+
+input sentence:我希望你很快快复。
+pred sentence:我希望你很快快复。[]
+right sentence:我希望你很快恢复。
+wrong_index[6]
+
+input sentence:我希望你很快回复你的健康！那么你好好得休息。
+pred sentence:我希望你很快回复你的健康！那么你好好得休息。[]
+right sentence:我希望你很快恢复你的健康！那么你好好得休息。
+wrong_index[6]
+
+input sentence:可是他还是说我不能去看你，应为你应该多休息。
+pred sentence:可是他还是说我不能去看你，应为你应该多休息。[]
+right sentence:可是他还是说我不能去看你，因为你应该多休息。
+wrong_index[13]
+
+input sentence:希望你身体快好起来，回复以前的大明很活力。
+pred sentence:希望你身体快好起来，回复以前的大明很活力。[]
+right sentence:希望你身体快好起来，恢复以前的大明很活力。
+wrong_index[10]
+
+input sentence:不好亿思！我建在不能去看你，因为我建在在美国跟我爸妈看我姊姊。
+pred sentence:不好意思！我建在不能去看你，因为我建在美国跟我爸妈看我姊姊。[['亿思', '意思', 2, 4, 'word'], ['在', '', 19, 20, 'redundancy']]
+right sentence:不好意思！我现在不能去看你，因为我现在在美国跟我爸妈看我姊姊。
+wrong_index[2, 6, 17]
+
+input sentence:现在你的身体情形怎么杨？我希望你的身体变快好。
+pred sentence:现在你的身体情形怎么样？我希望你的身体变快好。[['杨', '样', 10, 11, 'char']]
+right sentence:现在你的身体情形怎么样？我希望你的身体变快好。
+wrong_index[10]
+
+input sentence:最近天气常常有下噢，有很多人生病。
+pred sentence:最近天气常常有下，有很多人生病。[['噢', '', 8, 9, 'redundancy']]
+right sentence:最近天气常常有下雨，有很多人生病。
+wrong_index[8]
+
+input sentence:你应该多喝水，热水就属最好的，也多吃水果。
+pred sentence:你应该多喝水，热水就属最好的，也多吃水果。[]
+right sentence:你应该多喝水，热水就是最好的，也多吃水果。
+wrong_index[10]
+
+input sentence:改天我来看你，好不好？别忘河水跟吃药。
+pred sentence:改天我来看你，好不好？别往河水跟吃药。[['别忘', '别往', 11, 13, 'word']]
+right sentence:改天我来看你，好不好？别忘喝水跟吃药。
+wrong_index[13]
+
+input sentence:听说这一次你的感冒很严重，区急诊部。
+pred sentence:听说这一次你的感冒很严重，区急诊部。[]
+right sentence:听说这一次你的感冒很严重，去急诊部。
+wrong_index[13]
+
+input sentence:妳怎么了？为什么这样很严重？
+pred sentence:你怎么了？为什么这样很严重？[['妳', '你', 0, 1, 'char']]
+right sentence:你怎么了？为什么这样很严重？
+wrong_index[0]
+
+input sentence:欸，世界上一半是女孩子也，不要这样那么伤心。
+pred sentence:唉，世界上一半是女孩子也，不要这样那么伤心。[['欸', '唉', 0, 1, 'char']]
+right sentence:欸，世界上一半是女孩子耶，不要这样那么伤心。
+wrong_index[11]
+
+input sentence:我希望你赶快坚固起来，我会去的时候好好的见面。
+pred sentence:我希望你赶快坚固起来，我会去的时候好好的见面。[]
+right sentence:我希望你赶快坚固起来，我回去的时候好好的见面。
+wrong_index[12]
+
+input sentence:助你身体健康。
+pred sentence:祝你身体健康。[['助', '祝', 0, 1, 'char']]
+right sentence:祝你身体健康。
+wrong_index[0]
+
+input sentence:希望你的冰块好，你的身体越来越健康！
+pred sentence:希望你的冰块好，你的身体越来越健康！[]
+right sentence:希望你的病快好，你的身体越来越健康！
+wrong_index[4, 5]
+
+input sentence:你的生体现在怎么了？还好吗？
+pred sentence:你的身体现在怎么了？还好吗？[['生体', '身体', 2, 4, 'word']]
+right sentence:你的身体现在怎么了？还好吗？
+wrong_index[2]
+
+input sentence:等你好了一起去钓鱼好吗？你一订要快好。
+pred sentence:等你好了一起去钓鱼好吗？你一定要快好。[['一订', '一定', 13, 15, 'word']]
+right sentence:等你好了一起去钓鱼好吗？你一定要快好。
+wrong_index[14]
+
+input sentence:我写这丰电子邮件问你，现在你的身体怎么样了？
+pred sentence:我写这封电子邮件问你，现在你的身体怎么样了？[['这丰', '这封', 2, 4, 'word']]
+right sentence:我写这封电子邮件问你，现在你的身体怎么样了？
+wrong_index[3]
+
+input sentence:因为我工作最近很忙没有控，我不能去看你，对不起你。
+pred sentence:因为我工作最近很忙没有空，我不能去看你，对不起你。[['控', '空', 11, 12, 'char']]
+right sentence:因为我工作最近很忙没有空，我不能去看你，对不起你。
+wrong_index[11]
+
+input sentence:我们的同学跟我说你神病，你怎么样？
+pred sentence:我们的同学跟我说你身病，你怎么样？[['神病', '身病', 9, 11, 'word']]
+right sentence:我们的同学跟我说你生病，你怎么样？
+wrong_index[9]
+
+input sentence:近来天气很冷，听说现在有很多人根冒。
+pred sentence:近来天气很冷，听说现在有很多人根。[['冒', '', 16, 17, 'redundancy']]
+right sentence:近来天气很冷，听说现在有很多人感冒。
+wrong_index[15]
+
+input sentence:我希望你神病快好，你要吃多水果，以后我们可以一起吃饭。
+pred sentence:我希望你肾病快好，你要吃多水果，以后我们可以一起吃饭。[['神病', '肾病', 4, 6, 'word']]
+right sentence:我希望你生病快好，你要吃多水果，以后我们可以一起吃饭。
+wrong_index[4]
+
+input sentence:我很想要去看你，不过我最近工作太忙不能去，希望你快回复。
+pred sentence:我很想要去看你，不过我最近工作太忙不能去，希望你快回复。[]
+right sentence:我很想要去看你，不过我最近工作太忙不能去，希望你快恢复。
+wrong_index[25]
+
+input sentence:您好，卧是李。您的身体怎么样？
+pred sentence:您好，卧室李。您的身体怎么样？[['卧是', '卧室', 3, 5, 'word']]
+right sentence:您好，我是李。您的身体怎么样？
+wrong_index[3]
+
+input sentence:即然我要跟你见面，可是应该帮他，可不可以改天吗？
+pred sentence:既然我要跟你见面，可是应该帮他，可不可以改天吗？[['即然', '既然', 0, 2, 'word']]
+right sentence:既然我要跟你见面，可是应该帮他，可不可以改天吗？
+wrong_index[0]
+
+input sentence:我真的担心你，也想看你可是现在我不在台杯所以真的不能看你，真的对你不好意思。
+pred sentence:我真的担心你，也想看你可是现在我不在台北所以真的不能看你，真的对你不好意思。[['台杯', '台北', 18, 20, 'word']]
+right sentence:我真的担心你，也想看你可是现在我不在台北所以真的不能看你，真的对你不好意思。
+wrong_index[19]
+
+input sentence:你的身体拿里不好呢？
+pred sentence:你的身体哪里不好呢？[['拿里', '哪里', 4, 6, 'word']]
+right sentence:你的身体哪里不好呢？
+wrong_index[4]
+
+input sentence:我希望你的病越来越好，身体越来越建康。
+pred sentence:我希望你的病越来越好，身体越来越健康。[['建', '健', 16, 17, 'char']]
+right sentence:我希望你的病越来越好，身体越来越健康。
+wrong_index[16]
+
+input sentence:阿，对了！我回来一定送给你一个礼物。
+pred sentence:阿，对了！我回来一定送给你一个礼物。[]
+right sentence:啊，对了！我回来一定送给你一个礼物。
+wrong_index[0]
+
+input sentence:我看你从来都没有休息的时间，正天都是工作的。
+pred sentence:我看你从来都没有休息的时间，正天都是工作的。[]
+right sentence:我看你从来都没有休息的时间，整天都是工作的。
+wrong_index[14]
+
+input sentence:我希望你的身体好了可是如果我的冰就好了快到了，我一定马上去你的珈和给你礼遇。
+pred sentence:我希望你的身体好了可是如果我的冰就好了快到了，我一定马上去你的瑜珈呵给你礼遇。[['珈', '瑜珈', 31, 32, 'miss'], ['和', '呵', 32, 33, 'char']]
+right sentence:我希望你的身体好了可是如果我的病就好了快到了，我一定马上去你的家和给你礼遇。
+wrong_index[15, 31]
+
+input sentence:我昨天打电话给了你妈妈，她说你感冒住院了，我听了以后真得很担心。
+pred sentence:我昨天打电话给了你妈妈，她说你感冒住院了，我听了以后真得很担心。[]
+right sentence:我昨天打电话给了你妈妈，她说你感冒住院了，我听了以后真的很担心。
+wrong_index[27]
+
+input sentence:听说你生病了，也不看到你上个。
+pred sentence:听说你生病了，也不看到你上个。[]
+right sentence:听说你生病了，也不看到你上课。
+wrong_index[13]
+
+input sentence:你的身体什么样？你生什么病了？
+pred sentence:你的身体什么样？你姓什么病了？[['你生', '你姓', 8, 10, 'word']]
+right sentence:你的身体怎么样？你生什么病了？
+wrong_index[4]
+
+input sentence:妈妈不会说中文，而且他不要一个人在家里。
+pred sentence:妈妈不会说中文，而且他不要一个人在家里。[]
+right sentence:妈妈不会说中文，而且她不要一个人在家里。
+wrong_index[10]
+
+input sentence:对不起，我这个里拜有很多事，忙得不得了，还没有时间去看你。
+pred sentence:对不起，我这个里拜有很多事，忙得不得了，还没有时间去看你。[]
+right sentence:对不起，我这个礼拜有很多事，忙得不得了，还没有时间去看你。
+wrong_index[7]
+
+input sentence:我希冠你快要好了。
+pred sentence:我行管你快要好了。[['我希冠', '我行管', 0, 3, 'word']]
+right sentence:我希望你快要好了。
+wrong_index[2]
+
+input sentence:我希冠你快要好了。
+pred sentence:我行管你快要好了。[['我希冠', '我行管', 0, 3, 'word']]
+right sentence:我希望你快要好了。
+wrong_index[2]
+
+input sentence:受到你的信我很高兴！也很想回信，可是我一忙就忘了。
+pred sentence:收到你的信我很高兴！也很想回信，可是我一忙就忘记了。[['受', '收', 0, 1, 'char'], ['忘', '忘记', 22, 23, 'miss']]
+right sentence:收到你的信我很高兴！也很想回信，可是我一忙就忘了。
+wrong_index[0]
+
+input sentence:可惜我不能参加，因为现在我正在台南念研究所，还有明天跟后天我得考其末考了。
+pred sentence:可惜我不能参加，因为现在我正在台南念研究所，还有明天跟后天我的考期末考了。[['我得', '我的', 29, 31, 'word'], ['考其末', '考期末', 31, 34, 'itself']]
+right sentence:可惜我不能参加，因为现在我正在台南念研究所，还有明天跟后天我得考期末考了。
+wrong_index[32]
+
+input sentence:祝新浪、新娘：「永远快乐！早生贵子！」
+pred sentence:祝福新浪、新娘：「永远快乐！早生贵子！」[['祝', '祝福', 0, 1, 'miss']]
+right sentence:祝新郎、新娘：「永远快乐！早生贵子！」
+wrong_index[2]
+
+input sentence:我们已经约会时间，我们真得没有办法去，因为我一定来不起。
+pred sentence:我们已经约会时间，我们真得没有办法去，因为我一定来不只。[['不起', '不只', 25, 27, 'word']]
+right sentence:我们已经约会时间，我们真的没有办法去，因为我一定来不及。
+wrong_index[12, 26]
+
+input sentence:我要跟你们说恭喜恭喜，我希望你门想要的东西都可以拿得到。
+pred sentence:我要跟你们说恭喜恭喜，我希望你们想要的东西都可以拿得到。[['你门', '你们', 14, 16, 'word']]
+right sentence:我要跟你们说恭喜恭喜，我希望你们想要的东西都可以拿得到。
+wrong_index[15]
+
+input sentence:我受到了一封邀请卡，我想去你们的婚礼祝福你们，不过因为我刚好你们婚礼那天我要考试。
+pred sentence:我受到了一封邀请卡，我想去你们的婚礼祝福你们，不过因为我刚好你们婚礼那天我要考试。[]
+right sentence:我收到了一封邀请卡，我想去你们的婚礼祝福你们，不过因为我刚好你们婚礼那天我要考试。
+wrong_index[1]
+
+input sentence:我提你们很高兴喔。
+pred sentence:我提你们很高兴的喔。[['喔', '的喔', 7, 8, 'miss']]
+right sentence:我替你们很高兴喔。
+wrong_index[1]
+
+input sentence:我很开兴知道你们五月二十日就要结婚了。
+pred sentence:我很开行知道你们五月二十日就要结婚了。[['开兴', '开行', 2, 4, 'word']]
+right sentence:我很开心知道你们五月二十日就要结婚了。
+wrong_index[3]
+
+input sentence:你们要结婚那天我很忙，那天我要去烤师。
+pred sentence:你们要结婚那天我很忙，那天我要去烧烤师。[['烤', '烧烤', 16, 17, 'miss']]
+right sentence:你们要结婚那天我很忙，那天我要去考试。
+wrong_index[16, 17]
+
+input sentence:请爱李大明和林小美，谢谢邀请我妳们的婚龄。
+pred sentence:亲爱李大明和林小妹，谢谢邀请我妳们的婚龄。[['请', '亲', 0, 1, 'char'], ['小美', '小妹', 7, 9, 'word']]
+right sentence:请爱李大明和林小美，谢谢邀亲我妳们的婚礼。
+wrong_index[13, 19]
+
+input sentence:我很高兴你们结婚了，难怪热心的不得了。
+pred sentence:我很高兴你们结婚了，难怪热心的不得了。[]
+right sentence:我很高兴你们结婚了，难怪热心得不得了。
+wrong_index[14]
+
+input sentence:庆祝你的结昏，可是我有国外出差，所以我不能掺加。
+pred sentence:庆祝你的结婚，可是我有国外出差，所以我不能参加。[['结昏', '结婚', 4, 6, 'word'], ['掺加', '参加', 21, 23, 'word']]
+right sentence:庆祝你的结婚，可是我有国外出差，所以我不能参加。
+wrong_index[5, 21]
+
+input sentence:我很高兴受到你们结婚的邀请单，你们到底决定结婚了！
+pred sentence:我很高兴受到你们结婚的邀请单，你们到底决定结婚了！[]
+right sentence:我很高兴收到你们结婚的邀请单，你们到底决定结婚了！
+wrong_index[4]
+
+input sentence:感谢你们寄给我的边请卡。
+pred sentence:感谢你们寄给我的边请卡。[]
+right sentence:感谢你们寄给我的邀请卡。
+wrong_index[8]
+
+input sentence:因为我注在秘鲁的奶奶生病得很严重。
+pred sentence:因为我住在秘鲁的奶奶生病得很严重。[['我注', '我住', 2, 4, 'word']]
+right sentence:因为我住在秘鲁的奶奶生病得很严重。
+wrong_index[3]
+
+input sentence:我怕她这几天可能会过世，因此我计画下礼拜去密鲁探亲。
+pred sentence:我怕她这几天可能会过世，因此我计划下礼拜去秘鲁探亲。[['计画', '计划', 15, 17, 'confusion'], ['密鲁', '秘鲁', 21, 23, 'word']]
+right sentence:我怕她这几天可能会过世，因此我计画下礼拜去秘鲁探亲。
+wrong_index[21]
+
+input sentence:希望你们那个很特别的一天过的很开心！
+pred sentence:希望你们那个很特别的一天过的很开心！[]
+right sentence:希望你们那个很特别的一天过得很开心！
+wrong_index[13]
+
+input sentence:我很高兴你们要请我参加你们的寰麟。
+pred sentence:我很高兴你们要请我参加你们的寰宇。[['寰', '寰宇', 14, 15, 'miss'], ['麟', '', 15, 16, 'redundancy']]
+right sentence:我很高兴你们邀请我参加你们的婚礼。
+wrong_index[6, 14, 15]
+
+input sentence:好可惜我下个礼拜要回国，我已经买过飞机票所以没办法那天跟你们一起庆祝你们的寰麟。
+pred sentence:好可惜我下个礼拜要回国，我已经读过飞机票所以没办法那天跟你们一起庆祝你们的寰宇。[['买过', '读过', 15, 17, 'word'], ['寰', '寰宇', 37, 38, 'miss'], ['麟', '', 38, 39, 'redundancy']]
+right sentence:好可惜我下个礼拜要回国，我已经买过飞机票所以没办法那天跟你们一起庆祝你们的婚礼。
+wrong_index[37, 38]
+
+input sentence:那一天我回想妳们所以我跟你们会打电话！
+pred sentence:那一天我回想妳们所以我跟你们会打电话！[]
+right sentence:那一天我会想你们所以我跟你们会打电话！
+wrong_index[4, 6]
+
+input sentence:谢谢你们寄给我绍待卡，我很高兴。
+pred sentence:谢谢你们寄给我捎待卡，我很高兴。[['我绍', '我捎', 6, 8, 'word']]
+right sentence:谢谢你们寄给我招待卡，我很高兴。
+wrong_index[7]
+
+input sentence:我听到妳们下个月要结婚了，我觉得很高兴，恭喜，恭喜。
+pred sentence:我听到妳们下个月要结婚了，我觉得很高兴，恭喜，恭喜。[]
+right sentence:我听到你们下个月要结婚了，我觉得很高兴，恭喜，恭喜。
+wrong_index[3]
+
+input sentence:恭喜妳们永远幸福，早生孩子，恭喜恭喜。
+pred sentence:恭喜妳们永远幸福，早生孩子，恭喜恭喜。[]
+right sentence:恭喜你们永远幸福，早生孩子，恭喜恭喜。
+wrong_index[2]
+
+input sentence:我祝福你们幸福快乐的过每一个日子。
+pred sentence:我祝福你们幸福快乐的过每一个日子。[]
+right sentence:我祝福你们幸福快乐地过每一个日子。
+wrong_index[9]
+
+input sentence:刚好公司排我去淡生意，所以我走不开的。
+pred sentence:刚好公司派我去但生意，所以我走不开的。[['排', '派', 4, 5, 'char'], ['淡', '但', 7, 8, 'word']]
+right sentence:刚好公司派我去谈生意，所以我走不开的。
+wrong_index[4, 7]
+
+input sentence:如过有空，下一次我们再一起吃饭把！
+pred sentence:如果有空，下一次我们再一起吃饭吧！[['如过', '如果', 0, 2, 'word'], ['把', '吧', 15, 16, 'char']]
+right sentence:如果有空，下一次我们再一起吃饭吧！
+wrong_index[1, 15]
+
+input sentence:我去哪里，然后我要告诉你们恭喜你们！
+pred sentence:我去哪里，然后我要告诉你们恭喜你们！[]
+right sentence:我去那里，然后我要告诉你们恭喜你们！
+wrong_index[2]
+
+input sentence:每个人带不一样的东西，也常不一样的衣服。
+pred sentence:每个人大不一样的东西，也尝不一样的衣服。[['人带', '人大', 2, 4, 'word'], ['常', '尝', 12, 13, 'char']]
+right sentence:每个人带不一样的东西，也穿不一样的衣服。
+wrong_index[12]
+
+input sentence:他们做二九七的公车去。
+pred sentence:他们做二九七的公车去。[]
+right sentence:他们坐二九七的公车去。
+wrong_index[2]
+
+input sentence:他们决定下雨太大了，没有办法几希在外面烤肉。
+pred sentence:他们决定下雨太大了，没有办法几息在外面烤肉。[['希', '息', 15, 16, 'char']]
+right sentence:他们决定下雨太大了，没有办法继续在外面烤肉。
+wrong_index[14, 15]
+
+input sentence:他们决定下雨太大了，没有办法几希在外面烤肉。
+pred sentence:他们决定下雨太大了，没有办法几息在外面烤肉。[['希', '息', 15, 16, 'char']]
+right sentence:他们决定下雨太大了，没有办法继续在外面烤肉。
+wrong_index[14, 15]
+
+input sentence:我门的依服通通都葬了，肉也还没吃。
+pred sentence:我们的衣服通通都下葬了，骨肉也还没吃。[['我门', '我们', 0, 2, 'confusion'], ['依服', '衣服', 3, 5, 'word'], ['葬', '下葬', 8, 9, 'miss'], ['肉', '骨肉', 11, 12, 'miss']]
+right sentence:我们的衣服通通都脏了，肉也还没吃。
+wrong_index[1, 3, 8]
+
+input sentence:最后我门要来餐店吃饭。
+pred sentence:最后我们要来餐点吃饭。[['我门', '我们', 2, 4, 'confusion'], ['餐店', '餐点', 6, 8, 'word']]
+right sentence:最后我们要来餐店吃饭。
+wrong_index[3]
+
+input sentence:他们要坐公车去野餐，等公车的时候，他们都高高兴兴地说今天得计画。
+pred sentence:他们要坐公车去野餐，等公车的时候，他们都高高兴兴地说今天得计划。[['计画', '计划', 29, 31, 'confusion']]
+right sentence:他们要坐公车去野餐，等公车的时候，他们都高高兴兴地说今天的计画。
+wrong_index[28]
+
+input sentence:他们要坐公车去野餐，等公车的时候，他们都高高兴兴地说今天得计画。
+pred sentence:他们要坐公车去野餐，等公车的时候，他们都高高兴兴地说今天得计划。[['计画', '计划', 29, 31, 'confusion']]
+right sentence:他们要坐公车去野餐，等公车的时候，他们都高高兴兴地说今天的计画。
+wrong_index[28]
+
+input sentence:王天华开心得一直说话。
+pred sentence:王天华开心得一直说话。[]
+right sentence:王天华开心地一直说话。
+wrong_index[5]
+
+input sentence:说不了几句话，钟就下起雨来了，他们急着找别的地方。
+pred sentence:说不了几句话，钟就下去雨来了，他们急着找别的地方。[['下起', '下去', 9, 11, 'confusion']]
+right sentence:说不了几句话，终究下起雨来了，他们急着找别的地方。
+wrong_index[7, 8]
+
+input sentence:他们要搭２９７号共车到山上旅行。
+pred sentence:他们要搭２９７号公车到山上旅行。[['号共车', '号公车', 7, 10, 'itself']]
+right sentence:他们要搭２９７号公车到山上旅行。
+wrong_index[8]
+
+input sentence:天气真不错，他们很开心的一边聊天一边烤肉。
+pred sentence:天气真不错，他们很开心的一边聊天一边烤肉。[]
+right sentence:天气真不错，他们很开心地一边聊天一边烤肉。
+wrong_index[11]
+
+input sentence:不过天气怎么兔然变了，很快天就变黑了。
+pred sentence:不过天气怎么突然变了，很快天就变黑了。[['兔然', '突然', 6, 8, 'word']]
+right sentence:不过天气怎么突然变了，很快天就变黑了。
+wrong_index[6]
+
+input sentence:不久下了大雨，害他们手忙脚乱找不林雨的地方。
+pred sentence:不久下了大雨，害他们手忙脚乱找不淋雨的地方。[['不林雨', '不淋雨', 15, 18, 'itself']]
+right sentence:不久下了大雨，害他们手忙脚乱找不淋雨的地方。
+wrong_index[16]
+
+input sentence:他门马上打包都东西，下雨更大，所以他们搬到别的地方。
+pred sentence:他们马上打包者东西，下雨更大，所以他们搬到别的地方。[['他门', '他们', 0, 2, 'confusion'], ['都', '者', 6, 7, 'char']]
+right sentence:他们马上打包都东西，下雨更大，所以他们搬到别的地方。
+wrong_index[1]
+
+input sentence:我们早上集合，大家都带很多东西，然后座公车大概１５分钟就到了烤肉的地方。
+pred sentence:我们早上集合，大家都带很多东西，然后座公车大概１５分钟就到了烤肉的地方。[]
+right sentence:我们早上集合，大家都带很多东西，然后坐公车大概１５分钟就到了烤肉的地方。
+wrong_index[18]
+
+input sentence:早上做公车去山上，到了以后，我们就马上开始做饭。
+pred sentence:早上做公车去山上，到了以后，我们就马上开始做饭。[]
+right sentence:早上坐公车去山上，到了以后，我们就马上开始做饭。
+wrong_index[2]
+
+input sentence:他们把雪要的东西准备好了就坐二九七号公车。
+pred sentence:他们把学要的东西准备好了就座二九七号公车。[['雪要', '学要', 3, 5, 'word'], ['就坐', '就座', 12, 14, 'confusion']]
+right sentence:他们把需要的东西准备好了就坐二九七号公车。
+wrong_index[3]
+
+input sentence:下车后他们热心的没话说了，因为哪个地方非常好。
+pred sentence:下车后他们热心的没话说了，因为哪个地方非常好。[]
+right sentence:下车后他们热心地没话说了，因为那个地方非常好。
+wrong_index[7, 15]
+
+input sentence:不过得准备的东西不但吃的，而且对休閒活动来说有了好好地经验！
+pred sentence:不过得准备的东西不但吃的，而且对休闲活动来说有了好好地经验！[['閒', '闲', 17, 18, 'char']]
+right sentence:不过得准备的东西不但吃的，而且对休閒活动来说有了好好的经验！
+wrong_index[26]
+
+input sentence:我门是王天华的家人。
+pred sentence:我们是王天华的家人。[['我门', '我们', 0, 2, 'confusion']]
+right sentence:我们是王天华的家人。
+wrong_index[1]
+
+input sentence:我门家的人要去野餐座空空汽车。
+pred sentence:我们家的人要去野餐座空空汽车。[['我门', '我们', 0, 2, 'confusion']]
+right sentence:我们家的人要去野餐坐公共汽车。
+wrong_index[1, 9, 10, 11]
+
+input sentence:我门可以到外面，吃很多东西了。
+pred sentence:我们可以到外面，吃很多东西了。[['我门', '我们', 0, 2, 'confusion']]
+right sentence:我们可以到外面，吃很多东西了。
+wrong_index[1]
+
+input sentence:可是涂然下雨很大，所以我们不能在外面。
+pred sentence:可是突然下雨很大，所以我们不能在外面。[['涂然', '突然', 2, 4, 'word']]
+right sentence:可是突然下雨很大，所以我们不能在外面。
+wrong_index[2]
+
+input sentence:我们来家里面，然后讨润以下怎么回去。
+pred sentence:我们来家里面，然后对润以下怎么回去。[['讨润', '对润', 9, 11, 'word']]
+right sentence:我们来家里面，然后讨论一下怎么回去。
+wrong_index[10, 11]
+
+input sentence:好就我们没看见，所以很高兴。
+pred sentence:好就我们没看见，所以很高兴。[]
+right sentence:好久我们没看见，所以很高兴。
+wrong_index[1]
+
+input sentence:我们在靠东西，还没完在下雨有一点不好，可是我觉得还很高兴、很有意思。
+pred sentence:我们在靠东西，还没完在下雪有一点不好，可是我觉得还很高兴、很有意思。[['雨有', '雪有', 12, 14, 'word']]
+right sentence:我们在烤东西，还没完在下雨有一点不好，可是我觉得还很高兴、很有意思。
+wrong_index[3]
+
+input sentence:吃了饭，我们的衣服都感。
+pred sentence:吃了饭，我们的衣服都感。[]
+right sentence:吃了饭，我们的衣服都干。
+wrong_index[10]
+
+input sentence:去万很累，可是很有意思。
+pred sentence:去万很累，可是很有意思。[]
+right sentence:去玩很累，可是很有意思。
+wrong_index[1]
+
+input sentence:然后巴士来了，他们很高兴得近去。
+pred sentence:然后巴士来了，他们很高兴得近去。[]
+right sentence:然后巴士来了，他们很高兴地进去。
+wrong_index[12, 13]
+
+input sentence:到了时候，他们就开始考食物。
+pred sentence:到了时候，他们就开始考实物。[['食', '实', 11, 12, 'char']]
+right sentence:到了时候，他们就开始烤食物。
+wrong_index[10]
+
+input sentence:小文、小明和小华在考。
+pred sentence:小文、小明和小花在考。[['小华', '小花', 6, 8, 'word']]
+right sentence:小文、小明和小华在烤。
+wrong_index[9]
+
+input sentence:没想到，怎么会下大雨，他们不能考食物了。
+pred sentence:没想到，怎么会下大雨，他们不能考食物了。[]
+right sentence:没想到，怎么会下大雨，他们不能烤食物了。
+wrong_index[15]
+
+input sentence:应为天气那么好，王天华跟他的非洲与台湾朋友决定坐２９７公车去乡下玩。
+pred sentence:应为天气那么好，王天华跟他的非洲与台湾朋友决定坐２９７公车去乡下玩。[]
+right sentence:因为天气那么好，王天华跟他的非洲与台湾朋友决定坐２９７公车去乡下玩。
+wrong_index[0]
+
+input sentence:大家都开心起了！真是好美里的一天喔！
+pred sentence:大家都开心起了！真是好美丽的一天！[['好美里', '好美丽', 10, 13, 'itself'], ['喔', '', 16, 17, 'redundancy']]
+right sentence:大家都开心起了！真是好美丽的一天喔！
+wrong_index[12]
+
+input sentence:他交他的朋友怎么他在美国来烤软糖的方式。
+pred sentence:他叫他的朋友怎么他在美国来软糖的方式。[['他交', '他叫', 0, 2, 'word'], ['烤', '', 13, 14, 'redundancy']]
+right sentence:他教他的朋友怎么他在美国来烤软糖的方式。
+wrong_index[1]
+
+input sentence:可是我们在做菜天气下雨，我们戴东西到饭馆儿。
+pred sentence:可是我们在做菜天气下雨，我们戴东西到饭馆儿。[]
+right sentence:可是我们在做菜天气下雨，我们带东西到饭馆儿。
+wrong_index[14]
+
+input sentence:过十分钟，天气下雨，我们跑的很快。
+pred sentence:过十分钟，天气下雨，我们跑的很快。[]
+right sentence:过十分钟，天气下雨，我们 的很快。
+wrong_index[12]
+
+input sentence:到了一家商店，我们休葸一会儿。
+pred sentence:到了一家商店，我们休息一会儿。[['休葸', '休息', 9, 11, 'word']]
+right sentence:到了一家商店，我们休息一会儿。
+wrong_index[10]
+
+input sentence:座下看菜单的时候，太可惜了，只有鱼可以吃了。
+pred sentence:座下看菜单的时候，太可惜了，只有鱼可以吃了。[]
+right sentence:坐下看菜单的时候，太可惜了，只有鱼可以吃了。
+wrong_index[0]
+
+input sentence:小美好像是拟越来越漂亮了。
+pred sentence:小美好像是拟越来越漂亮了。[]
+right sentence:小美好像是妳越来越漂亮了。
+wrong_index[5]
+
+input sentence:对阿，我们快烤肉吧！
+pred sentence:对阿，我们快烤肉吧！[]
+right sentence:对啊，我们快烤肉吧！
+wrong_index[1]
+
+input sentence:我又跟爸爸妈妈去美国玩，美国风景好漂亮，交通很旁边。
+pred sentence:我又跟爸爸妈妈去美国玩，美国风景好漂亮，交通很旁边。[]
+right sentence:我有跟爸爸妈妈去美国玩，美国风景好漂亮，交通很方便。
+wrong_index[1, 23, 24]
+
+input sentence:好了，美关系了。我们坐下来吃饭吧！
+pred sentence:好了，美关系了。我们坐下来吃饭吧！[]
+right sentence:好了，没关系了。我们坐下来吃饭吧！
+wrong_index[3]
+
+input sentence:好了，美关系了。我们坐下来吃饭吧！
+pred sentence:好了，美关系了。我们坐下来吃饭吧！[]
+right sentence:好了，没关系了。我们坐下来吃饭吧！
+wrong_index[3]
+
+input sentence:他们一扁吃，一扁聊天。
+pred sentence:他们一边吃，一边聊天。[['一扁', '一边', 2, 4, 'word'], ['一扁', '一边', 6, 8, 'word']]
+right sentence:他们一边吃，一边聊天。
+wrong_index[3, 7]
+
+input sentence:他们不高兴因为他们的衣服溪溪的。
+pred sentence:他们不高兴因为他们的衣服西溪的。[['溪溪', '西溪', 12, 14, 'word']]
+right sentence:他们不高兴因为他们的衣服湿湿的。
+wrong_index[12, 13]
+
+input sentence:天华知道我喜欢吃烤肉，所已需要的东西她都准备好了。
+pred sentence:大花知道我喜欢吃烤肉，所以需要的东西她都准备好了。[['天', '大', 0, 1, 'char'], ['华', '花', 1, 2, 'char'], ['已', '以', 12, 13, 'char']]
+right sentence:天华知道我喜欢吃烤肉，所以需要的东西她都准备好了。
+wrong_index[12]
+
+input sentence:今天是学校的最后一天，小朋友好兴奋得上学校的车。
+pred sentence:今天是学校的最后一天，小朋友好兴奋得上学校的车。[]
+right sentence:今天是学校的最后一天，小朋友好兴奋地上学校的车。
+wrong_index[17]
+
+input sentence:爸爸们高高兴兴的送孩子们到停车站。
+pred sentence:爸爸们高高兴兴的送孩子们到停车站。[]
+right sentence:爸爸们高高兴兴地送孩子们到停车站。
+wrong_index[7]
+
+input sentence:大家应该找一棵大树可能修系吧。
+pred sentence:大家应该找一棵大树可能修行吧。[['修系', '修行', 11, 13, 'word']]
+right sentence:大家应该找一棵大树可能休息吧。
+wrong_index[11, 12]
+
+input sentence:我们都是好朋友，搜已我们请他出ＢＢＱ。
+pred sentence:我们都是好朋友，搜一我们请他出ＢＢＱ。[['搜已', '搜一', 8, 10, 'word']]
+right sentence:我们都是好朋友，所以我们请他吃ＢＢＱ。
+wrong_index[8, 9, 14]
+
+input sentence:今天早藏，我们八点出公车赞。
+pred sentence:今天遭藏，我们八点出公车赞。[['早藏', '遭藏', 2, 4, 'word']]
+right sentence:今天早上，我们八点出公车站。
+wrong_index[3, 12]
+
+input sentence:我们坐车４５分就到，我们开ＢＢＱ，我们都很快，我们玩的横高兴。
+pred sentence:我们坐车４５分就到，我们开ＢＢＱ，我们都很快，我们玩的恒高兴。[['横高兴', '恒高兴', 27, 30, 'itself']]
+right sentence:我们坐车４５分就到，我们开ＢＢＱ，我们都很快，我们玩得很高兴。
+wrong_index[26, 27]
+
+input sentence:我们跑来跑出，不知道要做神马。
+pred sentence:我们跑来跑出，不知道要做神马。[]
+right sentence:我们跑来跑出，不知道要做什么。
+wrong_index[12, 13]
+
+input sentence:他有两个孩子，男生还有努生。
+pred sentence:他有两个孩子，男生还有怒生。[['努生', '怒生', 11, 13, 'word']]
+right sentence:他有两个孩子，男生还有女生。
+wrong_index[11]
+
+input sentence:王大华的孩子很饿所以他们买吃的东西，他们很高行。
+pred sentence:王大华的孩子很饿所以他们买吃的东西，他们很高行。[]
+right sentence:王大华的孩子很饿所以他们买吃的东西，他们很高兴。
+wrong_index[22]
+
+input sentence:下午三点，他们外面的时候，有很大的下与。
+pred sentence:下午三点，他们外面的时候，有很大的下雨。[['与', '雨', 18, 19, 'char']]
+right sentence:下午三点，他们外面的时候，有很大的下雨。
+wrong_index[18]
+
+input sentence:王大华带他的与沙，他的努儿报纸。
+pred sentence:王大华带他的与沙，他的努尔报纸。[['努儿', '努尔', 11, 13, 'word']]
+right sentence:王大华带他的雨伞，他的女儿报纸。
+wrong_index[6, 7, 11]
+
+input sentence:他们都很累，还有有一点鹅。
+pred sentence:他们都很累，还有有一点小鹅。[['鹅', '小鹅', 11, 12, 'miss']]
+right sentence:他们都很累，还有有一点饿。
+wrong_index[11]
+
+input sentence:老板告诉王大华帮你点蔡。
+pred sentence:老板告诉王大华帮你点菜。[['蔡', '菜', 10, 11, 'word']]
+right sentence:老板告诉王大华帮你点菜。
+wrong_index[10]
+
+input sentence:老是较书。
+pred sentence:老师较书。[['老是', '老师', 0, 2, 'word']]
+right sentence:老师教书。
+wrong_index[1, 2]
+
+input sentence:没想到已经两点钟了，他就干快去睡觉。
+pred sentence:没想到已经两点钟了，他就赶快去睡觉。[['干快', '赶快', 12, 14, 'word']]
+right sentence:没想到已经两点钟了，他就赶快去睡觉。
+wrong_index[12]
+
+input sentence:所有的学生都非常认真也很安静，王天华是第一次交弮的人。
+pred sentence:所有的学生都非常认真也很安静，王天华是第一次交权的人。[['弮', '权', 23, 24, 'word']]
+right sentence:所有的学生都非常认真也很安静，王天华是第一次交卷的人。
+wrong_index[23]
+
+input sentence:考试我要先听老师交代贵定，我很用心努力考试。
+pred sentence:考试我要先听老师交代贵定，我很用心努力考试。[]
+right sentence:考试我要先听老师交代规定，我很用心努力考试。
+wrong_index[10]
+
+input sentence:今天大华上课老师告诉同学明天考试，交同学会去准备复习第一课到第三课。
+pred sentence:今天大华上课老师告诉同学明天考试，交同学会去准备复习第一课到第三课。[]
+right sentence:今天大华上课老师告诉同学明天考试，叫同学回去准备复习第一课到第三课。
+wrong_index[17, 20]
+
+input sentence:下了课大华就会去念书，在家里准备复习从第一课到第三课。
+pred sentence:下了课大华就会去念书，在家里准备复习从第一课到第三课。[]
+right sentence:下了课大华就回去念书，在家里准备复习从第一课到第三课。
+wrong_index[6]
+
+input sentence:因为这个题目对他来说不难，没几分钟她已经就烤好了。
+pred sentence:因为这个题目对他来说不难，没几分钟她已经就好了。[['烤', '', 21, 22, 'redundancy']]
+right sentence:因为这个题目对他来说不难，没几分钟他已经就考好了。
+wrong_index[17, 21]
+
+input sentence:李大明因为昨日认真复习，所以面对考试的时候他很有信心，而且很准时的交卷。
+pred sentence:李大明因为昨日认真复习，所以面对考试的时候他很有信心，而且很准时的交卷。[]
+right sentence:李大明因为昨日认真复习，所以面对考试的时候他很有信心，而且很准时地交卷。
+wrong_index[32]
+
+input sentence:我因该学习法文，因为我明天有法文的考试。
+pred sentence:我应该学习法文，因为我明天有法文的考试。[['因该', '应该', 1, 3, 'word']]
+right sentence:我应该学习法文，因为我明天有法文的考试。
+wrong_index[1]
+
+input sentence:怎么帮？我觉得这个法文的问题很难。
+pred sentence:怎么帮？我觉得这个法文的问题很难。[]
+right sentence:怎么办？我觉得这个法文的问题很难。
+wrong_index[2]
+
+input sentence:怎么帮？我觉得这个法文的问题很难。
+pred sentence:怎么帮？我觉得这个法文的问题很难。[]
+right sentence:怎么办？我觉得这个法文的问题很难。
+wrong_index[2]
+
+input sentence:他吃了晚餐之后马上到房间里拼命的念书到隔天早上。
+pred sentence:他吃了晚餐之后马上到房间里拼命的念书到隔天早上。[]
+right sentence:他吃了晚餐之后马上到房间里拼命地念书到隔天早上。
+wrong_index[15]
+
+input sentence:天华觉得这次的考试一点都不难，因为昨天晚上他很认陈学习。
+pred sentence:大华觉得这次的考试一点都不难，因为昨天晚上她很认陈学习。[['天', '大', 0, 1, 'char'], ['他', '她', 21, 22, 'char']]
+right sentence:天华觉得这次的考试一点都不难，因为昨天晚上他很认真学习。
+wrong_index[24]
+
+input sentence:王天华是她班最快的学生，天花很高兴，所以今天晚上她跟他的同学一起去长卡拉ＯＫ。
+pred sentence:王天华是她班最快的学生，天花很高兴，所以今天晚上她跟她的同学一起去唱卡拉ＯＫ。[['他', '她', 26, 27, 'char'], ['去长', '去唱', 32, 34, 'word']]
+right sentence:王天华是她班最快的学生，天华很高兴，所以今天晚上她跟他的同学一起去唱卡拉ＯＫ。
+wrong_index[13, 33]
+
+input sentence:对不起，今回我不能一起去，那个时候，我要去公作的流行。
+pred sentence:对不起，今会我不能一起去，那个时候，我要去工作的流行。[['今回', '今会', 4, 6, 'word'], ['公作', '工作', 21, 23, 'word']]
+right sentence:对不起，今回我不能一起去，那个时候，我要去工作的旅行。
+wrong_index[21, 24]
+
+input sentence:炽爱的大民，你好！
+pred sentence:炽爱的大民，你好！[]
+right sentence:挚爱的大明，你好！
+wrong_index[0, 4]
+
+input sentence:大明很刀剑，昨天我说跟你一起去可是今天我有事情在学校有考试。
+pred sentence:大明很刀剑，昨天我说跟你一起去可是今天我有事情在学校有考试。[]
+right sentence:大明很抱歉，昨天我说跟你一起去可是今天我有事情在学校有考试。
+wrong_index[3, 4]
+
+input sentence:我很系望原谅，握祝你跟同学出去好好玩儿，你跟同学玩的人快乐，记得要小心。
+pred sentence:我很希望原谅，握住你跟同学出去好好玩儿，你跟同学玩的人快乐，记得要小心。[['系望', '希望', 2, 4, 'word'], ['握祝', '握住', 7, 9, 'word']]
+right sentence:我很希望原谅，我祝你跟同学出去好好玩儿，你跟同学玩的人快乐，记得要小心。
+wrong_index[2, 7]
+
+input sentence:你道德地旁给我打电话。
+pred sentence:你道德地旁给我打电话。[]
+right sentence:你到的地方给我打电话。
+wrong_index[1, 2, 4]
+
+input sentence:应为我们公司最重要的客服会来台湾、所以我们要一起出去观光。
+pred sentence:影为我们公司最重要的客服会来台湾、所以我们要一起出去观光。[['应', '影', 0, 1, 'char']]
+right sentence:因为我们公司最重要的客户会来台湾、所以我们要一起出去观光。
+wrong_index[0, 11]
+
+input sentence:应为对我第一次去高雄所以我很高兴，可是不能去真可惜。
+pred sentence:应为过我第一次去高雄所以我很高兴，可是不能去真可惜。[['对', '过', 2, 3, 'char']]
+right sentence:因为对我第一次去高雄所以我很高兴，可是不能去真可惜。
+wrong_index[0]
+
+input sentence:我这个月有考试，所以我要赶快念书没有时间跟你去除去完。
+pred sentence:我这个月有考试，所以我要赶快念书没有时间跟你去除去完。[]
+right sentence:我这个月有考试，所以我要赶快念书没有时间跟你去出去玩。
+wrong_index[23, 25]
+
+input sentence:我很想跟去，可是没办法有考试，我希望你的流星很好玩！
+pred sentence:我很想跟去，可是没办法有考试，我希望你的流星很好玩！[]
+right sentence:我很想跟去，可是没办法有考试，我希望你的旅行很好玩！
+wrong_index[20, 21]
+
+input sentence:希望你放送心情地尽量去玩，你回来的时候可以跟我们全班同学一起分享你去游玩的过程中！
+pred sentence:希望你放松心情地尽量去玩，你回来的时候可以跟我们全班同学一起分享你去游玩的过程中！[['送', '松', 4, 5, 'char']]
+right sentence:希望你放松心情地尽量去玩，你回来的时候可以跟我们全班同学一起分享你去游玩的过程中！
+wrong_index[4]
+
+input sentence:好久不见，您最近如何？我还是像以前依样很忙碌。
+pred sentence:好久不见，您最近如何？我还是像以前一样很忙碌。[['依', '一', 17, 18, 'char']]
+right sentence:好久不见，您最近如何？我还是像以前一样很忙碌。
+wrong_index[17]
+
+input sentence:明天是里拜天我想请你跟我一起出去玩。
+pred sentence:明天是例白天我想请你跟我一起出去玩。[['里', '例', 3, 4, 'char'], ['拜天', '白天', 4, 6, 'word']]
+right sentence:明天是礼拜天我想请你跟我一起出去玩。
+wrong_index[3]
+
+input sentence:我知道在台湾有一个地旁很美，就是淡水，那里有很多东西很好吃，又友山有水，很漂亮。
+pred sentence:我知道在台湾有一个地帮很美，就是淡水，那里有很多东西很好吃，又有山有水，很漂亮。[['地旁', '地帮', 9, 11, 'word'], ['友山', '有山', 31, 33, 'word']]
+right sentence:我知道在台湾有一个地方很美，就是淡水，那里有很多东西很好吃，又有山有水，很漂亮。
+wrong_index[10, 31]
+
+input sentence:我项在有一个月的空，可是我还没决定我做什么。
+pred sentence:我想在有一个月的空，可是我还没决定我做什么。[['我项', '我想', 0, 2, 'word']]
+right sentence:我现在有一个月的空，可是我还没决定我做什么。
+wrong_index[1]
+
+input sentence:我觉得我们可以出去路行台湾的南部跟台中，个个人都觉得很美，我要请你去陆行。
+pred sentence:我觉得我们可以出去陆行台湾的南部跟台中，个个人都觉得很美，我要请你去陆行。[['路', '陆', 9, 10, 'char']]
+right sentence:我觉得我们可以出去旅行台湾的南部跟台中，个个人都觉得很美，我要请你去旅行。
+wrong_index[9, 34]
+
+input sentence:我真要去看这些地方，因为我也也是台湾人。
+pred sentence:我真要去看这些地方，因为我也也是台湾人。[]
+right sentence:我真要去看这些地方，因为我爷爷是台湾人。
+wrong_index[13, 14]
+
+input sentence:放假快要来了，暱友打算吗？
+pred sentence:放假快要来了，昵友打算吗？[['暱友', '昵友', 7, 9, 'word']]
+right sentence:放假快要来了，你有打算吗？
+wrong_index[7, 8]
+
+input sentence:我想到我们可以去逛逛，我想我们可以去台湾然后专机往新加波。
+pred sentence:我想到我们可以去逛逛，我想我们可以去台湾然后专机往新加坡。[['加波', '加坡', 26, 28, 'word']]
+right sentence:我想到我们可以去逛逛，我想我们可以去台湾然后转机往新加坡。
+wrong_index[22, 27]
+
+input sentence:我们然后去新家波看他的城市那么发展。
+pred sentence:我们然后去新加坡看他的城市那么发展。[['新家波', '新加坡', 5, 8, 'word']]
+right sentence:我们然后去新加坡看他的城市那么发展。
+wrong_index[6, 7]
+
+input sentence:请你考利以下或打我一个电话。
+pred sentence:请你考力以下或打我一个电话。[['利', '力', 3, 4, 'char']]
+right sentence:请你考虑一下或打我一个电话。
+wrong_index[3, 4]
+
+input sentence:我觉得如果我们参加这个校外教学应该会认识新的台湾朋友，也会练习我们的中文，你跟我一起去把！
+pred sentence:我觉得如果我们参加这个校外教学应该会认识新的台湾朋友，也会练习我们的中文，你跟我一起去吧！[['把', '吧', 43, 44, 'char']]
+right sentence:我觉得如果我们参加这个校外教学应该会认识新的台湾朋友，也会练习我们的中文，你跟我一起去吧！
+wrong_index[43]
+
+input sentence:请你快告诉我你愿不原意跟我一起去。
+pred sentence:请你快告诉我你愿不愿意跟我一起去。[['原', '愿', 9, 10, 'char']]
+right sentence:请你快告诉我你愿不愿意跟我一起去。
+wrong_index[9]
+
+input sentence:别感觉寄怪我为甚么问你这个问题，我想跟你一己出国，我智到你还没出过国，所以这是你一定要跟我一起。
+pred sentence:别感觉奇怪我为什么问你这个问题，我想跟你一级出国，我直到你还没出过国，所以这是你一定要跟我一起。[['寄怪', '奇怪', 3, 5, 'word'], ['甚么', '什么', 7, 9, 'confusion'], ['己', '级', 21, 22, 'char'], ['我智到', '我直到', 25, 28, 'itself']]
+right sentence:别感觉奇怪我为甚么问你这个问题，我想跟你一起出国，我知道你还没出过国，所以这次你一定要跟我一起。
+wrong_index[3, 21, 26, 27, 38]
+
+input sentence:我们刚刚就结束了我们的期中考试，所以我们要休息一点。
+pred sentence:我们刚刚就结束了我们的期中考试，所以我们要休息一点。[]
+right sentence:我们刚刚就结束了我们的期中考试，所以我们要休息一天。
+wrong_index[24]
+
+input sentence:今天我要告诉您下个月我要会我的国家，因为我很想我的父母，所以我要问您要不要跟我去我国家。
+pred sentence:今天我要告诉您下个月我要回我的国家，因为我很想我的父母，所以我要问您要不要跟我去我国家。[['会', '回', 12, 13, 'char']]
+right sentence:今天我要告诉您下个月我要回我的国家，因为我很想我的父母，所以我要问您要不要跟我去我国家。
+wrong_index[12]
+
+input sentence:我们可以去四班牙，因为我的父母住在哪里，还有很多地方我们可以去玩。
+pred sentence:我们可以去四班牙，因为我的父母住在哪里，还有很多地方我们可以去玩。[]
+right sentence:我们可以去西班牙，因为我的父母住在那里，还有很多地方我们可以去玩。
+wrong_index[5, 17]
+
+input sentence:我想跟你一起去垦丁，因为我的朋友说哪里的天气很好，海边风景很美。
+pred sentence:我想跟你一起去垦丁，因为我的朋友说哪里的天气很好，海边风景很美。[]
+right sentence:我想跟你一起去垦丁，因为我的朋友说那里的天气很好，海边风景很美。
+wrong_index[17]
+
+input sentence:我想跟你一起去垦丁，因为我的朋友说哪里的天气很好，海边风景很美。
+pred sentence:我想跟你一起去垦丁，因为我的朋友说哪里的天气很好，海边风景很美。[]
+right sentence:我想跟你一起去垦丁，因为我的朋友说那里的天气很好，海边风景很美。
+wrong_index[17]
+
+input sentence:我觉得我们在日本完五月，因为我没有工作。
+pred sentence:我觉得我们在日本玩五月，因为我没有工作。[['完', '玩', 8, 9, 'char']]
+right sentence:我觉得我们在日本玩五月，因为我没有工作。
+wrong_index[8]
+
+input sentence:我已经打给南澳朋友电话，踏青我们睡在他的家。
+pred sentence:我已经打给南澳朋友电话，踏青我们都睡在他的家。[['睡', '都睡', 16, 17, 'miss']]
+right sentence:我已经打给南澳朋友电话，他请我们睡在他的家。
+wrong_index[12, 13]
+
+input sentence:我们到法国去，好不好？那个时候法过都去海边放假，所以在巴黎城市人不太多。
+pred sentence:我们到法国去，好不好？那个时候法国都去海边放假，所以在巴黎城市人不太多。[['法过', '法国', 15, 17, 'word']]
+right sentence:我们到法国去，好不好？那个时候法国都去海边放假，所以在巴黎城市人不太多。
+wrong_index[16]
+
+input sentence:我们可参观很多有名的博物馆，晚上还可以出门莞儿。
+pred sentence:我们可参观很多有名的博物馆，晚上还可以出门官儿。[['莞儿', '官儿', 21, 23, 'word']]
+right sentence:我们可参观很多有名的博物馆，晚上还可以出门玩儿。
+wrong_index[21]
+
+input sentence:下个星期休假，所以我想跟你去路行。
+pred sentence:下个星期休假，所以我想跟你去路行。[]
+right sentence:下个星期休假，所以我想跟你去旅行。
+wrong_index[14]
+
+input sentence:这个旅行是天两夜，印度的南部很漂亮，风景也很美。
+pred sentence:这个旅行是天两夜，印度的南部很漂亮，风景也很美。[]
+right sentence:这个旅行四天两夜，印度的南部很漂亮，风景也很美。
+wrong_index[4]
+
+input sentence:如果我们可以去两个里拜，就一锭很好玩！
+pred sentence:如果我们可以去两个里拜，就一定很好玩！[['锭', '定', 14, 15, 'char']]
+right sentence:如果我们可以去两个礼拜，就一定很好玩！
+wrong_index[9, 14]
+
+input sentence:我真希望妳这次可以跟我忆起去。
+pred sentence:我真希望妳这次可以跟我忆起去。[]
+right sentence:我真希望妳这次可以跟我一起去。
+wrong_index[11]
+
+input sentence:我们夏天一起去欧洲玩，好不好？我想七月区最好吧。
+pred sentence:我们夏天一起去欧洲玩，好不好？我想七月区最好吧。[]
+right sentence:我们夏天一起去欧洲玩，好不好？我想七月去最好吧。
+wrong_index[19]
+
+input sentence:如果你想要去的话，你需要带两个礼拜的衣服，应为我们会在哪里玩两个礼拜。
+pred sentence:如果你想要去的话，你需要带两个礼拜的衣服，应为我们会在哪里玩两个礼拜。[]
+right sentence:如果你想要去的话，你需要带两个礼拜的衣服，因为我们会在那里玩两个礼拜。
+wrong_index[21, 27]
+
+input sentence:我想要去加拿大玩，应为有和多好吃的。
+pred sentence:我想要去加拿大玩，应为有何多好吃的。[['和', '何', 12, 13, 'char']]
+right sentence:我想要去加拿大玩，因为有很多好吃的。
+wrong_index[9, 12]
+
+input sentence:如果你又要去的话，你在跟我联络。
+pred sentence:如果你又要去的话，你在跟我联络。[]
+right sentence:如果你有要去的话，你再跟我联络。
+wrong_index[3, 10]
+
+input sentence:我是王天华，跟你想要去流行。
+pred sentence:我是王天华，跟你想要去流行。[]
+right sentence:我是王天华，跟你想要去旅行。
+wrong_index[11]
+
+input sentence:情爱的李大明。
+pred sentence:亲爱的李大明。[['情', '亲', 0, 1, 'char']]
+right sentence:亲爱的李大明。
+wrong_index[0]
+
+input sentence:我只有最小一个月旅行，你能去多久？
+pred sentence:我只有最小一个月旅行，你能去多久？[]
+right sentence:我只有最少一个月旅行，你能去多久？
+wrong_index[4]
+
+input sentence:没问题，那你去把！
+pred sentence:没问题，那你去吧！[['把', '吧', 7, 8, 'char']]
+right sentence:没问题，那你去吧！
+wrong_index[7]
+
+input sentence:好久没间，还没问你最近去那里现在才回来，都没跟我联络呢。
+pred sentence:好久没见，还没问你最近去哪里现在才回来，都没跟我联络呢。[['间', '见', 3, 4, 'char'], ['那', '哪', 12, 13, 'char']]
+right sentence:好久没见，还没问你最近去哪里现在才回来，都没跟我联络呢。
+wrong_index[3, 12]
+
+input sentence:来我们看这节目很不做，我很喜欢。
+pred sentence:来我们看这节目很不做，我很喜欢。[]
+right sentence:来我们看这节目很不错，我很喜欢。
+wrong_index[9]
+
+input sentence:我觉得很放便，我们也可以看电视的棒球，我们都很喜欢棒球，因为小的时候我们每天打棒球。
+pred sentence:我觉得很方便，我们也可以看电视的棒球，我们都很喜欢棒球，因为小的时候我们每天打棒球。[['很放', '很方', 3, 5, 'word']]
+right sentence:我觉得很方便，我们也可以看电视的棒球，我们都很喜欢棒球，因为小的时候我们每天打棒球。
+wrong_index[4]
+
+input sentence:我们玩着玩者就睡觉了。
+pred sentence:我们玩着玩者就睡觉了。[]
+right sentence:我们玩着玩着就睡觉了。
+wrong_index[5]
+
+input sentence:李大明去冰箱拿一些点心拿一些甜点跟两配啤酒。
+pred sentence:李大明去冰箱拿一些点心拿一些甜点跟两酒啤酒。[['两配', '两酒', 17, 19, 'word']]
+right sentence:李大明去冰箱拿一些点心拿一些甜点跟两瓶啤酒。
+wrong_index[18]
+
+input sentence:有的时候反对一些裁板说的，他门就生气因为叫的搓有一点不公平，他们就大骂大叫。
+pred sentence:有的时候反对一些菜板说的，他们就生气因为叫的有一点不公平，他们就大声骂大叫。[['裁板', '菜板', 8, 10, 'word'], ['他门', '他们', 13, 15, 'confusion'], ['搓', '', 22, 23, 'redundancy'], ['骂', '声骂', 34, 35, 'miss']]
+right sentence:有的时候反对一些裁判说的，他们就生气因为叫的说有一点不公平，他们就大骂大叫。
+wrong_index[9, 14, 22]
+
+input sentence:他们花了一天再看那个球赛。
+pred sentence:他们花了一天再看那个球赛。[]
+right sentence:他们花了一天在看那个球赛。
+wrong_index[6]
+
+input sentence:昨天晚上，李大明请了一个好朋友来他家为了一起看一个棒球比塞。
+pred sentence:昨天晚上，李大明请了一个好朋友来他家为了一起看一个棒球比赛。[['比塞', '比赛', 27, 29, 'word']]
+right sentence:昨天晚上，李大明请了一个好朋友来他家为了一起看一个棒球比赛。
+wrong_index[28]
+
+input sentence:他的朋友八点钟已经到了，比塞还没开始。
+pred sentence:他的朋友八点钟已经到了，比赛还没开始。[['比塞', '比赛', 12, 14, 'word']]
+right sentence:他的朋友八点钟已经到了，比赛还没开始。
+wrong_index[13]
+
+input sentence:然后他回来客厅，因为比塞快到开始了。
+pred sentence:然后他回来客厅，因为比赛快到开始了。[['比塞快', '比赛快', 10, 13, 'itself']]
+right sentence:然后他回来客厅，因为比赛快到开始了。
+wrong_index[11]
+
+input sentence:一遍他们喝醉了，一遍他们支持的棒球队也赢了。
+pred sentence:一遍他们喝醉了，一遍他们支持的棒球队也赢了。[]
+right sentence:一边他们喝醉了，一边他们支持的棒球队也赢了。
+wrong_index[1, 9]
+
+input sentence:没有关系也看我的电视，免费！清等我回来。
+pred sentence:没有关系也看我的电视，免费！请等我回来。[['清', '请', 14, 15, 'char']]
+right sentence:没有关系也看我的电视，免费！请等我回来。
+wrong_index[14]
+
+input sentence:他来我家的时，我还没有准备好，所以我先请他在客厅座一下看电视。
+pred sentence:他来我家的时，我还没有准备好，所以我先请他在客厅座一下看电视。[]
+right sentence:他来我家的时，我还没有准备好，所以我先请他在客厅坐一下看电视。
+wrong_index[24]
+
+input sentence:在客厅我说了，请座等一下，请看电视。
+pred sentence:在客厅我说了，请坐等一下，请看电视。[['请座', '请坐', 7, 9, 'word']]
+right sentence:在客厅我说了，请坐等一下，请看电视。
+wrong_index[8]
+
+input sentence:我看他的时候我很高心，因为上子我看他是一年以前。
+pred sentence:我看他的时候我很高薪，因为上自我看他是一年以前。[['高心', '高薪', 8, 10, 'word'], ['上子', '上自', 13, 15, 'word']]
+right sentence:我看他的时候我很高兴，因为上次我看他是一年以前。
+wrong_index[9, 14]
+
+input sentence:不过～我没想到那天有一个很特别的板球！
+pred sentence:不过～我没想到哪天有一个很特别的板球！[['那', '哪', 7, 8, 'char']]
+right sentence:不过～我没想到那天有一个很特别的棒球！
+wrong_index[16]
+
+input sentence:我们喝了很多可乐，吃了很多东西，可是我也喝了两杯啤酒，所以我很高心。
+pred sentence:我们都喝了很多可乐，吃了很多东西，可是我也只喝了两杯啤酒，所以我很高薪。[['喝', '都喝', 2, 3, 'miss'], ['喝', '只喝', 20, 21, 'miss'], ['高心', '高薪', 31, 33, 'word']]
+right sentence:我们喝了很多可乐，吃了很多东西，可是我也喝了两杯啤酒，所以我很高兴。
+wrong_index[32]
+
+input sentence:那天他高心的没说话，所以她决定下个礼拜请我去他的家玩。
+pred sentence:那天她高薪的没说话，所以她决定下个礼拜请我去他的家玩。[['他', '她', 2, 3, 'char'], ['高心', '高薪', 3, 5, 'word']]
+right sentence:那天他高兴的没说话，所以她决定下个礼拜请我去他的家玩。
+wrong_index[4]
+
+input sentence:然后他的朋友进来大民的房间。
+pred sentence:然后他的朋友进来大民的房间。[]
+right sentence:然后他的朋友进来大明的房间。
+wrong_index[9]
+
+input sentence:李大明说他不要客气、请座。
+pred sentence:李大明说他不要客气、请坐。[['请座', '请坐', 10, 12, 'word']]
+right sentence:李大明说他不要客气、请坐。
+wrong_index[11]
+
+input sentence:我想拿出来一些啤酒，一些平干。
+pred sentence:我想拿出来一些啤酒，一些平肝。[['平干', '平肝', 12, 14, 'word']]
+right sentence:我想拿出来一些啤酒，一些饼干。
+wrong_index[12]
+
+input sentence:大明一些啤酒和一些平干拿出来在冷箱。
+pred sentence:大明一些啤酒和一些平敢拿出来在冷霜。[['平干', '平敢', 9, 11, 'word'], ['冷箱', '冷霜', 15, 17, 'word']]
+right sentence:大明一些啤酒和一些饼干拿出来在冷箱。
+wrong_index[9]
+
+input sentence:我们要一起看旁棒球的比赛，跟朋友一起看比一个人看好很多。
+pred sentence:我们要一起看棒棒球的比赛，跟朋友一起堪比一个人看好很多。[['看旁', '看棒', 5, 7, 'word'], ['看比', '堪比', 18, 20, 'word']]
+right sentence:我们要一起看盘棒球的比赛，跟朋友一起看比一个人看好很多。
+wrong_index[6]
+
+input sentence:昨天对她没来说是一个很特别的日子，台湾和美国棒球比赛最后的一天。
+pred sentence:昨天对她没来说是一个很特别的日子，台湾和美国棒球比赛最后的一天。[]
+right sentence:昨天对她们来说是一个很特别的日子，台湾和美国棒球比赛最后的一天。
+wrong_index[4]
+
+input sentence:测天王天华很早就打电话约李大明昨天下午两点到他家一起看比赛。
+pred sentence:则天王天华很早就打电话约李大明昨天下午两点到他家一起看比赛。[['测', '则', 0, 1, 'char']]
+right sentence:这天王天华很早就打电话约李大明昨天下午两点到他家一起看比赛。
+wrong_index[0]
+
+input sentence:王天华自己知道错了马上跟爸妈说对不起，他爸妈没有骂他只说他以后不可以这样者。
+pred sentence:王天华自己知道错了马上跟爸妈说对不起，他爸妈没有骂他只说他以后不可以这样者。[]
+right sentence:王天华自己知道错了马上跟爸妈说对不起，他爸妈没有骂他只说他以后不可以这样子。
+wrong_index[36]
+
+input sentence:我的时间不再，所以还没看到他。
+pred sentence:我的时间不再，所以还没看到他。[]
+right sentence:我的时间不在，所以还没看到他。
+wrong_index[5]
+
+input sentence:他在家里看电视的时间，听到有人叫们，然后他去开门看到王先生来看家我们，他真的好开兴了！
+pred sentence:他在家里看电视的时间，听到有人叫门，然后他去开门看到王先生来看家我们，他真的好开行了！[['叫们', '叫门', 15, 17, 'word'], ['开兴', '开行', 39, 41, 'word']]
+right sentence:他在家里看电视的时间，听到有人叫门，然后他去开门看到王先生来看家我们，他真的好开心了！
+wrong_index[16, 40]
+
+input sentence:那天王先生馔衣服很好看，还有带蓝色的帽子。
+pred sentence:那天王先生衣服很好看，还有带蓝色的帽子。[['馔', '', 5, 6, 'redundancy']]
+right sentence:那天王先生穿衣服很好看，还有带蓝色的帽子。
+wrong_index[5]
+
+input sentence:他很快去里面开冰箱，他拿一般饼干，根几杯可乐去客厅吃。
+pred sentence:他很快去里面开冰箱，他拿一般饼干，根几杯可乐去客厅吃。[]
+right sentence:他很快去里面开冰箱，他拿一盘饼干，跟几杯可乐去客厅吃。
+wrong_index[13, 17]
+
+input sentence:王先生跟他说好多话，他们一直说话一直笑很开兴了！
+pred sentence:王先生跟他说好多话，他们一直说话一直笑很开行了！[['开兴', '开行', 20, 22, 'word']]
+right sentence:王先生跟他说好多话，他们一直说话一直笑很开心了！
+wrong_index[21]
+
+input sentence:改天我们一直走，好不好？
+pred sentence:改天我们一直走，好不好？[]
+right sentence:改天我们一起走，好不好？
+wrong_index[5]
+
+input sentence:第一位情第二位，他说：第二位你好。
+pred sentence:第一位情第二位，他说：第二位你好。[]
+right sentence:第一位请第二位，他说：第二位你好。
+wrong_index[3]
+
+input sentence:第一位跟第二位说：情坐。
+pred sentence:第一位跟第二位说：请坐。[['情坐', '请坐', 9, 11, 'word']]
+right sentence:第一位跟第二位说：请坐。
+wrong_index[9]
+
+input sentence:凯钧那天对我很好，请我座在沙发上，然后就去了厨房帮我们从冰箱里拿饮料和饼干。
+pred sentence:凯军那天对我很好，请我座在沙发上，然后就去了厨房帮我们从冰箱里拿饮料和饼干。[['凯钧', '凯军', 0, 2, 'word']]
+right sentence:凯钧那天对我很好，请我坐在沙发上，然后就去了厨房帮我们从冰箱里拿饮料和饼干。
+wrong_index[11]
+
+input sentence:那天的棒球比赛分数很接近，我们看了很经张，可是我们觉得很开心。
+pred sentence:那天的棒球比赛分数很接近，我们看了很静张，可是我们觉得很开心。[['经张', '静张', 18, 20, 'word']]
+right sentence:那天的棒球比赛分数很接近，我们看了很紧张，可是我们觉得很开心。
+wrong_index[18]
+
+input sentence:这个事情一般是我们最喜欢的享受，我们不是看辕动比赛，就是在辕动场玩球。
+pred sentence:这个事情一般是我们最喜欢的享受，我们不是看原边比赛，就是在原动场玩球。[['看辕动', '看原边', 20, 23, 'word'], ['辕动场', '原动场', 29, 32, 'itself']]
+right sentence:这个事情一般是我们最喜欢的享受，我们不是看运动比赛，就是在运动场玩球。
+wrong_index[21, 29]
+
+input sentence:他告诉我他现在读书在台湾大学，他雪地里。
+pred sentence:他告诉我他现在读书在台湾大学，他雪地里。[]
+right sentence:他告诉我他现在读书在台湾大学，他学地理。
+wrong_index[16, 18]
+
+input sentence:作天我的叫李大明的好朋友到我家来。
+pred sentence:昨天我的叫李大明的好朋友到我家来。[['作天', '昨天', 0, 2, 'word']]
+right sentence:昨天我的叫李大明的好朋友到我家来。
+wrong_index[0]
+
+input sentence:他平常来一点早，可是作天他来了一点晚。
+pred sentence:他平常来一点早，可是昨天他来了一点晚。[['作天', '昨天', 10, 12, 'word']]
+right sentence:他平常来一点早，可是昨天他来了一点晚。
+wrong_index[10]
+
+input sentence:我准备一些面包给他吃，我也从冰箱拿出来了埤酒。
+pred sentence:我准备一些面包给他吃，我也从冰箱拿出来了啤酒。[['埤', '啤', 20, 21, 'word']]
+right sentence:我准备一些面包给他吃，我也从冰箱拿出来了啤酒。
+wrong_index[20]
+
+input sentence:我们都超爱喝埤酒。
+pred sentence:我们都超爱喝啤酒。[['埤酒', '啤酒', 6, 8, 'word']]
+right sentence:我们都超爱喝啤酒。
+wrong_index[6]
+
+input sentence:坐在沙发，喝酒和看般球给我很高兴。
+pred sentence:坐在沙发，喝酒和看板球给我很高兴。[['看般', '看板', 8, 10, 'word']]
+right sentence:坐在沙发，喝酒和看棒球给我很高兴。
+wrong_index[9]
+
+input sentence:我想要喝的东西，我餲得不得了。
+pred sentence:我想要的东西，我爱得不得了。[['喝', '', 3, 4, 'redundancy'], ['餲', '爱', 9, 10, 'word']]
+right sentence:我想要喝的东西，我渴得不得了。
+wrong_index[9]
+
+input sentence:天明到厨房去拿啤酒跟絣干，请他的朋友一边看电视一边吃絣干、喝啤酒。
+pred sentence:大明到厨房去拿啤酒跟干，请他的朋友一边看电视一边吃干、喝啤酒。[['天', '大', 0, 1, 'char'], ['絣', '', 10, 11, 'redundancy'], ['絣', '', 26, 27, 'redundancy']]
+right sentence:天明到厨房去拿啤酒跟饼干，请他的朋友一边看电视一边吃饼干、喝啤酒。
+wrong_index[10, 26]
+
+input sentence:他们吃了完絣干，也喝了完啤酒。
+pred sentence:他们吃了完干，也喝不了完啤酒。[['絣', '', 5, 6, 'redundancy'], ['喝', '喝不', 9, 10, 'miss']]
+right sentence:他们吃了完饼干，也喝了完啤酒。
+wrong_index[5]
+
