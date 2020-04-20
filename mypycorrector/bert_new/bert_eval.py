@@ -17,7 +17,7 @@ bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result = os.path.join(pwd_path, './eval_result/filter_knn_neural/sighan_neural_eval.txt')
+eval_result = os.path.join(pwd_path, './eval_result/Bert_SSC/sighan15_eval.txt')
 
 sighan_2013 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2013_test.txt')
 sighan_2014 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2014_test.txt')
@@ -95,10 +95,11 @@ def eval_bcmi_data(data_path, verbose=False):
                 continue
             pred_sentence, pred_detail = bertCorrector.bert_correct_ssc(error_sentence)
             if verbose:
-                print('input sentence:', error_sentence)
-                print('pred sentence:', pred_sentence, pred_detail)
-                print('right sentence:', right_sentence)
-                print('wrong_index', index_list)
+                # print('input sentence:', error_sentence)
+                # print('pred sentence:', pred_sentence, pred_detail)
+                # print('right sentence:', right_sentence)
+                # print('wrong_index', index_list)
+                print(sentence_size)
                 eval_file.write('input sentence:' + error_sentence + '\n')
                 eval_file.write('pred sentence:'+ pred_sentence+ str(pred_detail)+'\n')
                 eval_file.write('right sentence:'+right_sentence+'\n')
@@ -179,5 +180,5 @@ def eval_bcmi_data(data_path, verbose=False):
 if __name__ == "__main__":
     # get_gcmi_cor_test()
     # eval_bcmi_data_test()
-    eval_bcmi_data(EVAL_SIGHAN,verbose=True)
+    eval_bcmi_data(sighan_2015, verbose=True)
     # get_confusion_、dict()

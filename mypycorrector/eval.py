@@ -76,7 +76,6 @@ def eval_bcmi_data(data_path, verbose=False):
     
     char_correct_right = 0  # char correct正确
     sentence_correct_right=0 # sentence correct正确
-
     eval_file=open(eval_result,'w',encoding='utf8')
     with open(data_path, 'r', encoding='utf-8') as f:
         for line in f:
@@ -225,15 +224,21 @@ if __name__ == "__main__":
     # for i in lst:
     #     print(get_bcmi_corpus(i))
 
-    eval_bcmi_data(sighan_2013, verbose=True)
-    # print("right_count / total_count",ringht_rate)
-    # print("right_result",right_result)
-    # print("wrong_result",wrong_result)
-    # eval_sighan_corpus_test(r"D:\testFile\mypycorrector\mypycorrector\data\cn\sighan15_A2.pkl",verbose=True)
-    index_list = list()
-    test_str = '王老师心（（性））格温和，态度和爱（（蔼）），教学有方，得到了许多人的好平（（评））。'
-    index = test_str.find('（（')
-    while(index != -1):
-        index_list.append(index-5*len(index_list)-1)
-        index = test_str.find('（（', index+1)
-    print(index_list)
+    # eval_bcmi_data(sighan_2013, verbose=True)
+    length = 0
+    sent_count=0
+    with open(EVAL_BCMI, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            error_sentence=''
+            try:
+                error_sentence, right_sentence, index_list = get_bcmi_corpus(line)
+            except Exception as e:
+                print(e)
+            if not error_sentence:
+                continue
+            length += len(right_sentence)
+            sent_count += 1
+    print(length)
+    print(sent_count)
+    print(length*1.0/sent_count)
