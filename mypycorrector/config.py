@@ -5,7 +5,7 @@
 @Author: Da Chuang
 @Date: 2019-12-12 10:59:27
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-09 18:59:26
+@LastEditTime: 2020-04-21 10:16:32
 '''
 
 
@@ -24,7 +24,7 @@ same_pinyin_path = os.path.join(pwd_path, 'data/2013_simple_pinyin.txt')# 2013_s
 same_stroke_path = os.path.join(pwd_path, 'data/2013_simple_shape.txt')# 2013_simple_shape.txt
 # language model path
 # language_model_path = r'C:\Users\cjh\.pycorrector\datasets\zh_giga.no_cna_cmn.prune01244.klm'
-language_model_path = os.path.join(pwd_path, 'data/kenlm/zh_giga.no_cna_cmn.prune01244.klm')#people2014corpus_chars.klm  #THUCNews_char.klm  #THUCNews_people2014_merge_char.klm
+language_model_path = os.path.join(pwd_path, 'data/kenlm/people2014corpus_chars.klm')#people2014corpus_chars.klm  #THUCNews_char.klm  #THUCNews_people2014_merge_char.klm
 # 用户自定义错别字混淆集  format:变体	本体   本体词词频（可省略）
 custom_confusion_path = os.path.join(pwd_path, 'data/custom_confusion.txt')
 # 用户自定义分词词典  format: 词语 词频

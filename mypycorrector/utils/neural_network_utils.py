@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-09 09:38:45
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-15 16:08:32
+@LastEditTime: 2020-04-21 00:35:31
 '''
 # -*- coding: utf-8 -*-
 import csv
@@ -20,7 +20,7 @@ import numpy as np
 np.random.seed(0)
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
-test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2013.txt')
+test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2013_new.txt')
 
 
 def loadDataset(filename, split, training_X, training_y, test_X, test_y):
@@ -152,13 +152,13 @@ def run():
 if __name__ == '__main__':
     # network_whole = load_model()
     # print(accuracy_score(network_whole.predict(X), y))
-    # run()
-    training_X = []
-    training_y = []
-    test_X = []
-    test_y = []
-    split = 0.5
-    training_X, training_y, test_X, test_y = loadDataset(
-        test_data, split, training_X, training_y, test_X, test_y)
-    model = load_model('network_new.pth')
-    print(accuracy_score(model.predict(test_X), test_y))
+    run()
+    # training_X = []
+    # training_y = []
+    # test_X = []
+    # test_y = []
+    # split = 0.5
+    # training_X, training_y, test_X, test_y = loadDataset(
+    #     test_data, split, training_X, training_y, test_X, test_y)
+    # model = load_model('network_new.pth')
+    # print(accuracy_score(model.predict(test_X), test_y))
