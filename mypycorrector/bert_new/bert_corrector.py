@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-21 10:25:47
+@LastEditTime: 2020-04-21 10:47:43
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -503,7 +503,6 @@ class BertCorrector(Corrector):
 
         details = sorted(details, key=operator.itemgetter(2))
         return text_new, details        
-
 
     def generate_bertScore_sound_shape_file(self, text, right_sentence,id_lists):
         """

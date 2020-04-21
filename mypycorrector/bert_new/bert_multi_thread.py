@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-19 22:12:20
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-21 10:09:13
+@LastEditTime: 2020-04-21 10:51:04
 '''
 import sys, os
 sys.path.insert(0, os.getcwd())
@@ -62,7 +62,8 @@ def multi_threads_correct(text):
 
 if __name__ == '__main__':
     test = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
-    # test = '今天我在菜园里抓到一只蝴'
+    test = '今天我在菜园里抓到一只蝴'
+    test = '在北京京的生活节奏奏是很快的'
     t1 = time.time()
     text_new, details = multi_threads_correct(test)
     print(text_new, details)
