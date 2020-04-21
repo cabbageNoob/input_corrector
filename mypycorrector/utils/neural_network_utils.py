@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-09 09:38:45
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-12 16:41:16
+@LastEditTime: 2020-04-21 00:35:31
 '''
 # -*- coding: utf-8 -*-
 import csv
@@ -20,7 +20,7 @@ import numpy as np
 np.random.seed(0)
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
-test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2015_A2.txt')
+test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_sighan_2013_new.txt')
 
 
 def loadDataset(filename, split, training_X, training_y, test_X, test_y):
@@ -108,7 +108,7 @@ def make_save_model(training_X,training_y):
         loss.backward()
         #Adjust weights
         optimizer.step()
-    torch.save(model, 'network_sighan_15_A2.pth')  # 保存整个网络
+    torch.save(model, 'network_new.pth')  # 保存整个网络
     print(accuracy_score(model.predict(training_X), training_y))
 
 def load_model(model_path):
@@ -157,8 +157,8 @@ if __name__ == '__main__':
     # training_y = []
     # test_X = []
     # test_y = []
-    # split = 0.75
+    # split = 0.5
     # training_X, training_y, test_X, test_y = loadDataset(
     #     test_data, split, training_X, training_y, test_X, test_y)
-    # model = load_model()
+    # model = load_model('network_new.pth')
     # print(accuracy_score(model.predict(test_X), test_y))

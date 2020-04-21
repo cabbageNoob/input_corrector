@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-05 14:42:04
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-12 15:32:32
+@LastEditTime: 2020-04-15 10:07:12
 '''
 import os
 import sys
@@ -17,7 +17,7 @@ bertCorrector = bert_corrector.BertCorrector()
 bertCorrector.enable_word_error(enable=False)
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
-sighan_2013 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2013_test.txt')
+sighan_2013 = os.path.join(pwd_path, '../data/cn/sighan/score_data/sighan_2013_test_new.txt')
 EVAL_SIGHAN = os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
 
 score_2013_dry_path = os.path.join(pwd_path, '../data/cn/sighan/sighan_dry_test/sighan_2013_dry_test.txt')
@@ -80,6 +80,6 @@ def eval_bcmi_data(data_path, verbose=False):
 
 
 if __name__ == '__main__':
-    eval_bcmi_data(EVAL_SIGHAN, verbose=True)
+    eval_bcmi_data(sighan_2013, verbose=True)
     
             

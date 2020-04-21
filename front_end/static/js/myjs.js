@@ -69,7 +69,6 @@ $(document).ready(function () {
     // 点击对文本进行校对
     $("#correctBtn").click(function () {
         var srcText = $("#text-input").val();   // 输入的文本内容
-
         // 判断是否为空
         if (!srcText) {
             // 处理内容为空
@@ -78,68 +77,117 @@ $(document).ready(function () {
             $("#modifyBtn").hide();
             $("#text-output").text("");
 
-            // 设置按钮状态与等待loader
-            $("#correctBtn").attr("disabled", true);    // 设置按钮不可用
-            $("#correctBtn").tooltip('hide');            // 隐藏tooltips提示
-            $("#correctBtn").attr("hidden", true);
-            $("#loader").attr("hidden", false);
+            var text_list = srcText.split('\n')
+            var i = 0;
+            var appendItems=function(){
+                // 设置按钮状态与等待loader
+                $("#correctBtn").attr("disabled", true);    // 设置按钮不可用
+                $("#correctBtn").tooltip('hide');            // 隐藏tooltips提示
+                $("#correctBtn").attr("hidden", true);
+                $("#loader").attr("hidden", false);
+                // 发送ajax请求
+                var myajax=$.ajax({
+                    type: 'POST',
+                    url: "http://{0}:{1}/as_client".format(serverIP, serverPort),
+                    // url:'/as_client',
+                    dataType: 'json',
+                    // async: false,//同步
+                    data: {
+                        src_text: text_list[i]
+                    },
+                    success: function (response) {
+                        //返回校对结果
+                        var correctText = response['pred_sentence'].trim();
+                        var details = response['pred_detail']
+                        correctText = "<span class='text-primary'>" + correctText + "</span>";
+                        var correctResult = gen_sentence_error_right(details, text_list[i])
+                        // 纠正内容上传服务器
+                        $("#modifyBtn").show();
+                        $("#modifyBtn").attr("hidden", false);
 
-            // 发送ajax请求
-            $.ajax({
-                type: 'POST',
-                url: "http://{0}:{1}/as_client".format(serverIP, serverPort),
-                // url:'/as_client',
-                dataType: 'json',
-                data: {
-                    src_text: srcText
-                },
-                success:function (response) {
-                    //返回校对结果
-                    var correctText = response['pred_sentence'].trim();
-                    var details = response['pred_detail']
-                    var segments = response['segments']
-                    var maybe_errors = response['maybe_errors']
-                    console.log(details)
-                    console.log(segments)
-                    test=""
-                    for (x in details) {
-                        console.log(x)
-                        $("#text-output").append("<span class='text-primary'>" + details[x] + "</span>")
-                        console.log(details[x])
+                        // $("#text-output").text("");
+                        $("#text-output").append(correctResult);// 显示结果
+                        $("#text-output").append('<br>');
+                        $("#text-output").focus();
+
+                        $("#correctBtn").attr("disabled", false);    // 设置按钮可用
+                        $("#correctBtn").attr("hidden", false);
+                        $("#loader").attr("hidden", true);
+                    },
+                    error: function (msg) {
+                        $("#correctBtn").attr("disabled", false);    // 设置按钮可用
+                        $("#correctBtn").attr("hidden", false);
+                        $("#loader").attr("hidden", true);
                     }
-                    var correctResult = gen_sentence_error_right(details, srcText)
-                    correctText = "<span class='text-primary'>" + correctText + "</span>";
-                    correctDetails = "<span class='text-primary'>" + eval(details) + "</span>";
-                    correctSegments = "<span class='text-primary'>" + segments + "</span>";
-                    correctMaybeErrors = "<span class='text-primary'>" + maybe_errors + "</span>";
-                    console.log(correctText)
-                    // 纠正内容上传服务器
-                    $("#modifyBtn").show();
-                    $("#modifyBtn").attr("hidden", false);
-
-                    $("#text-output").text("");
-                    $("#text-output").append(correctResult);// 显示结果
-                    $("#text-output").append('<br><br>');        
-                    $("#text-output").append(correctDetails);// 显示details
-                    $("#text-output").append('<br><br>');     
-                    $("#text-output").append(correctSegments);// 显示segments
-                    $("#text-output").append('<br><br>'); 
-                    $("#text-output").append(correctMaybeErrors);// 显示correctMaybeErrors
-                    $("#text-output").focus();
-
-                    $("#correctBtn").attr("disabled", false);    // 设置按钮可用
-                    $("#correctBtn").attr("hidden", false);
-                    $("#loader").attr("hidden", true);
-                },
-                error:function (msg) {
-                    $("#correctBtn").attr("disabled", false);    // 设置按钮可用
-                    $("#correctBtn").attr("hidden", false);
-                    $("#loader").attr("hidden", true);
-                }
-            })
-           
+                })
+                $.when(myajax).done(function () { 
+                    i++;
+                    if (i < text_list.length) {
+                        window.setTimeout(appendItems, 0);
+                    }
+                }) 
+            }
+            appendItems();
         }
     });
+
+
+    //         // 发送ajax请求
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: "http://{0}:{1}/as_client".format(serverIP, serverPort),
+    //             // url:'/as_client',
+    //             dataType: 'json',
+    //             data: {
+    //                 src_text: srcText
+    //             },
+    //             success:function (response) {
+    //                 //返回校对结果
+    //                 var correctText = response['pred_sentence'].trim();
+    //                 var details = response['pred_detail']
+    //                 var segments = response['segments']
+    //                 var maybe_errors = response['maybe_errors']
+    //                 console.log(details)
+    //                 console.log(segments)
+    //                 test=""
+    //                 for (x in details) {
+    //                     console.log(x)
+    //                     $("#text-output").append("<span class='text-primary'>" + details[x] + "</span>")
+    //                     console.log(details[x])
+    //                 }
+    //                 var correctResult = gen_sentence_error_right(details, srcText)
+    //                 correctText = "<span class='text-primary'>" + correctText + "</span>";
+    //                 correctDetails = "<span class='text-primary'>" + eval(details) + "</span>";
+    //                 correctSegments = "<span class='text-primary'>" + segments + "</span>";
+    //                 correctMaybeErrors = "<span class='text-primary'>" + maybe_errors + "</span>";
+    //                 console.log(correctText)
+    //                 // 纠正内容上传服务器
+    //                 $("#modifyBtn").show();
+    //                 $("#modifyBtn").attr("hidden", false);
+
+    //                 $("#text-output").text("");
+    //                 $("#text-output").append(correctResult);// 显示结果
+    //                 $("#text-output").append('<br><br>');        
+    //                 // $("#text-output").append(correctDetails);// 显示details
+    //                 // $("#text-output").append('<br><br>');     
+    //                 // $("#text-output").append(correctSegments);// 显示segments
+    //                 // $("#text-output").append('<br><br>'); 
+    //                 // $("#text-output").append(correctMaybeErrors);// 显示correctMaybeErrors
+    //                 $("#text-output").focus();
+
+    //                 $("#correctBtn").attr("disabled", false);    // 设置按钮可用
+    //                 $("#correctBtn").attr("hidden", false);
+    //                 $("#loader").attr("hidden", true);
+    //             },
+    //             error:function (msg) {
+    //                 $("#correctBtn").attr("disabled", false);    // 设置按钮可用
+    //                 $("#correctBtn").attr("hidden", false);
+    //                 $("#loader").attr("hidden", true);
+    //             }
+    //         })
+           
+    //     }
+    // });
 
 
     // 修改结果并上传服务器
