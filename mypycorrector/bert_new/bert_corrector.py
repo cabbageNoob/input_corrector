@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-21 10:47:43
+@LastEditTime: 2020-04-23 23:25:51
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -49,7 +49,7 @@ class BertCorrector(Corrector):
         if self.model:
             self.mask = self.model.tokenizer.mask_token
             logger.debug('Loaded bert model: %s, spend: %.3f s.' % (bert_model_dir, time.time() - t1))
-        # self.score_data_file=open(config.score_2013_data_new_path,'w',encoding='utf8')
+        self.score_data_file=open(config.score_2013_data_new_path,'w',encoding='utf8')
         t1 = time.time()
         self.knn = KNearestNeighbor()
         self.knnTrainingset = self.knn.loadDataset(filename=config.score_2013_data_path, split=0.75)
@@ -515,48 +515,43 @@ class BertCorrector(Corrector):
         self.check_corrector_initialized()
         # 编码统一，utf-8 to unicode
         text = convert_to_unicode(text)
+        # 长句切分为短句
+        blocks = self.split_2_short_text(text, include_symbol=True)
         if self.is_char_error_detect:
-            text_new = ""
-            for idx, s in enumerate(text):
-                # 对非中文的错误不做处理
-                if is_chinese_string(s):
-                    # 对已包含错误不处理
-                    maybe_err = [s, idx, idx + 1, ErrorType.char]
-                    if not self._check_contain_details_error(maybe_err, details):
-                        sentence_lst = list(text_new + text[idx:])
-                        sentence_lst[idx] = self.mask
-                        sentence_new = ''.join(sentence_lst)
-                        predicts = self.model(sentence_new)
-                        top_tokens = []
-                        ssc_s = self._getSSC(s)
-                        for p in predicts:
-                            token_id = p.get('token', 0)
-                            token_score = p.get('score', 0)
-                            token_str = self.model.tokenizer.convert_ids_to_tokens(token_id)
-                            ssc_token = self._getSSC(token_str)
-                            soundSimi=computeSoundCodeSimilarity(ssc_s[:4], ssc_token[:4])
-                            shapeSimi=computeShapeCodeSimilarity(ssc_s[4:], ssc_token[4:])
-                            ssc_similarity = computeSSCSimilarity(ssc_s, ssc_token)
-                            top_tokens.append({'bert_score': token_score, 'token_str': token_str, \
-                                'ssc_similar': ssc_similarity, 'sound_similar': soundSimi, 'shape_similar': shapeSimi})
-
-                        if top_tokens and (s not in [token.get('token_str') for token in top_tokens]):
-                            self.write2scorefile(s, top_tokens, idx, id_lists,right_sentence[idx])
-                            # correct_item = self.write2scorefile(s, top_tokens)
-                            correct_item = right_sentence[idx]
-                            if correct_item != s:
-                                details.append([s, correct_item, idx, idx + 1, ErrorType.char])
-                            s = correct_item
-                            # 取得所有可能正确的词
-                            # candidates = self.generate_items(s)
-                            # if candidates:
-                            #     for token_str in top_tokens:
-                            #         if token_str in candidates:
-                            #             details.append([s, token_str, idx, idx + 1,ErrorType.char])
-                            #             s = token_str
-                            #             break
-                text_new += s
-
+            for blk, start_idx in blocks:
+                blk_new = ''
+                for idx, s in enumerate(blk):
+                    # 对非中文的错误不做处理
+                    if is_chinese_string(s):
+                        # 对已包含错误不处理
+                        maybe_err = [s, idx, idx + 1, ErrorType.char]
+                        if not self._check_contain_details_error(maybe_err, details):
+                            sentence_lst = list(blk_new + blk[idx:])
+                            sentence_lst[idx] = self.mask
+                            sentence_new = ''.join(sentence_lst)
+                            predicts = self.model(sentence_new)
+                            top_tokens = []
+                            ssc_s = self._getSSC(s)
+                            for p in predicts:
+                                token_id = p.get('token', 0)
+                                token_score = p.get('score', 0)
+                                token_str = self.model.tokenizer.convert_ids_to_tokens(token_id)
+                                ssc_token = self._getSSC(token_str)
+                                soundSimi=computeSoundCodeSimilarity(ssc_s[:4], ssc_token[:4])
+                                shapeSimi=computeShapeCodeSimilarity(ssc_s[4:], ssc_token[4:])
+                                ssc_similarity = computeSSCSimilarity(ssc_s, ssc_token)
+                                top_tokens.append({'bert_score': token_score, 'token_str': token_str, \
+                                    'ssc_similar': ssc_similarity, 'sound_similar': soundSimi, 'shape_similar': shapeSimi})
+                        
+                            if top_tokens and (s not in [token.get('token_str') for token in top_tokens]):
+                                self.write2scorefile(s, top_tokens, start_idx + idx, id_lists, right_sentence[start_idx + idx])
+                                # correct_item = self.ssc_correct_item(s, top_tokens)
+                                correct_item = right_sentence[start_idx + idx]
+                                if correct_item != s:
+                                    details.append([s, correct_item, idx + start_idx, idx + start_idx + 1, ErrorType.char])
+                                    s = correct_item
+                    blk_new += s
+                text_new += blk_new
         details = sorted(details, key=operator.itemgetter(2))
         return text_new, details
 
