@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-24 11:36:33
+@LastEditTime: 2020-04-24 12:51:35
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -504,7 +504,7 @@ class BertCorrector(Corrector):
         details = sorted(details, key=operator.itemgetter(2))
         return text_new, details        
 
-    def generate_bertScore_sound_shape_file(self, text, right_sentence,id_lists):
+    def generate_bertScore_sound_shape_file(self, text, right_sentence='',id_lists=[]):
         """
         生成bert_score、sound_score、shape_score文件
         :param text: 句子文本
@@ -574,6 +574,4 @@ if __name__ == "__main__":
     test='今天突然冷了七来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
     test='遇到逆竟时'
     corrected_sent, err = d.generate_bertScore_sound_shape_file(test,right_sentence='遇到逆境时',id_lists=[3])
-    
-    # corrected_sent, err = d.bert_correct_ssc(test)
     print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))

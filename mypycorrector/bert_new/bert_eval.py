@@ -18,7 +18,7 @@ bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result = os.path.join(pwd_path, './eval_result/Bert_SSC/bcmi_eval.txt')
+eval_result = os.path.join(pwd_path, './eval_result/Bert_SSC/sighan15_multithreads_eval.txt')
 
 sighan_2013 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2013_test.txt')
 sighan_2014 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2014_test.txt')
@@ -95,13 +95,14 @@ def eval_bcmi_data(data_path, verbose=False):
                 print(e)
             if not error_sentence:
                 continue
-            # pred_sentence, pred_detail = bertCorrector.bert_correct_ssc(error_sentence)
+
+            # pred_sentence, pred_detail = bertCorrector.bert_correct_ssc_origin(error_sentence)
             pred_sentence, pred_detail = multi_threads_correct(error_sentence)
             if verbose:
-                # print('input sentence:', error_sentence)
-                # print('pred sentence:', pred_sentence, pred_detail)
-                # print('right sentence:', right_sentence)
-                # print('wrong_index', index_list)
+                print('input sentence:', error_sentence)
+                print('pred sentence:', pred_sentence, pred_detail)
+                print('right sentence:', right_sentence)
+                print('wrong_index', index_list)
                 print(sentence_size)
                 eval_file.write('input sentence:' + error_sentence + '\n')
                 eval_file.write('pred sentence:'+ pred_sentence+ str(pred_detail)+'\n')
@@ -180,8 +181,8 @@ def eval_bcmi_data(data_path, verbose=False):
         print('char_detec_F1:', str((2 * char_detec_r * char_detec_p) / (char_detec_r + char_detec_p)))
         print('char_correct_F1:', str((2 * char_correct_r * char_correct_p) / (char_correct_r + char_correct_p)))
         print('spend total time:{}'.format(time.time() - t1))
-        print('average time:{}'.format((time.time() - t1)/(sentence_size*1.0)))
-
+        print('average time:{}'.format((time.time() - t1) / (sentence_size * 1.0)))
+        
 
 if __name__ == "__main__":
     # get_gcmi_cor_test()

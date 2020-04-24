@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-05 14:42:04
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-23 23:33:54
+@LastEditTime: 2020-04-24 12:53:44
 '''
 import os
 import sys
@@ -83,5 +83,8 @@ def eval_bcmi_data(data_path, verbose=False):
 
 if __name__ == '__main__':
     eval_bcmi_data(sighan_2013, verbose=True)
-    
-            
+    # test='记得国小的时后，班上的女生常常会爱搞一些小团体，而加入她们行列唯一的办法，就是跑去跟她们说：「我觉得XXX超讨厌的！妳们不要和别人说哦……」。'
+    # right_sentence='记得国小的时候，班上的女生常常会爱搞一些小团体，而加入她们行列唯一的办法，就是跑去跟她们说：「我觉得XXX超讨厌的！妳们不要和别人说哦……」。'
+    # index_list=[6]
+    # pred_sentence, pred_detail = bertCorrector.generate_bertScore_sound_shape_file(test, right_sentence, index_list)
+    # print(pred_sentence, pred_detail)       

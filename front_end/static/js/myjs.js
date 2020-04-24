@@ -1,8 +1,6 @@
 $(document).ready(function () {
     // 服务器信息配置
     // 外网配置
-    //var serverIP = "abstract.ibiter.org";
-    //var serverPort = "80";
     // 内网配置
     var serverIP = "47.95.214.135"
     //  var serverIP = "127.0.0.1";
