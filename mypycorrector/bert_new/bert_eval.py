@@ -3,21 +3,22 @@
 # Data: 19-11-25
 # Brief:
 import os
-import sys
+import sys, time
 sys.path.insert(0, os.getcwd())
 from mypycorrector.utils.math_utils import find_all_idx
 from mypycorrector.bert_new import bert_corrector
 from mypycorrector.utils.neural_network_utils import Net
+from mypycorrector.bert_new.bert_multi_thread import multi_threads_correct
 
-bertCorrector = bert_corrector.BertCorrector()
-bertCorrector.enable_word_error(enable=False)
+# bertCorrector = bert_corrector.BertCorrector()
+# bertCorrector.enable_word_error(enable=False)
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 bcmi_path = os.path.join(pwd_path, '../data/cn/bcmi.txt')
 clp_path = os.path.join(pwd_path, '../data/cn/clp14_C1.pkl')
 sighan_path = os.path.join(pwd_path, '../data/cn/sighan15_A2.pkl')
 EVAL_SIGHAN=os.path.join(pwd_path, '../data/cn/sighan15_A2_clean.txt')
-eval_result = os.path.join(pwd_path, './eval_result/Bert_SSC/sighan15_eval.txt')
+eval_result = os.path.join(pwd_path, './eval_result/Bert_SSC/bcmi_eval.txt')
 
 sighan_2013 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2013_test.txt')
 sighan_2014 = os.path.join(pwd_path, '../data/cn/sighan/sighan_2014_test.txt')
@@ -83,6 +84,7 @@ def eval_bcmi_data(data_path, verbose=False):
     sentence_correct_right=0 # sentence correct正确
 
     eval_file=open(eval_result,'w',encoding='utf8')
+    t1=time.time()
     with open(data_path, 'r', encoding='utf-8') as f:
         for line in f:
             line = line.strip()
@@ -93,7 +95,8 @@ def eval_bcmi_data(data_path, verbose=False):
                 print(e)
             if not error_sentence:
                 continue
-            pred_sentence, pred_detail = bertCorrector.bert_correct_ssc(error_sentence)
+            # pred_sentence, pred_detail = bertCorrector.bert_correct_ssc(error_sentence)
+            pred_sentence, pred_detail = multi_threads_correct(error_sentence)
             if verbose:
                 # print('input sentence:', error_sentence)
                 # print('pred sentence:', pred_sentence, pred_detail)
@@ -176,9 +179,12 @@ def eval_bcmi_data(data_path, verbose=False):
         print('char_correct_r:', str(char_correct_r),';char_correct_p:', str(char_correct_p))
         print('char_detec_F1:', str((2 * char_detec_r * char_detec_p) / (char_detec_r + char_detec_p)))
         print('char_correct_F1:', str((2 * char_correct_r * char_correct_p) / (char_correct_r + char_correct_p)))
+        print('spend total time:{}'.format(time.time() - t1))
+        print('average time:{}'.format((time.time() - t1)/(sentence_size*1.0)))
+
 
 if __name__ == "__main__":
     # get_gcmi_cor_test()
     # eval_bcmi_data_test()
-    eval_bcmi_data(sighan_2015, verbose=True)
+    eval_bcmi_data(bcmi_path, verbose=True)
     # get_confusion_、dict()

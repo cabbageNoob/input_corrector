@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-23 23:25:51
+@LastEditTime: 2020-04-24 11:36:33
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -49,7 +49,7 @@ class BertCorrector(Corrector):
         if self.model:
             self.mask = self.model.tokenizer.mask_token
             logger.debug('Loaded bert model: %s, spend: %.3f s.' % (bert_model_dir, time.time() - t1))
-        self.score_data_file=open(config.score_2013_data_new_path,'w',encoding='utf8')
+        # self.score_data_file=open(config.score_2013_data_new_path,'w',encoding='utf8')
         t1 = time.time()
         self.knn = KNearestNeighbor()
         self.knnTrainingset = self.knn.loadDataset(filename=config.score_2013_data_path, split=0.75)
@@ -572,5 +572,8 @@ if __name__ == "__main__":
     #     print("original sentence:{} => {}, err:{}".format(sent, corrected_sent, err))
     test = '造这堵围墙，是考虑小区的安全，谁知事与愿违，却防碍了救护车的通行。'
     test='今天突然冷了七来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
-    corrected_sent, err = d.bert_correct_ssc(test)
+    test='遇到逆竟时'
+    corrected_sent, err = d.generate_bertScore_sound_shape_file(test,right_sentence='遇到逆境时',id_lists=[3])
+    
+    # corrected_sent, err = d.bert_correct_ssc(test)
     print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))

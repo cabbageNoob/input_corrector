@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-19 22:12:20
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-21 10:51:04
+@LastEditTime: 2020-04-24 11:36:09
 '''
 import sys, os
 sys.path.insert(0, os.getcwd())
@@ -14,7 +14,7 @@ from mypycorrector.utils.text_utils import uniform, is_alphabet_string
 from mypycorrector.utils.neural_network_utils import Net
 
 bertCorrector = bert_corrector.BertCorrector()
-# bertCorrector.enable_word_error(enable = False)
+bertCorrector.enable_word_error(enable = False)
 bertCorrector.check_corrector_initialized()
 bertCorrector.check_detector_initialized()
 
@@ -34,6 +34,7 @@ class MyThread(Thread):
         
     def get_result(self):
         return self.pred_text, self.pred_details
+        
 
 def multi_threads_correct(text):
     threads_list = []

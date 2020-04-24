@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-05 14:42:04
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-15 10:07:12
+@LastEditTime: 2020-04-23 23:33:54
 '''
 import os
 import sys
@@ -72,7 +72,9 @@ def eval_bcmi_data(data_path, verbose=False):
             if not error_sentence:
                 continue
             pred_sentence, pred_detail = bertCorrector.generate_bertScore_sound_shape_file(error_sentence, right_sentence, index_list)
-            
+            print('error sentence:',error_sentence)
+            print('pred sentence',pred_sentence, pred_detail)
+            print('right sentence',right_sentence)
             if verbose:
                 print(cnt)
                 cnt+=1
