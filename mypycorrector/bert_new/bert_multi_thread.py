@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-19 22:12:20
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-24 12:52:54
+@LastEditTime: 2020-04-30 21:38:44
 '''
 import sys, os
 sys.path.insert(0, os.getcwd())
@@ -43,15 +43,17 @@ def multi_threads_correct(text):
     # 编码统一，utf-8 to unicode
     test = convert_to_unicode(text)
     blocks = bertCorrector.split_2_short_text(text, include_symbol=True)
+    try:
+        blocks = [(blocks[i][0] + blocks[i + 1][0], blocks[i][1]) for i in range(0, len(blocks), 2)]
+    except Exception as e:
+        pass
+    punc='。'
     for blk, start_idx in blocks:
-        threads_list.append(MyThread(blk, start_idx))
+        threads_list.append(MyThread(punc + blk, start_idx))
+        punc = blk[-1]
     for thread in threads_list:
         thread.start()
-        # thread.join()
-        # pred_text,pred_details=thread.get_result()
-        # text_new += pred_text
-        # for detail in pred_details:
-        #     details.append(detail)
+       
     for thread in threads_list:
         thread.join()
         pred_text,pred_details=thread.get_result()
@@ -63,8 +65,9 @@ def multi_threads_correct(text):
 
 if __name__ == '__main__':
     test = '令天突然冷了起来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
-    test = '今天我在菜园里抓到一只蝴'
-    test = '在北京京的生活节奏奏是很快的'
+    # test = '今天我在菜园里抓到一只蝴'
+    # test = '在北京京的生活节奏奏是很快的'
+    test='我的手在罗马以及晚期那些栩栩如生的大理石凋塑上停留过'
     t1 = time.time()
     text_new, details = multi_threads_correct(test)
     print(text_new, details)

@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-24 12:51:35
+@LastEditTime: 2020-04-30 21:23:07
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -392,11 +392,12 @@ class BertCorrector(Corrector):
                         # correct_item = self.ssc_correct_item(s, top_tokens)
                         correct_item = self.neural_ssc_correct_item(s, top_tokens)
                         if correct_item != s:
-                            details.append([s, correct_item, idx + start_idx, idx + start_idx + 1, ErrorType.char])
+                            # details.append([s, correct_item, idx + start_idx, idx + start_idx + 1, ErrorType.char])
+                            details.append([s, correct_item, idx + start_idx -1, idx + start_idx, ErrorType.char])
                             s = correct_item
                 text_new += s
         details = sorted(details, key=operator.itemgetter(2))
-        return text_new, details  
+        return text_new[1:], details  
 
     def bert_correct_ssc_origin(self, text):
         """
@@ -466,6 +467,7 @@ class BertCorrector(Corrector):
         text = convert_to_unicode(text)
         # 长句切分为短句
         blocks = self.split_2_short_text(text, include_symbol=True)
+        # blocks = self.split_2_short_text(text)
         if self.is_word_error_detect:
             pass
         
