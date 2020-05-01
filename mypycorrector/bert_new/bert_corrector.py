@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-30 21:23:07
+@LastEditTime: 2020-05-01 11:10:20
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -519,8 +519,14 @@ class BertCorrector(Corrector):
         text = convert_to_unicode(text)
         # 长句切分为短句
         blocks = self.split_2_short_text(text, include_symbol=True)
+        try:
+            blocks = [(blocks[i][0] + blocks[i + 1][0], blocks[i][1]) for i in range(0, len(blocks), 2)]
+        except Exception as e:
+            pass
+        punc='。'
         if self.is_char_error_detect:
             for blk, start_idx in blocks:
+                blk=punc+blk
                 blk_new = ''
                 for idx, s in enumerate(blk):
                     # 对非中文的错误不做处理
@@ -546,14 +552,15 @@ class BertCorrector(Corrector):
                                     'ssc_similar': ssc_similarity, 'sound_similar': soundSimi, 'shape_similar': shapeSimi})
                         
                             if top_tokens and (s not in [token.get('token_str') for token in top_tokens]):
-                                self.write2scorefile(s, top_tokens, start_idx + idx, id_lists, right_sentence[start_idx + idx])
+                                self.write2scorefile(s, top_tokens, start_idx + idx - 1, id_lists, right_sentence[start_idx + idx - 1])
                                 # correct_item = self.ssc_correct_item(s, top_tokens)
-                                correct_item = right_sentence[start_idx + idx]
+                                correct_item = right_sentence[start_idx + idx - 1]
                                 if correct_item != s:
                                     details.append([s, correct_item, idx + start_idx, idx + start_idx + 1, ErrorType.char])
                                     s = correct_item
                     blk_new += s
                 text_new += blk_new
+                punc = blk_new[-1]
         details = sorted(details, key=operator.itemgetter(2))
         return text_new, details
 
@@ -572,8 +579,8 @@ if __name__ == "__main__":
     # for sent in error_sentences:
     #     corrected_sent, err = d.bert_correct_ssc(sent)
     #     print("original sentence:{} => {}, err:{}".format(sent, corrected_sent, err))
-    test = '造这堵围墙，是考虑小区的安全，谁知事与愿违，却防碍了救护车的通行。'
-    test='今天突然冷了七来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
-    test='遇到逆竟时'
-    corrected_sent, err = d.generate_bertScore_sound_shape_file(test,right_sentence='遇到逆境时',id_lists=[3])
+    # test = '造这堵围墙，是考虑小区的安全，谁知事与愿违，却防碍了救护车的通行。'
+    # test='今天突然冷了七来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
+    test='今天突然冷了七来，妈妈丛相子里番出一件旧棉衣让我穿上。'
+    corrected_sent, err = d.generate_bertScore_sound_shape_file(test,right_sentence='今天突然冷了起来，妈妈从箱子里番出一件旧棉衣让我穿上。',id_lists=[6,11,12])
     print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))
