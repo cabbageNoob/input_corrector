@@ -4,7 +4,7 @@
  * @Author: cjh <492795090@qq.com>
  * @Date: 2020-02-24 15:20:18
  * @LastEditors: cjh <492795090@qq.com>
- * @LastEditTime: 2020-02-29 20:26:22
+ * @LastEditTime: 2020-05-02 22:52:55
  -->
 {% extends "base.html" %}
 {% block title %}文本自动校对系统{% endblock %}
@@ -82,7 +82,286 @@
                 </div>
             </div>
             <!--/Second slide-->
+        </div>
     </div>
+    
+    <!--Main layout-->
+
+    <main>
+        <div class="container">
+
+            <!--Section: Main info-->
+            <section class="mt-5 wow fadeIn">
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
+
+                        <img src="../static/img/img_1.jpeg" class="img-fluid z-depth-1-half" alt="">
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
+
+                        <!-- Main heading -->
+                        <h3 class="h3 mb-3">中文文本自动校对系统</h3>
+                        <p>中文文本自动校对系统是一个基于Bert与深度学习的中文校对系统，系统在不断尝试中，逐步提出了：<br>1、<strong>基于集成规则与Bert筛选的中文文本自动校对方法</strong><br>2、<strong>基于多粒度融合与Bert筛选的中文文本自动校对方法</strong><br>3、<strong>基于Bert与音形码的中文文本自动校对方法</strong></p>
+                        <!-- Main heading -->
+
+                        <hr>
+
+                        <p>
+                            系统提出的这三种文本校对方法性能逐步提高，在SIGHAN评测数据集中，其中<strong>基于Bert与音形码的中文文本自动校对方法</strong>较传统<strong>基于N-Gram LM方法</strong>综合性能提高近<strong>40%</strong>
+                        </p>
+
+                        <p>系统可应用于<strong>语音识别（ASR）</strong>、<strong>文字识别（OCR）</strong>、<strong>数据质量评分</strong>等方面</p>
+
+                        <!-- CTA -->
+
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+            </section>
+            <!--Section: Main info-->
+
+            <hr class="my-5">
+
+            <!--Section: 算法1 -->
+            <section>
+
+                <h3 class="h3 text-center mb-5 purple-text font-weight-bold">基于集成规则与Bert筛选的中文文本自动校对方法</h3>
+
+                <!--Grid row-->
+                <div class="row wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 px-4">
+
+                        <!--First row-->
+                        <div class="row">
+                            <div class="col-1 mr-3">
+                                <i class="fas fa-code fa-2x indigo-text"></i>
+                            </div>
+                            <div class="col-10">
+                                <h5 class="feature-title">上下文信息更全面</h5>
+                                <p class="grey-text">传统基于N-Gram LM方法所获取的上下文信息始终受N的大小限制，而基于海量自然语言训练得到的Bert预训练模型能更好的理解上下文语境信息。</p>
+                            </div>
+                        </div>
+                        <!--/First row-->
+
+                        <div style="height:30px"></div>
+
+                        <!--Second row-->
+                        <div class="row">
+                            <div class="col-1 mr-3">
+                                <i class="fas fa-font fa-2x blue-text"></i>
+                            </div>
+                            <div class="col-10">
+                                <h5 class="feature-title">训练更方便</h5>
+                                <p class="grey-text">与监督学习不同，Bert模型的fine-tune训练无需大量的平行语料，无监督学习方法让模型训练更加方便。
+                                </p>
+                            </div>
+                        </div>
+                        <!--/Second row-->
+
+                        <div style="height:30px"></div>
+
+                        <!--Third row-->
+                        <div class="row">
+                            <div class="col-1 mr-3">
+                                <i class="fas fa-file-word fa-2x amber-text"></i>
+                            </div>
+                            <div class="col-10">
+                                <h5 class="feature-title">校对结果更准确</h5>
+                                <p class="grey-text">Bert作为一个生成式模型，单独使用其往往会造成过纠现象，在此我们使用了音似形似字典为Bert纠错缩小范围，使结果更加准确</p>
+                            </div>
+                        </div>
+                        <!--/Third row-->
+
+                        <div style="height:30px"></div>
+
+                    </div>
+                    <!--/Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12">
+
+                        <p class="h5 text-center mb-4">基于集成规则与Bert筛选的校对方法相关对比实验</p>
+                        <div class=" ">
+                            <img src="../static/img/experiment_1.png" class="img-thumbnail z-depth-1-half">
+                        </div>
+                    </div>
+                    <!--/Grid column-->
+
+                </div>
+                <!--/Grid row-->
+
+            </section>
+            <!--Section: 算法1 -->
+
+            <hr class="my-5">
+
+            <!--Section: 算法2 -->
+            <section>
+
+                <h2 class="my-5 h3 text-center amber-text font-weight-bold">基于多粒度融合与Bert筛选的中文文本自动校对方法</h2>
+
+                <!--First row-->
+                <div class="row features-small mb-5 mt-3 wow fadeIn">
+
+                    <!--Second column-->
+
+                    <div class="col-md-7 ">
+                        <p class="h5 text-center mb-4">基于多粒度融合与Bert筛选的校对方法相关对比实验</p>
+                        <img src="../static/img/experiment_2.png" alt="MDB Magazine Template displayed on iPhone" class="z-depth-1-half img-thumbnail">
+                    </div>
+                    <!--/Second column-->
+
+
+                    <!--First column-->
+                    <div class="col-md-5">
+                        <!--First row-->
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fas fa-chevron-circle-right fa-2x red-text"></i>
+                            </div>
+                            <div class="col-8">
+                                <h5 class="feature-title">检错召回率更高</h5>
+                                <p class="grey-text">词粒度级别校对模型采用了大规模常用词典作为知识库，对词错误召回率更高。
+                                </p>
+                                <div style="height:15px"></div>
+                            </div>
+                        </div>
+                        <!--/First row-->
+
+                        <!--Second row-->
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fas fa-chevron-circle-right fa-2x orange-text"></i>
+                            </div>
+                            <div class="col-8">
+                                <h5 class="feature-title">校对效果更全面</h5>
+                                <p class="grey-text">字粒度级别校对模型往往解决错字问题，倘若发生了词错误，仅仅依靠字粒度校对模型显然不够，双粒度融合校对模型能够校对更多错误。
+                                </p>
+                                <div style="height:15px"></div>
+                            </div>
+                        </div>
+                        <!--/Second row-->
+
+                        <!--Third row-->
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fas fa-chevron-circle-right fa-2x lime-text"></i>
+                            </div>
+                            <div class="col-8">
+                                <h5 class="feature-title">校对准确率更高</h5>
+                                <p class="grey-text">多粒度融合校对模型对错词检测能力更强，然后使用音近形近字典纠错准确率更高</p>
+                                <div style="height:15px"></div>
+                            </div>
+                        </div>
+                        <!--/Third row-->
+
+                    </div>
+                    <!--/First column-->
+
+
+                </div>
+                <!--/First row-->
+
+            </section>
+            <!--Section: 算法2 -->
+
+            <hr class="mb-5">
+
+            <!--Section: 算法3 -->
+            <section>
+
+                <h3 class="h3 text-center mb-5 purple-text font-weight-bold">基于Bert与音形码的中文文本自动校对方法</h3>
+
+                <!--Grid row-->
+                <div class="row wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 px-4">
+
+                        <!--First row-->
+                        <div class="row">
+                            <div class="col-1 mr-3">
+                                <i class="fas fa-code fa-2x indigo-text"></i>
+                            </div>
+                            <div class="col-10">
+                                <h5 class="feature-title">Bert效果更好</h5>
+                                <p class="grey-text">
+                                    此处Bert用于构建字的top5个候选集，并未用于筛选候选集，其充分利用了Bert对上下文语境的掌握度。
+                                </p>
+                            </div>
+                        </div>
+                        <!--/First row-->
+
+                        <div style="height:30px"></div>
+
+                        <!--Second row-->
+                        <div class="row">
+                            <div class="col-1 mr-3">
+                                <i class="fas fa-font fa-2x blue-text"></i>
+                            </div>
+                            <div class="col-10">
+                                <h5 class="feature-title">筛选候选集方法更灵活</h5>
+                                <p class="grey-text">
+                                   放弃了传统使用音似、形似混淆集字典对候选集进行筛选，此处使用音形码方式对汉字间的相似度进行度量，
+                                   然后通过一个神经网络分类器用于过滤，其更加灵活
+                                </p>
+                            </div>
+                        </div>
+                        <!--/Second row-->
+
+                        <div style="height:30px"></div>
+
+                        <!--Third row-->
+                        <div class="row">
+                            <div class="col-1 mr-3">
+                                <i class="fas fa-chart-line fa-2x cyan-text"></i>
+                            </div>
+                            <div class="col-10">
+                                <h5 class="feature-title">时间响应更快</h5>
+                                <p class="grey-text">
+                                    对文本进行分段处理，并使用多线程技术对分段后的文本进行并行校对，
+                                    校对完成之后再拼接在一起返回结果，其响应时间更快
+                                </p>
+                            </div>
+                        </div>
+                       <!--/Third row-->
+
+                    </div>
+                    <!--/Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12">
+
+                        <p class="h5 text-center mb-4">基于Bert与音形码的校对方法相关对比实验</p>
+                        <div class=" ">
+                            <img src="../static/img/experiment_3.png" class="img-thumbnail z-depth-1-half">
+                        </div>
+                    </div>
+                    <!--/Grid column-->
+
+                </div>
+                <!--/Grid row-->
+
+            </section>
+            <!--Section: 算法3 -->
+
+        </div>
+    </main>
+    <!--Main layout-->
 
     <!-- footer -->
     <footer class="page-footer text-center font-small mt-4  fadeIn">
