@@ -4,7 +4,7 @@
 @Author: cjh <492795090@qq.com>
 @Date: 2020-04-09 09:38:45
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-04-24 09:46:57
+@LastEditTime: 2020-06-07 11:16:19
 '''
 # -*- coding: utf-8 -*-
 import csv
@@ -20,8 +20,8 @@ import numpy as np
 np.random.seed(0)
 
 pwd_path = os.path.abspath(os.path.dirname(__file__))
-test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_segment.txt')
-
+test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/sgml/score_data_train.txt')
+# test_data = os.path.join(pwd_path, '../data/cn/sighan/score_data/score_data_segment_punc.txt')
 
 def loadDataset(filename, split, training_X, training_y, test_X, test_y):
     with open(filename, 'r', encoding='utf8') as csvfile:
@@ -30,9 +30,9 @@ def loadDataset(filename, split, training_X, training_y, test_X, test_y):
         data_y = list()
         for x in range(len(dataset) - 1):
             temp = list()
-            for y in range(3):
-                print(float(dataset[x][y + 2]))
-                temp.append(float(dataset[x][y + 2]))
+            for y in range(2):
+                print(float(dataset[x][y + 3]))
+                temp.append(float(dataset[x][y + 3]))
             # data_X.append(temp)
             data_y.append(int(dataset[x][-1]))
             if random.random() < split:   # 将所有数据加载到train和test中
@@ -55,7 +55,7 @@ class Net(nn.Module):
         super(Net, self).__init__()
         #Our network consists of 3 layers. 1 input, 1 hidden and 1 output layer
         #This applies Linear transformation to input data.
-        self.fc1 = nn.Linear(3, 4)
+        self.fc1 = nn.Linear(2, 4)
 
         #This applies linear transformation to produce output data
         self.fc2 = nn.Linear(4, 2)
@@ -108,7 +108,10 @@ def make_save_model(training_X,training_y):
         loss.backward()
         #Adjust weights
         optimizer.step()
-    torch.save(model, 'network_segment.pth')  # 保存整个网络
+        if i % 100 == 0:
+            print(i)
+    # torch.save(model, 'classification_network.pth')  # 保存整个网络
+    torch.save(model, 'network_ssc.pth')  # 保存整个网络
     print(accuracy_score(model.predict(training_X), training_y))
 
 def load_model(model_path):
