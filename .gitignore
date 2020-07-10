@@ -1,4 +1,5 @@
 mypycorrector/data/bert_models
+mypycorrector/data/electra_models
 mypycorrector/data/kenlm
 .idea
 .vscode
@@ -7,3 +8,5 @@ output
 
 # kenlm
 src
+
+
