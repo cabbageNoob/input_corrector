@@ -4,7 +4,7 @@
 @Author: cjh (492795090@qq.com)
 @Date: 2020-03-18 07:33:36
 @LastEditors: cjh <492795090@qq.com>
-@LastEditTime: 2020-05-01 11:10:20
+@LastEditTime: 2020-07-10 22:44:43
 '''
 # -*- coding: utf-8 -*-
 import operator
@@ -582,5 +582,7 @@ if __name__ == "__main__":
     # test = '造这堵围墙，是考虑小区的安全，谁知事与愿违，却防碍了救护车的通行。'
     # test='今天突然冷了七来，妈妈丛相子里番出一件旧棉衣让我穿上。我不原意。在妈妈得说服叫育下，我中于穿上哪件棉衣哼着哥儿上学去了。'
     test='今天突然冷了七来，妈妈丛相子里番出一件旧棉衣让我穿上。'
-    corrected_sent, err = d.generate_bertScore_sound_shape_file(test,right_sentence='今天突然冷了起来，妈妈从箱子里番出一件旧棉衣让我穿上。',id_lists=[6,11,12])
+    # corrected_sent, err = d.generate_bertScore_sound_shape_file(test,right_sentence='今天突然冷了起来，妈妈从箱子里番出一件旧棉衣让我穿上。',id_lists=[6,11,12])
+    # print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))
+    corrected_sent, err = d.bert_correct_ssc(test)
     print("original sentence:{} => {}, err:{}".format(test, corrected_sent, err))
